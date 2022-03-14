@@ -12,7 +12,6 @@ void stages();
 void clearchat();
 void actions(char* control);
 void charactercreator();
-void startscreen();
 char statgenerator(int* points);
 void save();
 void characterlist();

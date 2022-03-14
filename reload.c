@@ -96,7 +96,8 @@ void stage0() {
 			goblin();
 
 		}
-		clearchat();
+		if (control != 'i')
+			clearchat();
 
 		actions(&control);
 		if (hero.progress > 0) {
@@ -331,11 +332,9 @@ void charactercreator() {
 			hero.race = human.race;
 			printf_s("Time to generate your stats");
 			system("cls");
-			startscreen();
 			int points = 27;
 			while (1) {
 				system("cls");
-				startscreen();
 				gotoxy(13, 15);
 				printf_s("Total Points: %d/27", points);
 				gotoxy(13, 17);
@@ -358,7 +357,6 @@ void charactercreator() {
 
 			}
 			system("cls");
-			startscreen();
 			break;
 		}
 		}
@@ -380,7 +378,6 @@ void charactercreator() {
 	printf_s("%s? Wonderful name!", hero.name);
 	Sleep(1000);
 	system("cls");
-	startscreen();
 	gotoxy(3, 3);
 	printf_s("Choose your class");
 	gotoxy(3, 4);
@@ -403,16 +400,8 @@ void charactercreator() {
 	}
 	system("cls");
 }
-void startscreen() {
-	for (int i = 0; i < 120; i++) {
-		gotoxy(i, 0);
-		printf_s("%c", 2500);
-		gotoxy(i, 28);
-		printf_s("%c", 2500);
-	}
-}
+
 char statgenerator(int* points) {
-	startscreen();
 	modif();
 	gotoxy(3, 2);
 	printf_s("Type - to stop");
@@ -628,14 +617,12 @@ int amountofspells() {
 void save() {
 	char cntrl = 0;
 	while (cntrl != '1' && cntrl != '2') {
-		startscreen();
 		gotoxy(3, 3);
 		printf_s("Would you like to create a character?");
 		gotoxy(3, 4);
 		printf_s("Yes(1)  I already have one(2)");
 		cntrl = _getch();
 		system("cls");
-		startscreen();
 		switch (cntrl) {
 		case '1': {
 			charactercreator();
