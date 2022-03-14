@@ -111,5 +111,6 @@ struct spell {
 struct spell eldritchblast;
 struct text {
 	char* text1;
+	char* text2;
 };
 struct text intr,columns;

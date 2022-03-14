@@ -13,6 +13,7 @@ void clearchat();
 void actions(char* control);
 void charactercreator();
 char statgenerator(int* points);
+void start();
 void save();
 void characterlist();
 void hidecursor();

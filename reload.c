@@ -1,6 +1,7 @@
 #include "reload.h"
 void intro() {
 	FILE* intro;
+
 	if ((fopen_s(&intro, "intro.txt", "r")) != 0) {
 		exit(1);
 	}
@@ -16,11 +17,12 @@ void intro() {
 		i++;
 		fscanf_s(intro, "%c", &intr.text1[i], 1);
 	}
-	gotoxy(0, 3);
+	gotoxy(50, 5);
 	system("cls");
 	system("pause");
 	for (int j = 0; j < 344; j++) {
 		printf_s("%c", intr.text1[j]);
+		Sleep(80);
 	}
 	Sleep(5000);
 	free(intr.text1);
@@ -28,7 +30,8 @@ void intro() {
 	system("cls");
 }
 void picture() {
-	FILE* picture;
+	FILE* picture, * oldroad;
+
 	if ((fopen_s(&picture, "columns.txt", "r")) != 0) {
 		exit(1);
 	}
@@ -47,39 +50,34 @@ void picture() {
 	for (int j = 0; j < 5240; j++) {
 		printf_s("%c", columns.text1[j]);
 	}
-	i = 115;
-	int j = 3;
-	gotoxy(i, j);
-	printf_s("The Old Road passes to the east of a narrow ravine.");
-	j++;
-	gotoxy(i, j);
-	printf_s("At the road's closest approach to the cleft, several");
-	j++;
-	gotoxy(i, j);
-	printf_s("broken pillars jut from the earth where the ravine");
-	j++;
-	gotoxy(i, j);
-	printf_s("widens and opens into something more akin to a");
-	j++;
-	gotoxy(i, j);
-	printf_s("deep, but narrow, canyon. Two of the pillars stand");
-	j++;
-	gotoxy(i, j);
-	printf_s("straight, but most of them lean against the sloped");
-	j++;
-	gotoxy(i, j);
-	printf_s("earth. Others are broken, and several have appar-");
-	j++;
-	gotoxy(i, j);
-	printf_s("ently fallen into the darkness-shrouded depths. A");
-	j++;
-	gotoxy(i, j);
-	printf_s("few similar pillars are visible on the opposite side of");
-	j++;
-	gotoxy(i, j);
-	printf_s("the ravine.");
+	if ((fopen_s(&oldroad, "oldroad.txt", "r")) != 0) {
+		exit(1);
+	}
+
+	columns.text2 = (char*)malloc(7000);
+	if (columns.text2 == 0) {
+		exit(1);
+	}
+	i = 0;
+	fscanf_s(oldroad, "%c", &columns.text2[i], 1);
+	while (columns.text2[i] != '\0') {
+		i++;
+		fscanf_s(oldroad, "%c", &columns.text2[i], 1);
+	}
+	int z = 3;
+	gotoxy(115, z);
+	for (int j = 0; j < 472; j++) {
+		if (columns.text2[j] == '\n') {
+			z++;
+			gotoxy(115, z);
+			j++;
+		}
+		printf_s("%c", columns.text2[j]);
+	}
 	Sleep(10000);
 	free(columns.text1);
+	free(columns.text2);
+	fclose(oldroad);
 	fclose(picture);
 }
 void stage0() {
@@ -321,9 +319,9 @@ void charactercreator() {
 	hero.silver = 0;
 	hero.copper = 0;
 	hero.progress = 0;
-	gotoxy(3, 4);
+	gotoxy(50, 5);
 	printf_s("Choose your race: - Human(1)");
-	gotoxy(3, 5);
+	gotoxy(50, 6);
 	while (hero.race == 0) {
 		choose = _getch();
 		switch (choose) {
@@ -335,12 +333,12 @@ void charactercreator() {
 			int points = 27;
 			while (1) {
 				system("cls");
-				gotoxy(13, 15);
+				gotoxy(50, 15);
 				printf_s("Total Points: %d/27", points);
-				gotoxy(13, 17);
+				gotoxy(50, 17);
 				printf_s("Human race give +1 to each stat");
-				for (int j = 3; j < 9; j++) {
-					gotoxy(38, j);
+				for (int j = 6; j < 12; j++) {
+					gotoxy(88, j);
 					printf_s("+1");
 				}
 				if (statgenerator(&points) == '-') {
@@ -361,11 +359,11 @@ void charactercreator() {
 		}
 		}
 	}
-	gotoxy(3, 3);
+	gotoxy(50, 5);
 	printf_s("Write name of your character");
 	int i = -1;
 	char n;
-	gotoxy(3, 4);
+	gotoxy(50, 6);
 	do {
 		i++;
 		scanf_s("%c", &hero.name[i], 1);
@@ -374,15 +372,14 @@ void charactercreator() {
 
 
 	hero.name[i] = '\0';
-	gotoxy(3, 5);
+	gotoxy(50, 7);
 	printf_s("%s? Wonderful name!", hero.name);
 	Sleep(1000);
 	system("cls");
-	gotoxy(3, 3);
+	gotoxy(50, 5);
 	printf_s("Choose your class");
-	gotoxy(3, 4);
+	gotoxy(50, 6);
 	printf_s("Warlock(1)");
-	gotoxy(3, 5);
 	while (hero.hitdice == 0) {
 		choose = _getch();
 		switch (choose) {
@@ -400,25 +397,87 @@ void charactercreator() {
 	}
 	system("cls");
 }
+void start() {
+	FILE* wood;
+	if ((fopen_s(&wood, "wood.txt", "r")) != 0) {
+		exit(1);
+	}
 
+	intr.text2 = (char*)malloc(4000);
+	if (intr.text2 == 0) {
+		exit(1);
+	}
+	int i = 0;
+
+	fscanf_s(wood, "%c", &intr.text2[i], 1);
+	while (intr.text2[i] != '\0') {
+		i++;
+		fscanf_s(wood, "%c", &intr.text2[i], 1);
+	}
+	gotoxy(50, 5);
+	system("cls");
+	system("pause");
+	int k = 0;
+	gotoxy(30, k);
+	for (int j = 0; j < 3737; j++) {
+		if (intr.text2[j] == '\n') {
+			k++;
+			j++;
+			gotoxy(30, k);
+		}
+		printf_s("%c", intr.text2[j]);
+	}
+	free(intr.text2);
+	fclose(wood);
+	Sleep(5000);
+	system("cls");
+	gotoxy(50, 5);
+	printf_s("The Sunless Citadel");
+	gotoxy(50, 7);
+	printf_s("Start or continue game(1)");
+	gotoxy(50, 8);
+	printf_s("Settings(2)");
+	gotoxy(50, 9);
+	printf_s("Exit(3)");
+	char control = _getch();
+	switch (control) {
+	case '1': {
+		break;
+	}
+	case '2': {
+		break;
+	}
+	case '3': {
+		system("cls");
+		gotoxy(50, 5);
+		printf_s("See you later ^_^");
+		gotoxy(60, 5);
+		Sleep(1500);
+		exit(1);
+	}
+	}
+	
+	system("cls");
+
+
+}
 char statgenerator(int* points) {
 	modif();
-	gotoxy(3, 2);
+	gotoxy(50, 5);
 	printf_s("Type - to stop");
-	gotoxy(3, 3);
+	gotoxy(50, 6);
 	printf_s("Strength      %d  %d  -(0) +(1)", hero.Strength, hero.modStr);
-	gotoxy(3, 4);
+	gotoxy(50, 7);
 	printf_s("Dexterity     %d  %d  -(2) +(3)", hero.Dexterity, hero.modDex);
-	gotoxy(3, 5);
+	gotoxy(50, 8);
 	printf_s("Constitution  %d  %d  -(4) +(5)", hero.Constitution, hero.modConst);
-	gotoxy(3, 6);
+	gotoxy(50, 9);
 	printf_s("Intellect     %d  %d  -(6) +(7)", hero.Intellect, hero.modInt);
-	gotoxy(3, 7);
+	gotoxy(50, 10);
 	printf_s("Wisdom        %d  %d  -(8) +(9)", hero.Wisdom, hero.modWis);
-	gotoxy(3, 8);
+	gotoxy(50, 11);
 	printf_s("Charisma      %d  %d  -(q) +(w)", hero.Charisma, hero.modCha);
 	char plus = -1;
-	gotoxy(3, 9);
 	plus = _getch();
 	switch (plus) {
 	case '-': {
@@ -617,9 +676,9 @@ int amountofspells() {
 void save() {
 	char cntrl = 0;
 	while (cntrl != '1' && cntrl != '2') {
-		gotoxy(3, 3);
+		gotoxy(50, 5);
 		printf_s("Would you like to create a character?");
-		gotoxy(3, 4);
+		gotoxy(50, 6);
 		printf_s("Yes(1)  I already have one(2)");
 		cntrl = _getch();
 		system("cls");

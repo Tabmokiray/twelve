@@ -1,0 +1,10 @@
+﻿  main.c
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\main.c(4,12): warning C4013: time: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\main.c(12,8): warning C4101: size: неиспользованная локальная переменная
+  reload.c
+  Previous IPDB not found, fall back to full compilation.
+  Создание кода
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(377): warning C4715: statgenerator: значение возвращается не при всех путях выполнения
+  All 17 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+  4_Games_1.5.vcxproj -> C:\Users\Tabmokiray\source\repos\4_Games_1.5\x64\Release\4_Games_1.5.exe

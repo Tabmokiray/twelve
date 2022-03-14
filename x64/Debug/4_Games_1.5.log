@@ -1,0 +1,10 @@
+﻿  reload.c
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(85,12): warning C4013: rulegoblin: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(108,12): warning C4013: rulebandit: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(181,20): warning C4013: roll: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(203,8): warning C4013: loot: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(235,7): warning C4101: savingthrow: неиспользованная локальная переменная
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(351,11): warning C4013: modif: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(365,7): warning C4101: n: неиспользованная локальная переменная
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(672): warning C4715: statgenerator: значение возвращается не при всех путях выполнения
+  4_Games_1.5.vcxproj -> C:\Users\Tabmokiray\source\repos\4_Games_1.5\x64\Debug\4_Games_1.5.exe
