@@ -43,7 +43,7 @@ void bandit() {
 	gotoxy(i, 12);
 	printf_s("      /       \\__/  /");
 }
-int spell(int z) {
+int spell(int z,int*damage) {
 	for (int j = 18; j < 29; j++) {
 		gotoxy(0, j);
 		printf_s("|");
@@ -61,6 +61,7 @@ int spell(int z) {
 
 		int j = 19;
 		int f = 3;
+		*damage = roll(eldritchblast.damage);
 		for (int i = 3; i < 310; i++) {
 			if (eldritchblast.description[i - 3] == '\n') {
 				j++;
@@ -75,9 +76,6 @@ int spell(int z) {
 		Sleep(2000);
 		break;
 	}
-
-
-
 	}
 
 }
