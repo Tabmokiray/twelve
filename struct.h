@@ -35,6 +35,9 @@ struct stats {
 	int race;
 	int progress;
 	char spelllist[20];
+	char ablist[20];
+	int spelldc;
+	int mode;
 };
 struct stats hero, Frankstat, Goblinstat, Banditstat;
 struct race {
@@ -55,6 +58,8 @@ struct class {
 	int spellcaster;
 	int hitdice;
 	int class;
+	int archetype;
+	char archetypename[20];
 };
 struct class warlock, fighter;
 struct npc {
@@ -63,6 +68,13 @@ struct npc {
 	int hits;
 	int level;
 	int proficiency;
+	int modStr;
+	int modDex;
+	int modCon;
+	int modInt;
+	int modWis;
+	int modCha;
+	int condition;
 };
 struct npc Frank, Goblin, Bandit, monster;
 struct action {
@@ -106,9 +118,9 @@ struct spell {
 	int damage;
 	char typeofdamage[20];
 	char* description;
-	int eldritchblast;
+	int mode;
 };
-struct spell eldritchblast;
+struct spell eldritchblast,darkonesblessing,feyancestry;
 struct text {
 	char* text1;
 	char* text2;

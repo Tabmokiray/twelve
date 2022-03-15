@@ -1,4 +1,14 @@
 #include "reload.h"
+void fullscreen() {
+	keybd_event(VK_MENU, 0x38, 0, 0);
+	keybd_event(VK_RETURN, 0x1c, 0, 0);
+	keybd_event(VK_RETURN, 0x1c, KEYEVENTF_KEYUP, 0);
+	keybd_event(VK_MENU, 0x38, KEYEVENTF_KEYUP, 0);
+}
+void freeetc() {
+	free(eldritchblast.description);
+	free(feyancestry.description);
+}
 void intro() {
 	FILE* intro;
 
@@ -17,10 +27,17 @@ void intro() {
 		i++;
 		fscanf_s(intro, "%c", &intr.text1[i], 1);
 	}
-	gotoxy(50, 5);
 	system("cls");
 	system("pause");
+	system("cls");
+	int z = 5;
+	gotoxy(50, z);
 	for (int j = 0; j < 344; j++) {
+		if (intr.text1[j] == '\n') {
+			j++;
+			z++;
+			gotoxy(50, z);
+		}
 		printf_s("%c", intr.text1[j]);
 		Sleep(80);
 	}
@@ -73,6 +90,7 @@ void picture() {
 			j++;
 		}
 		printf_s("%c", columns.text2[j]);
+		Sleep(80);
 	}
 	Sleep(10000);
 	free(columns.text1);
@@ -155,7 +173,7 @@ void clearchat() {
 	gotoxy(31, 13);
 	printf_s("(1)");
 	gotoxy(40, 12);
-	printf_s("Dodge");
+	printf_s("Abilities");
 	gotoxy(41, 13);
 	printf_s("(2)");
 	gotoxy(50, 12);
@@ -207,6 +225,129 @@ void actions(char* control) {
 
 	}
 	if (*control == '2') {
+		gotoxy(3, 3);
+		printf_s("Choose the ability:");
+		int j = 4;
+		for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+			gotoxy(3, j);
+			if (hero.ablist[i] != '0')
+				printf_s("(%c) ", hero.ablist[i]);
+			switch (hero.ablist[i]) {
+			case '1': {
+				printf_s("%s", feyancestry.name);
+				break;
+			}
+			}
+			j++;
+		}
+		char ch = _getch();
+		int choose = ch - '0';
+		choose--;
+		int characteristic = 0;
+		int damage = 0;
+		int type = abilitydesc(choose, &damage, &characteristic);
+		Sleep(3000);
+		clearchat();
+		int attack;
+		int savingthrow;
+		if (type == 1) {
+			gotoxy(3, j);
+			j++;
+			attack = roll(20) + hero.modCha + hero.proficiency;
+			printf_s("You try to attack with the ability: %d...", attack);
+			Sleep(1500);
+			if (attack < monster.armorclass) {
+				gotoxy(3, j);
+				j++;
+				printf_s("Failed");
+				Sleep(1500);
+			}
+			else {
+				gotoxy(3, j);
+				j++;
+				printf_s("You deal %d force damage", damage);
+				monster.hits -= damage;
+				Sleep(1500);
+			}
+		}
+		if (type == 2) {
+			gotoxy(3, j);
+			j++;
+			switch (characteristic) {
+			case 1: {
+				savingthrow = roll(20) + monster.modStr;
+				break;
+			}
+			case 2: {
+				savingthrow = roll(20) + monster.modDex;
+				break;
+			}
+			case 3: {
+				savingthrow = roll(20) + monster.modCon;
+				break;
+			}
+			case 4: {
+				savingthrow = roll(20) + monster.modInt;
+				break;
+			}
+			case 5: {
+				savingthrow = roll(20) + monster.modWis;
+				break;
+			}
+			case 6: {
+				savingthrow = roll(20) + monster.modCha;
+				break;
+			}
+			}
+			printf_s("The monster is trying to dodge: %d...", savingthrow);
+			Sleep(1500);
+			if (savingthrow >= hero.spelldc) {
+				gotoxy(3, j);
+				j++;
+				printf_s("Failed");
+				Sleep(1500);
+				gotoxy(3, j);
+				j++;
+				
+			}
+			else {
+				gotoxy(3, j);
+				j++;
+				printf_s("Monster couldn't dodge");
+				gotoxy(3, j);
+				j++;
+				if (damage > 0) {
+					printf_s("You deal %d force damage", damage);
+					monster.hits -= damage;
+				}
+				gotoxy(3, j);
+				j++;
+				switch (hero.mode) {
+				case 1: {
+					printf_s("The monster is frightend");
+					monster.condition = 1;
+					break;
+				}
+				case 2: {
+					printf_s("The monster is charmed");
+					monster.condition = 2;
+					break;
+				}
+				}
+				Sleep(1500);
+			}
+		}
+		clearchat();
+		if (monster.hits < 1) {
+			gotoxy(3, j);
+			j++;
+			printf_s("You win!");
+			Sleep(1500);
+			system("cls");
+			loot();
+			Sleep(1500);
+			hero.progress += 1;
+		}
 		clearchat();
 	}
 	if (*control == '3') {
@@ -228,7 +369,8 @@ void actions(char* control) {
 		char ch = _getch();
 		int choose = ch - '0';
 		choose--;
-		int type = spell(choose);
+		int damage = 0;
+		int type = spell(choose, &damage);
 		Sleep(3000);
 		clearchat();
 		int attack;
@@ -248,7 +390,6 @@ void actions(char* control) {
 			else {
 				gotoxy(3, j);
 				j++;
-				int damage = roll(eldritchblast.damage);
 				printf_s("You deal %d force damage", damage);
 				monster.hits -= damage;
 				Sleep(1500);
@@ -274,6 +415,7 @@ void actions(char* control) {
 			Sleep(1500);
 			gotoxy(3, 4);
 			int attack = monsteraction.accur1;
+			condition(&attack);
 			printf_s("%s trying to Attack: %d...", monster.name, attack);
 			Sleep(1500);
 			if (attack < hero.armorclass) {
@@ -297,6 +439,25 @@ void actions(char* control) {
 			}
 
 		}
+}
+void condition(int*attack) {
+	switch (monster.condition) {
+	case 1: {//Frightend
+		int a = monsteraction.accur1;
+		int b = monsteraction.accur1;
+		if (a > b) {
+			*attack = b;
+		}
+		else {
+			*attack = a;
+		}
+		break;
+	}
+	case 2: {//Charmed
+		*attack = -1;
+		break;
+	}
+	}
 }
 void charactercreator() {
 	char choose;
@@ -391,11 +552,122 @@ void charactercreator() {
 			hero.tekhits = hero.hits;
 			hero.spelllist[0] = eldritchblast.id;
 			hero.armormod = armor.leatherarmor;
+			system("cls");
+			gotoxy(50, 5);
+			printf_s("Choose your Otherwordly patron");
+			gotoxy(50, 6);
+			printf_s("Archfey(1) Fiend(2)");
+			gotoxy(50, 8);
+			printf_s("Otherwordly patron");
+			gotoxy(50, 9);
+			printf_s("At 1st level, you have struck a bargain with an otherworldly being chosen from the list of available patrons.");
+			gotoxy(50, 10);
+			printf_s("Your choice grants you features at 1st level and again at 6th, 10th, and 14th level.");
+			choose = _getch();
+			switch (choose) {
+			case '1': {
+				warlock.archetype = 1;
+				strcpy_s(warlock.archetypename, 8, "Archfey");
+				for (int i = 50; i < 161; i++) {
+					for (int j = 8; j < 11; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
+				gotoxy(50, 8);
+				printf_s("The Archfey");
+				gotoxy(50, 9);
+				printf_s("Your patron is a lord or lady of the fey, a creature of legend who holds secrets");
+				gotoxy(50, 10);
+				printf_s("that were forgotten before the mortal races were born.");
+				gotoxy(50, 11);
+				printf_s("This being's motivations are often inscrutable, and sometimes whimsical, and might involve");
+				gotoxy(50, 12);
+				printf_s(" a striving for greater magical power or the settling of age-old grudges.");
+				hero.ablist[0] = feyancestry.id;
+
+				Sleep(8000);
+				break;
+			}
+			case '2': {
+				warlock.archetype = 2;
+				strcpy_s(warlock.archetypename, 6, "Fiend");
+				for (int i = 50; i < 161; i++) {
+					for (int j = 8; j < 11; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
+				gotoxy(50, 8);
+				printf_s("The Fiend");
+				gotoxy(50, 9);
+				printf_s("You have made a pact with a fiend from the lower planes of existence, a being whose aims are evil,");
+				gotoxy(50, 10);
+				printf_s("even if you strive against those aims. Such beings desire the corruption or destruction of all things,");
+				gotoxy(50, 11);
+				printf_s("ultimately including you.");
+				hero.ablist[0] = darkonesblessing.id;
+
+				Sleep(8000);
+				break;
+			}
+			}
 			break;
 		}
 		}
 	}
 	system("cls");
+}
+
+int abilitydesc(int z, int* damage, int* characteristic) {
+	for (int j = 18; j < 29; j++) {
+		gotoxy(0, j);
+		printf_s("|");
+		gotoxy(100, j);
+		printf_s("|");
+	}
+	for (int i = 0; i < 100; i++) {
+		gotoxy(i, 17);
+		printf_s("_");
+		gotoxy(i, 29);
+		printf_s("_");
+	}
+	switch (hero.ablist[z]) {
+	case '1': {
+		*characteristic = 5;
+		hero.spelldc = hero.modCha + hero.proficiency + 8;
+		int j = 19;
+		int f = 3;
+		for (int i = 3; i < 310; i++) {
+			if (feyancestry.description[i - 3] == '\n') {
+				j++;
+				f = 3;
+			}
+			gotoxy(f, j);
+			printf_s("%c", feyancestry.description[i - 3]);
+			f++;
+			
+		}
+		gotoxy(3, 12);
+		printf_s("Choose the condititon:");
+		gotoxy(3, 13);
+		printf_s("Frightend(1) Charmed(2)");
+		char choose = _getch();
+		switch (choose) {
+		case '1': {
+			hero.mode = 1;
+			break;
+		}
+		case '2': {
+			hero.mode = 2;
+			break;
+		}
+		}
+		return 2;
+		Sleep(2000);
+		break;
+	}
+	}
 }
 void start() {
 	FILE* wood;
@@ -416,11 +688,12 @@ void start() {
 	}
 	gotoxy(50, 5);
 	system("cls");
-	system("pause");
 	int k = 0;
+	Sleep(2000);
 	gotoxy(30, k);
-	for (int j = 0; j < 3737; j++) {
+	for (int j = 0; j < 3736; j++) {
 		if (intr.text2[j] == '\n') {
+			Sleep(80);
 			k++;
 			j++;
 			gotoxy(30, k);
@@ -429,7 +702,7 @@ void start() {
 	}
 	free(intr.text2);
 	fclose(wood);
-	Sleep(5000);
+	Sleep(2000);
 	system("cls");
 	gotoxy(50, 5);
 	printf_s("The Sunless Citadel");
@@ -456,7 +729,7 @@ void start() {
 		exit(1);
 	}
 	}
-	
+
 	system("cls");
 
 
@@ -748,6 +1021,8 @@ void characterlist() {
 	printf_s("%s", hero.classname);
 	gotoxy(62, 6);
 	printf_s("Class");
+	gotoxy(70, 5);
+	printf_s("%s", warlock.archetypename);
 	for (int i = 21; i < 99; i++) {
 		gotoxy(i, 7);
 		printf_s("_");

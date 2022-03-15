@@ -1,5 +1,11 @@
 #include "rules.h"
 void rulebandit() {
+	monster.modStr = Bandit.modStr;
+	monster.modDex = Bandit.modDex;
+	monster.modCon = Bandit.modCon;
+	monster.modInt = Bandit.modInt;
+	monster.modWis = Bandit.modWis;
+	monster.modCha = Bandit.modCha;
 	monster.armorclass = Bandit.armorclass;
 	monster.hits = Bandit.hits;
 	monsteraction.accur1 = Banditaction.accur1;
@@ -10,6 +16,12 @@ void rulebandit() {
 	monster.proficiency = Bandit.proficiency;
 }
 void rulegoblin() {
+	monster.modStr = Goblin.modStr;
+	monster.modDex = Goblin.modDex;
+	monster.modCon = Goblin.modCon;
+	monster.modInt = Goblin.modInt;
+	monster.modWis = Goblin.modWis;
+	monster.modCha = Goblin.modCha;
 	monster.armorclass = Goblin.armorclass;
 	monster.hits = Goblin.hits;
 	monsteraction.accur1 = Goblinaction.accur1;
@@ -27,11 +39,11 @@ void ruleset() {
 	int d12 = 12;
 	int d20 = 20;
 
-	
+	monster.condition = 0;
 
 	hero.hitdice = 0;
 	hero.race = 0;
-	
+
 
 	warlock.class = 1;
 	fighter.class = 2;
@@ -47,13 +59,22 @@ void ruleset() {
 
 	eldritchblast.level = 0;
 	eldritchblast.amount = 1;
-	eldritchblast.damage = eldritchblast.amount*d10;
+	eldritchblast.damage = eldritchblast.amount * d10;
 	strcpy_s(eldritchblast.name, 15, "Eldritch blast");
 	eldritchblast.description = (char*)malloc(400);
 	strcpy_s(eldritchblast.description, 310, "A beam of crackling energy streaks toward a creature within range.\nMake a ranged spell attack against the target.\nOn a hit, the target takes 1d10 force damage.\nThe spell creates more than one beam when you reach higher levels :\ntwo beams at 5th level, three beams at 11th level,\nand four beams at 17th level.");
 	eldritchblast.id = '1';
-	strcpy_s(eldritchblast.typeofdamage,6 , "force");
+	strcpy_s(eldritchblast.typeofdamage, 6, "force");
 
+	strcpy_s(feyancestry.name, 13, "Fey ancestry");
+	feyancestry.description = (char*)malloc(500);
+	strcpy_s(feyancestry.description, 488, "Starting at 1st level, your patron bestows upon you the ability to project\nthe beguiling and fearsome presence of the fey.\nAs an action, you can cause each creature in a 10-foot cube\noriginating from you to make a Wisdom saving throw against your warlock spell save DC.\nThe creatures that fail their saving throws are all charmed or frightened by you (your choice) until the end of your next turn.\nOnce you use this feature, you can't use it again until you finish a short or long rest.");
+	feyancestry.id = '1';
+
+	strcpy_s(darkonesblessing.name, 20, "Dark One's blessing");
+	darkonesblessing.description = (char*)malloc(200);
+	strcpy_s(darkonesblessing.description, 174, "Starting at 1st level, when you reduce a hostile creature to 0 hit points,\nyou gain temporary hit points equal to your Charisma modifier + your warlock level (minimum of 1).");
+	darkonesblessing.id = '2';
 
 	dagger.damage = d4;
 	armor.shield = 2;
