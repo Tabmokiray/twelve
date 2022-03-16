@@ -29,8 +29,10 @@ struct stats {
 	int armormod;
 	char classname[20];
 	int class;
+	int archetype;
 	int spellcaster;
 	int hitdice;
+	int amounthitdice;
 	char racename[20];
 	int race;
 	int progress;
@@ -38,8 +40,12 @@ struct stats {
 	char ablist[20];
 	int spelldc;
 	int mode;
+	char weaponlist[20];
+	int temphits;
+	int crit;
+	int weapons;
 };
-struct stats hero, Frankstat, Goblinstat, Banditstat;
+struct stats hero, Frankstat, Goblinstat, Banditstat,Ratstat;
 struct race {
 	int race;
 	int str;
@@ -52,8 +58,9 @@ struct race {
 	int speed;
 	char language[20];
 	int size;
+	int subrace;
 };
-struct race human;
+struct race human,dwarf;
 struct class {
 	int spellcaster;
 	int hitdice;
@@ -76,7 +83,7 @@ struct npc {
 	int modCha;
 	int condition;
 };
-struct npc Frank, Goblin, Bandit, monster;
+struct npc Frank, Goblin, Bandit, monster,Rat;
 struct action {
 	char action1[20];
 	char action2[20];
@@ -85,7 +92,7 @@ struct action {
 	int accur1;
 	int accur2;
 };
-struct action Frankaction, Goblinaction, Banditaction, monsteraction;
+struct action Frankaction, Goblinaction, Banditaction, monsteraction,Rataction;
 struct armor {
 	int shield;
 
@@ -106,10 +113,13 @@ struct armor {
 };
 struct armor armor;
 struct weapon {
+	int finnese;
 	int damage;
 	char name[20];
+	char damagetype[20];
+	char id;
 };
-struct weapon dagger;
+struct weapon dagger, quarterstaff;
 struct spell {
 	char id;
 	char name[20];

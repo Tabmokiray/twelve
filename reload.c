@@ -9,6 +9,466 @@ void freeetc() {
 	free(eldritchblast.description);
 	free(feyancestry.description);
 }
+void room0() {
+	system("cls");
+	gotoxy(50, 5);
+	printf_s("What you want to do?");
+	gotoxy(40, 6);
+	printf_s("Investigate(1)            Stand next to the ravine(2)          Try to climb down(3)");
+	int rope = 0;
+	while (1) {
+		char choose = _getch();
+		if (choose == 's') {
+			createsave();
+		}
+		switch (choose) {
+		case '1': {
+			gotoxy(50, 8);
+			printf_s("You discover that the pillars are generally worn and broken,");
+			gotoxy(50, 9);
+			printf_s("and graffiti in the Dwarven alphabet covers most of them.");
+			gotoxy(40, 6);
+			printf_s("Try to translate(1)");
+			choose = _getch();
+			if (choose == 's') {
+				createsave();
+			}
+			if (choose != '1') {
+
+			}
+			else {
+				gotoxy(50, 10);
+				printf_s("You recognize the inscriptions as warnings and threats against potential trespassers");
+				char s = _getch();
+				if (s == 's') {
+					createsave();
+				}
+				gotoxy(40, 6);
+				printf_s("Investigate(1)      ");
+
+			}
+			for (int i = 40; i < 140; i++) {
+				for (int j = 7; j < 20; j++) {
+					gotoxy(i, j);
+					printf_s(" ");
+				}
+			}
+			break;
+		}
+		case '2': {
+			gotoxy(50, 8);
+			printf_s("You immediately notes");
+			gotoxy(50, 9);
+			printf_s("a sturdy knotted rope tied to one of the leaning pillars.");
+			gotoxy(50, 10);
+			printf_s("The rope hangs down into the darkness below. Judging by");
+			gotoxy(50, 11);
+			printf_s("its good condition, the rope couldn't have been tied there");
+			gotoxy(50, 12);
+			printf_s("any longer than two or three weeks ago. Player characters");
+			gotoxy(50, 13);
+			printf_s("can also see older and weathered hand - and footholds");
+			gotoxy(50, 14);
+			printf_s("carved into the cliff face. These are goblin - carved.");
+			rope = 1;
+			char s = _getch();
+			if (s == 's') {
+				createsave();
+			}
+			for (int i = 40; i < 140; i++) {
+				for (int j = 7; j < 20; j++) {
+					gotoxy(i, j);
+					printf_s(" ");
+				}
+			}
+			break;
+		}
+		case '3': {
+			gotoxy(50, 8);
+			if (rope == 1) {
+				printf_s("You try to climb down the knotted rope,");
+				gotoxy(50, 9);
+				int athletic = hero.modStr + roll(20);
+				printf_s("using the wall to brace yourself...%d", athletic);
+				if (athletic < 10) {
+					gotoxy(50, 10);
+					Sleep(1500);
+					printf_s("Failed");
+					gotoxy(50, 11);
+					printf_s("You fall down about 25 feet");
+					gotoxy(50, 12);
+					int damage = 2 * roll(6);
+					printf_s("You take %d bludgeoning damage from falling", damage);
+					Sleep(3000);
+					if (hero.temphits < 1) {
+						hero.tekhits -= damage;
+					}
+					else {
+						hero.temphits -= damage;
+						if (hero.temphits < 0) {
+							hero.tekhits += hero.temphits;
+						}
+					}
+					if (hero.tekhits < 1) {
+						gotoxy(50, 13);
+						printf_s("You died");
+						hero.tekhits = hero.hits;
+						char s = _getch();
+						if (s == 's') {
+							createsave();
+						}
+						stages();
+					}
+					else {
+						hero.progress += 1;
+						stages();
+					}
+				}
+				else {
+					gotoxy(50, 10);
+					Sleep(1500);
+					printf_s("Success");
+					hero.progress += 1;
+					Sleep(5000);
+					stages();
+				}
+			}
+			else {
+				printf_s("You try to climb the naked rock using the carved hand");
+				gotoxy(50, 9);
+				int athletic = hero.modStr + roll(20);
+				printf_s("and footholds...%d", athletic);
+				Sleep(1500);
+				if (athletic < 15) {
+					gotoxy(50, 10);
+					Sleep(1500);
+					printf_s("Failed");
+					gotoxy(50, 11);
+					printf_s("You fall down about 25 feet");
+					gotoxy(50, 12);
+					int damage = 2 * roll(6);
+					printf_s("You take %d bludgeoning damage from falling", damage);
+					Sleep(3000);
+					if (hero.temphits < 1) {
+						hero.tekhits -= damage;
+					}
+					else {
+						hero.temphits -= damage;
+						if (hero.temphits < 0) {
+							hero.tekhits += hero.temphits;
+						}
+					}
+					if (hero.hits < 1) {
+						gotoxy(50, 13);
+						printf_s("You died");
+						char s = _getch();
+						if (s == 's') {
+							createsave();
+						}
+						stages();
+					}
+					else {
+						hero.progress += 1;
+						stages();
+					}
+
+				}
+				else {
+					gotoxy(50, 10);
+					Sleep(1500);
+					printf_s("Success");
+					Sleep(5000);
+					hero.progress += 1;
+					stages();
+				}
+			}
+			break;
+		}
+		}
+	}
+}
+void shortrest() {
+	system("cls");
+	gotoxy(50, 5);
+	printf_s("You build a small fire, eat rations and give yourself some rest.");
+	gotoxy(50, 6);
+	printf_s("Would you like to spend hit-dices to heal yourself?");
+	gotoxy(50, 7);
+	printf_s("Yes(1) End shortrest(2)");
+	char choose = '0';
+	while (choose != '2') {
+		choose = _getch();
+		if (choose == 's') {
+			createsave();
+		}
+		switch (choose) {
+		case '1': {
+			if (hero.amounthitdice != 0) {
+				gotoxy(50, 8);
+				int hitdice = roll(hero.hitdice) + hero.modConst;
+
+				hero.tekhits += hitdice;
+				if (hero.tekhits > hero.hits) {
+					hero.tekhits = hero.hits;
+				}
+				hero.amounthitdice -= 1;
+				printf_s("You heal %d, your hits is %d", hitdice, hero.tekhits);
+				Sleep(2000);
+				gotoxy(50, 8);
+				printf_s("                                 ");
+			}
+			else {
+				gotoxy(50, 8);
+				printf_s("You are so tired, only long rest can help you.");
+				gotoxy(50, 9);
+				printf_s("À long rest can only be spent in quiet places where you can sleep.");
+				Sleep(3000);
+				for (int i = 50; i < 118; i++) {
+					for (int j = 8; j < 10; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
+			}
+			break;
+		}
+		}
+	}
+	system("cls");
+}
+void room1() {
+	gotoxy(50, 5);
+	printf_s("A sandy ledge overlooks a subterranean gulf of dark-");
+	gotoxy(50, 6);
+	printf_s("ness to the west. The ledge is wide but rough. Sand,");
+	gotoxy(50, 7);
+	printf_s("rocky debris, and the bones of small animals cover");
+	gotoxy(50, 8);
+	printf_s("it. A roughly hewn stairwell zigs and zags down the");
+	gotoxy(50, 9);
+	printf_s("side of the ledge, descending into darkness.");
+	char choose = '0';
+	char s = _getch();
+	if (s == 's') {
+		createsave();
+	}
+	gotoxy(50, 11);
+	printf_s("You hear how a giant rat, hidden in the darkness and stones, pounces on you");
+	s = _getch();
+	if (s == 's') {
+		createsave();
+	}
+	system("cls");
+	switch (stage2()) {
+	case 1: {
+		system("cls");
+		gotoxy(50, 5);
+		printf_s("What you want to do?");
+		gotoxy(50, 6);
+		printf_s("Go down the ledge(1) Make short rest(2)");
+		while (1) {
+			choose = _getch();
+			if (choose == 's') {
+				createsave();
+			}
+			switch (choose) {
+			case '1': {
+				hero.progress += 1;
+				stages();
+				break;
+			}
+			case '2': {
+				shortrest();
+				system("cls");
+				gotoxy(50, 5);
+				printf_s("What you want to do?");
+				gotoxy(50, 6);
+				printf_s("Go down the ledge(1) Make short rest(2)");
+				break;
+			}
+			}
+		}
+	}
+	case 2: {
+		stages();
+	}
+	}
+
+}
+void room2() {
+	system("cls");
+	gotoxy(50, 5);
+	printf_s("At the edge of sight, a fortress top emerges from the");
+	gotoxy(50, 6);
+	printf_s("darkness. The subterranean citadel, though impres-");
+	gotoxy(50, 7);
+	printf_s("sive, seems long forgotten, if the lightless windows");
+	gotoxy(50, 8);
+	printf_s("cracked crenellations, and leaning towers are any");
+	gotoxy(50, 9);
+	printf_s("indication. All is quiet, though a cold breeze blows");
+	gotoxy(50, 10);
+	printf_s("up from below, bringing with it the scent of dust");
+	gotoxy(50, 11);
+	printf_s("and a faint trace of rot.");
+	char s = _getch();
+	if (s == 's') {
+		createsave();
+	}
+	system("cls");
+	gotoxy(50, 5);
+	printf_s("What you want to do?");
+	gotoxy(50, 6);
+	printf_s("Enter in the citadel(1)");
+	char choose = '0';
+	while (choose != '1') {
+		choose = _getch();
+		if (choose == 's') {
+			createsave();
+		}
+		switch (choose) {
+		case '1': {
+			hero.progress += 1;
+			room3();
+			break;
+		}
+		}
+
+	}
+}
+void room3() {
+	system("cls");
+	gotoxy(50, 5);
+	printf_s("This circular area is cobbled with cracked granite,");
+	gotoxy(50, 6);
+	printf_s("upon which sprawl four goblins, all apparently slain");
+	gotoxy(50, 7);
+	printf_s("in combat. One stands with its back against the");
+	gotoxy(50, 8);
+	printf_s("western wall, the killing spear still skewering it and");
+	gotoxy(50, 9);
+	printf_s("holding it upright. Three wooden doors lead off");
+	gotoxy(50, 10);
+	printf_s("from this the area. Above, a hollow tower of loose");
+	gotoxy(50, 11);
+	printf_s("masonry reaches 30 feet, but the intervening floors");
+	gotoxy(50, 12);
+	printf_s("and stairs are gone, except for a couple of crumbled ledges.");
+	char s = _getch();
+	if (s == 's') {
+		createsave();
+	}
+	system("cls");
+	gotoxy(50, 5);
+	printf_s("What do you want to do?");
+	gotoxy(20, 6);
+	char choose = '0';
+	int perc = 0;
+	printf_s("Investigate the bodies(1) Remove the spear from the wall(2) Investigate the walls(3) Go to the north door(4) Go to the soutn door(5)");
+	while (1) {
+		choose = _getch();
+		if (choose == 's') {
+			createsave();
+		}
+		switch (choose) {
+		case '1': {
+			gotoxy(50, 8);
+			printf_s("Investigation reveals that the four goblin bodies are");
+			gotoxy(50, 9);
+			printf_s("about a month dead, though rats have gnawed at them.");
+			gotoxy(50, 10);
+			printf_s("The bodies are looted of all valuables.");
+			char s = _getch();
+			if (s == 's') {
+				createsave();
+			}
+			for (int i = 50; i < 150; i++) {
+				for (int j = 8; j < 11; j++) {
+					gotoxy(i, j);
+					printf_s(" ");
+				}
+			}
+			break;
+		}
+		case '2': {
+			gotoxy(50, 8);
+			printf_s("The body slumps to reveal deep - set and impressive runes in the wall.");
+			gotoxy(50, 9);
+			printf_s("<< Ashardalon >>");
+			char s = _getch();
+			if (s == 's') {
+				createsave();
+			}
+			for (int i = 50; i < 150; i++) {
+				for (int j = 8; j < 10; j++) {
+					gotoxy(i, j);
+					printf_s(" ");
+				}
+			}
+			break;
+		}
+		case '3': {
+			gotoxy(50, 8);
+			int perception = roll(20) + hero.modWis;
+			printf_s("You try to investigate the walls...%d", perception);
+			if (perception < 14 || perc == -1) {
+				gotoxy(50, 9);
+				Sleep(2000);
+				printf_s("Failed. You didn't find anything interesting");
+				perc = -1;
+
+			}
+			else {
+				Sleep(2000);
+				gotoxy(50, 9);
+				printf_s("Success. You find a secret door");
+				gotoxy(20, 6);
+				printf_s("Investigate the bodies(1) Remove the spear from the wall(2) Go to the secret door(9) Go to the north door(4) Go to the soutn door(5)");
+			}
+			for (int i = 50; i < 150; i++) {
+				for (int j = 8; j < 11; j++) {
+					gotoxy(i, j);
+					printf_s(" ");
+				}
+			}
+			break;
+		}
+		case'9': {
+			if (perc == -1) {
+				break;
+			}
+			//skeleton
+			break;
+		}
+		case '4': {
+			gotoxy(50, 7);
+			printf_s("This room will be available later");
+			char s = _getch();
+			if (s == 's') {
+				createsave();
+			}
+			gotoxy(50, 7);
+			printf_s("                                 ");
+			break;
+		}
+		case '5': {
+			gotoxy(50, 7);
+			printf_s("This room will be available later");
+			char s = _getch();
+			if (s == 's') {
+				createsave();
+			}
+			gotoxy(50, 7);
+			printf_s("                                 ");
+			break;
+		}
+		}
+
+
+
+	}
+
+}
 void intro() {
 	FILE* intro;
 
@@ -41,7 +501,10 @@ void intro() {
 		printf_s("%c", intr.text1[j]);
 		Sleep(80);
 	}
-	Sleep(5000);
+	char s = _getch();
+	if (s == 's') {
+		createsave();
+	}
 	free(intr.text1);
 	fclose(intro);
 	system("cls");
@@ -92,112 +555,225 @@ void picture() {
 		printf_s("%c", columns.text2[j]);
 		Sleep(80);
 	}
-	Sleep(10000);
+	char s = _getch();
+	if (s == 's') {
+		createsave();
+	}
 	free(columns.text1);
 	free(columns.text2);
 	fclose(oldroad);
 	fclose(picture);
 }
-void stage0() {
+int stage0() {
 	char control = 0;
 	rulegoblin();
+	goblin();
+	clearchat();
 	while (control != '`') {
 		control = _getch();
+		if (control == 's') {
+			createsave();
+		}
 		if (control == 'i') {
 			system("cls");
 			characterlist();
 		}
 		if (control == 27) {
 			system("cls");
+		}
+		if (control != 'i') {
 			goblin();
-
-		}
-		if (control != 'i')
 			clearchat();
-
-		actions(&control);
-		if (hero.progress > 0) {
-			break;
 		}
+
+		if (actions(&control) == 1) {
+			return 1;
+		}
+
 	}
 }
-void stage1() {
+int stage1() {
 	char control = 0;
 	rulebandit();
+	bandit();
+	clearchat();
 	while (control != '`') {
 		control = _getch();
+		if (control == 's') {
+			createsave();
+		}
 		if (control == 'i') {
 			system("cls");
 			characterlist();
 		}
 		if (control == 27) {
 			system("cls");
-			bandit();
 		}
-		clearchat();
+		if (control != 'i') {
+			bandit();
+			clearchat();
+		}
+		if (actions(&control) == 1) {
+			return 1;
+		}
 
+	}
+}
+int stage2() {
+	char control = 0;
+	rulerat();
+	rat();
+	clearchat();
+	while (control != '`') {
+		control = _getch();
+		if (control == 's') {
+			createsave();
+		}
+		if (control == 'i') {
+			system("cls");
+			characterlist();
+		}
+		if (control == 27) {
+			system("cls");
+		}
+		if (control != 'i') {
+			rat();
+			clearchat();
+		}
 
-		actions(&control);
-		if (hero.progress > 1) {
+		switch (actions(&control)) {
+		case 1: {
+			return 1;
 			break;
+		}
+		case 2: {
+			return 2;
+			break;
+		}
 		}
 	}
 }
 void stages() {
+	system("cls");
 	switch (hero.progress) {
 	case 0: {
 		intro();
 		picture();
-		stage0();
+		room0();
 	}
 	case 1: {
-		stage1();
+		room1();
+	}
+	case 2: {
+		room2();
+	}
+	case 3: {
+		room3();
 	}
 	}
 }
 void clearchat() {
 	for (int i = 3; i < 42; i++) {
-		for (int j = 0; j < 10; j++) {
+		for (int j = 0; j < 16; j++) {
 			gotoxy(i, j);
 			printf_s(" ");
 		}
 	}
-	for (int i = 0; i < 103; i++) {
-		for (int j = 17; j < 30; j++) {
+	for (int i = 3; i < 106; i++) {
+		for (int j = 16; j < 32; j++) {
 			gotoxy(i, j);
 			printf_s(" ");
 		}
 	}
-	gotoxy(30, 12);
-	printf_s("Dagger");
-	gotoxy(31, 13);
+	int j = 16;
+	gotoxy(50, j);
+	printf_s("Weapons");
+	gotoxy(53, j + 1);
 	printf_s("(1)");
-	gotoxy(40, 12);
+	gotoxy(70, j);
 	printf_s("Abilities");
-	gotoxy(41, 13);
+	gotoxy(75, j + 1);
 	printf_s("(2)");
-	gotoxy(50, 12);
+	gotoxy(90, j);
 	printf_s("Spells");
-	gotoxy(56, 13);
+	gotoxy(92, j + 1);
 	printf_s("(3)");
-	gotoxy(70, 12);
-	printf_s("Run away");
-	gotoxy(73, 13);
-	printf_s("(4)");
-	gotoxy(50, 15);
-	printf_s("Your hits: %d/%d  ", hero.tekhits, hero.hits);
-	gotoxy(50, 16);
-	printf_s("Your armor class: %d", hero.armorclass);
-	gotoxy(50, 1);
+	gotoxy(50, j + 2);
+	printf_s("                                                                                ");
+	gotoxy(50, j + 2);
+	printf_s("Your armor class: %d     Your hits: %d/%d    Your temporary hits: %d   ", hero.armorclass, hero.tekhits, hero.hits, hero.temphits);
+	gotoxy(70, 1);
 	printf_s("%s hits: %d  ", monster.name, monster.hits);
-	gotoxy(50, 2);
-	printf_s("                       ");
 }
-void actions(char* control) {
+void weapons(int z, int* damage, int* attack, char* damagetype) {
+	switch (z) {
+	case 1: {
+		strcpy_s(damagetype, 9, "piercing");
+		if (hero.modDex > hero.modStr) {
+			*damage = dagger.damage + hero.modDex;
+			*attack = roll(20) + hero.modDex + hero.proficiency;
+			if (*attack == 20 + hero.modDex + hero.proficiency) {
+				*damage = dagger.damage + dagger.damage + hero.modDex;
+				hero.crit = 1;
+			}
+		}
+		else {
+			*damage = dagger.damage + hero.modStr;
+			*attack = roll(20) + hero.modStr + hero.proficiency;
+			if (*attack == 20 + hero.modStr + hero.proficiency) {
+				*damage = dagger.damage + dagger.damage + hero.modStr;
+				hero.crit = 1;
+			}
+		}
+
+		break;
+	}
+	case 2: {
+		strcpy_s(damagetype, 12, "bludgeoning");
+		*damage = quarterstaff.damage + hero.modStr;
+		*attack = roll(20) + hero.modStr + hero.proficiency;
+		if (*attack == 20 + hero.modStr + hero.proficiency) {
+			*damage = quarterstaff.damage + quarterstaff.damage + hero.modStr;
+			hero.crit = 1;
+		}
+		break;
+	}
+	}
+}
+int actions(char* control) {
 	if (*control == '1') {
 		gotoxy(3, 3);
-		int attack = roll(20) + hero.modDex + hero.proficiency;
-		printf_s("You try to Attack: %d...", attack);
+		printf_s("Choose the weapon:");
+		int j = 4;
+		for (int i = 0; i < strlen(hero.weaponlist) + 1; i++) {
+			gotoxy(3, j);
+			if (hero.weaponlist[i] != '0')
+				printf_s("(%c) ", hero.weaponlist[i]);
+			switch (hero.weaponlist[i]) {
+			case '1': {
+				printf_s("%s", dagger.name);
+				break;
+			}
+			case '2': {
+				printf_s("%s", quarterstaff.name);
+				break;
+			}
+			}
+			j++;
+		}
+		char ch = _getch();
+		if (ch == 's') {
+			createsave();
+		}
+		clearchat();
+		int choose = ch - '0';
+		int damage = 0;
+		int attack = 0;
+		char damagetype[20];
+
+		weapons(choose, &damage, &attack, &damagetype);
+		gotoxy(3, 3);
+		printf_s("You are trying to attack: %d...", attack);
 		Sleep(1500);
 		if (attack < monster.armorclass) {
 			gotoxy(3, 4);
@@ -206,8 +782,12 @@ void actions(char* control) {
 		}
 		else {
 			gotoxy(3, 4);
-			int damage = roll(dagger.damage) + hero.modDex;
-			printf_s("You deal %d piercing damage", damage);
+			printf_s("You deal %d %s damage", damage, damagetype);
+			if (hero.crit == 1) {
+				gotoxy(3, 5);
+				printf_s("CRIT!!!");
+				hero.crit = 0;
+			}
 			monster.hits -= damage;
 			Sleep(1500);
 		}
@@ -217,10 +797,23 @@ void actions(char* control) {
 			gotoxy(3, 5);
 			printf_s("You win!");
 			Sleep(1500);
+			for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+				switch (hero.ablist[i]) {
+				case '2': {
+					abilitydesc(0, 0, 6);
+					gotoxy(3, 6);
+					int temphits = hero.modCha + hero.level;
+					printf_s("After death of monster you recieve %d temporary hits", temphits);
+					hero.temphits = temphits;
+					Sleep(1500);
+					break;
+				}
+				}
+			}
 			system("cls");
 			loot();
 			Sleep(1500);
-			hero.progress += 1;
+			return 1;
 		}
 
 	}
@@ -237,10 +830,17 @@ void actions(char* control) {
 				printf_s("%s", feyancestry.name);
 				break;
 			}
+			case '2': {
+				printf_s("%s", darkonesblessing.name);
+				break;
+			}
 			}
 			j++;
 		}
 		char ch = _getch();
+		if (ch == 's') {
+			createsave();
+		}
 		int choose = ch - '0';
 		choose--;
 		int characteristic = 0;
@@ -308,7 +908,7 @@ void actions(char* control) {
 				Sleep(1500);
 				gotoxy(3, j);
 				j++;
-				
+
 			}
 			else {
 				gotoxy(3, j);
@@ -343,10 +943,23 @@ void actions(char* control) {
 			j++;
 			printf_s("You win!");
 			Sleep(1500);
+			for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+				switch (hero.ablist[i]) {
+				case '2': {
+					abilitydesc(0, 0, 6);
+					gotoxy(3, 6);
+					int temphits = hero.modCha + hero.level;
+					printf_s("After death of monster you recieve %d temporary hits", temphits);
+					hero.temphits = temphits;
+					Sleep(1500);
+					break;
+				}
+				}
+			}
 			system("cls");
 			loot();
 			Sleep(1500);
-			hero.progress += 1;
+			return 1;
 		}
 		clearchat();
 	}
@@ -367,10 +980,14 @@ void actions(char* control) {
 			j++;
 		}
 		char ch = _getch();
+		if (ch == 's') {
+			createsave();
+		}
 		int choose = ch - '0';
 		choose--;
 		int damage = 0;
-		int type = spell(choose, &damage);
+		char typeofdamage[20];
+		int type = spell(choose, &damage, &typeofdamage);
 		Sleep(3000);
 		clearchat();
 		int attack;
@@ -390,7 +1007,7 @@ void actions(char* control) {
 			else {
 				gotoxy(3, j);
 				j++;
-				printf_s("You deal %d force damage", damage);
+				printf_s("You deal %d %s damage", damage, typeofdamage);
 				monster.hits -= damage;
 				Sleep(1500);
 			}
@@ -401,10 +1018,23 @@ void actions(char* control) {
 			j++;
 			printf_s("You win!");
 			Sleep(1500);
+			for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+				switch (hero.ablist[i]) {
+				case '2': {
+					abilitydesc(0, 0, 6);
+					gotoxy(3, 6);
+					int temphits = hero.modCha + hero.level;
+					printf_s("After death of monster you recieve %d temporary hits", temphits);
+					Sleep(1500);
+					hero.temphits = temphits;
+					break;
+				}
+				}
+			}
 			system("cls");
 			loot();
 			Sleep(1500);
-			hero.progress += 1;
+			return 1;
 		}
 
 	}
@@ -427,7 +1057,15 @@ void actions(char* control) {
 				gotoxy(3, 5);
 				int damage = monsteraction.damage1;
 				printf_s("%s deal %d slashing damage", monster.name, damage);
-				hero.tekhits -= damage;
+				if (hero.temphits < 1) {
+					hero.tekhits -= damage;
+				}
+				else {
+					hero.temphits -= damage;
+					if (hero.temphits < 0) {
+						hero.tekhits += hero.temphits;
+					}
+				}
 				Sleep(1500);
 			}
 			clearchat();
@@ -435,12 +1073,13 @@ void actions(char* control) {
 				gotoxy(3, 6);
 				printf_s("%s wins!", monster.name);
 				Sleep(1500);
-				stages();
+				hero.tekhits = hero.hits;
+				return 2;
 			}
 
 		}
 }
-void condition(int*attack) {
+void condition(int* attack) {
 	switch (monster.condition) {
 	case 1: {//Frightend
 		int a = monsteraction.accur1;
@@ -490,6 +1129,7 @@ void charactercreator() {
 			strcpy_s(hero.racename, 6, "Human");
 			hero.race = human.race;
 			printf_s("Time to generate your stats");
+			Sleep(1500);
 			system("cls");
 			int points = 27;
 			while (1) {
@@ -551,6 +1191,10 @@ void charactercreator() {
 			hero.hits = hero.hitdice + hero.modConst;
 			hero.tekhits = hero.hits;
 			hero.spelllist[0] = eldritchblast.id;
+			hero.weaponlist[0] = dagger.id;
+			hero.spelldc = hero.modCha + 8 + hero.proficiency;
+			hero.weaponlist[1] = quarterstaff.id;
+			hero.amounthitdice = hero.level;
 			hero.armormod = armor.leatherarmor;
 			system("cls");
 			gotoxy(50, 5);
@@ -567,6 +1211,7 @@ void charactercreator() {
 			switch (choose) {
 			case '1': {
 				warlock.archetype = 1;
+				hero.archetype = 1;
 				strcpy_s(warlock.archetypename, 8, "Archfey");
 				for (int i = 50; i < 161; i++) {
 					for (int j = 8; j < 11; j++) {
@@ -586,11 +1231,12 @@ void charactercreator() {
 				printf_s(" a striving for greater magical power or the settling of age-old grudges.");
 				hero.ablist[0] = feyancestry.id;
 
-				Sleep(8000);
+				_getch();
 				break;
 			}
 			case '2': {
 				warlock.archetype = 2;
+				hero.archetype = 2;
 				strcpy_s(warlock.archetypename, 6, "Fiend");
 				for (int i = 50; i < 161; i++) {
 					for (int j = 8; j < 11; j++) {
@@ -608,7 +1254,7 @@ void charactercreator() {
 				printf_s("ultimately including you.");
 				hero.ablist[0] = darkonesblessing.id;
 
-				Sleep(8000);
+				_getch();
 				break;
 			}
 			}
@@ -618,41 +1264,43 @@ void charactercreator() {
 	}
 	system("cls");
 }
-
 int abilitydesc(int z, int* damage, int* characteristic) {
-	for (int j = 18; j < 29; j++) {
-		gotoxy(0, j);
+	for (int j = 20; j < 31; j++) {
+		gotoxy(3, j);
 		printf_s("|");
-		gotoxy(100, j);
+		gotoxy(103, j);
 		printf_s("|");
 	}
-	for (int i = 0; i < 100; i++) {
-		gotoxy(i, 17);
+	for (int i = 3; i < 103; i++) {
+		gotoxy(i, 19);
 		printf_s("_");
-		gotoxy(i, 29);
+		gotoxy(i, 31);
 		printf_s("_");
 	}
 	switch (hero.ablist[z]) {
 	case '1': {
 		*characteristic = 5;
 		hero.spelldc = hero.modCha + hero.proficiency + 8;
-		int j = 19;
-		int f = 3;
+		int j = 21;
+		int f = 6;
 		for (int i = 3; i < 310; i++) {
 			if (feyancestry.description[i - 3] == '\n') {
 				j++;
-				f = 3;
+				f = 6;
 			}
 			gotoxy(f, j);
 			printf_s("%c", feyancestry.description[i - 3]);
 			f++;
-			
+
 		}
 		gotoxy(3, 12);
 		printf_s("Choose the condititon:");
 		gotoxy(3, 13);
 		printf_s("Frightend(1) Charmed(2)");
 		char choose = _getch();
+		if (choose == 's') {
+			createsave();
+		}
 		switch (choose) {
 		case '1': {
 			hero.mode = 1;
@@ -665,6 +1313,23 @@ int abilitydesc(int z, int* damage, int* characteristic) {
 		}
 		return 2;
 		Sleep(2000);
+		break;
+	}
+	case '2': {
+		int j = 21;
+		int f = 3;
+		for (int i = 3; i < 174; i++) {
+			if (darkonesblessing.description[i - 3] == '\n') {
+				j++;
+				f = 6;
+			}
+			gotoxy(f, j);
+			printf_s("%c", darkonesblessing.description[i - 3]);
+			f++;
+
+		}
+		return 0;
+		Sleep(5000);
 		break;
 	}
 	}
@@ -709,27 +1374,48 @@ void start() {
 	gotoxy(50, 7);
 	printf_s("Start or continue game(1)");
 	gotoxy(50, 8);
-	printf_s("Settings(2)");
+	printf_s("Controls(2)");
 	gotoxy(50, 9);
 	printf_s("Exit(3)");
-	char control = _getch();
-	switch (control) {
-	case '1': {
-		break;
+	char control = '0';
+	while (control != '1') {
+		control = _getch();
+		switch (control) {
+		case '1': {
+			break;
+		}
+		case '2': {
+			system("cls");
+			gotoxy(50, 5);
+			printf_s("(Enter) after you read text");
+			gotoxy(50, 6);
+			printf_s("(-) after you set your character stats");
+			gotoxy(50, 7);
+			printf_s("(number) buttons");
+			gotoxy(50, 8);
+			printf_s("(S) save game");
+			_getch();
+			system("cls");
+			gotoxy(50, 5);
+			printf_s("The Sunless Citadel");
+			gotoxy(50, 7);
+			printf_s("Start or continue game(1)");
+			gotoxy(50, 8);
+			printf_s("Controls(2)");
+			gotoxy(50, 9);
+			printf_s("Exit(3)");
+			break;
+		}
+		case '3': {
+			system("cls");
+			gotoxy(50, 5);
+			printf_s("See you later ^_^");
+			gotoxy(60, 5);
+			Sleep(1500);
+			exit(1);
+		}
+		}
 	}
-	case '2': {
-		break;
-	}
-	case '3': {
-		system("cls");
-		gotoxy(50, 5);
-		printf_s("See you later ^_^");
-		gotoxy(60, 5);
-		Sleep(1500);
-		exit(1);
-	}
-	}
-
 	system("cls");
 
 
@@ -946,6 +1632,60 @@ char statgenerator(int* points) {
 int amountofspells() {
 	return hero.level + 1;
 }
+void loadsave() {
+	FILE* input;
+	if (fopen_s(&input, INPUT_FILE_NAME, "r")) {
+		printf_s(ERR_OPEN_FILE, INPUT_FILE_NAME);
+		exit(1);
+	}
+	fscanf_s(input, "%d %d %d %d %d %d", &hero.Strength, &hero.Dexterity, &hero.Constitution, &hero.Intellect, &hero.Wisdom, &hero.Charisma);
+	fscanf_s(input, "%d %d %d %d %d %d %d", &hero.hits, &hero.tekhits, &hero.armorclass, &hero.armormod, &hero.gold, &hero.silver, &hero.copper);
+	fscanf_s(input, "%d %d %d %d %d %d %d %d", &hero.xp, &hero.level, &hero.class, &hero.hitdice, &hero.archetype, &hero.progress, &hero.proficiency, &hero.race);
+	fscanf_s(input, "%d %s %s %d %d %s %d %s", &hero.weapons, hero.spelllist, amountofspells(), hero.ablist, hero.level, &hero.amounthitdice, &hero.spelldc, hero.weaponlist, hero.weapons, &hero.temphits, hero.name, 20);
+	switch (hero.class) {
+	case 1: {
+		strcpy_s(hero.classname, 8, "Warlock");
+		hero.weaponlist[0] = dagger.id;
+		hero.weaponlist[1] = quarterstaff.id;
+		switch (hero.archetype) {
+		case 1: {
+			hero.ablist[0] = feyancestry.id;
+			warlock.archetype = 1;
+			strcpy_s(warlock.archetypename, 8, "Archfey");
+			break;
+		}
+		case 2: {
+			hero.ablist[0] = darkonesblessing.id;
+			warlock.archetype = 1;
+			strcpy_s(warlock.archetypename, 6, "Fiend");
+			break;
+		}
+		}
+		break;
+	}
+	}
+	switch (hero.race) {
+	case 1: {
+		strcpy_s(hero.racename, 6, "Human");
+		break;
+	}
+	}
+
+	modif();
+	fclose(input);
+}
+void createsave() {
+	FILE* output;
+	if (fopen_s(&output, INPUT_FILE_NAME, "w")) {
+		printf_s(ERR_OPEN_FILE, INPUT_FILE_NAME);
+		exit(1);
+	}
+	fprintf_s(output, "%d %d %d %d %d %d ", hero.Strength, hero.Dexterity, hero.Constitution, hero.Intellect, hero.Wisdom, hero.Charisma);
+	fprintf_s(output, "%d %d %d %d %d %d %d ", hero.hits, hero.tekhits, hero.armorclass, hero.armormod, hero.gold, hero.silver, hero.copper);
+	fprintf_s(output, "%d %d %d %d %d %d %d %d ", hero.xp, hero.level, hero.class, hero.hitdice, hero.archetype, hero.progress, hero.proficiency, hero.race);
+	fprintf_s(output, "%d %s %s %d %d %s %d %s", hero.weapons, hero.spelllist, hero.ablist, hero.amounthitdice, hero.spelldc, hero.weaponlist, hero.temphits, hero.name);
+	fclose(output);
+}
 void save() {
 	char cntrl = 0;
 	while (cntrl != '1' && cntrl != '2') {
@@ -958,42 +1698,11 @@ void save() {
 		switch (cntrl) {
 		case '1': {
 			charactercreator();
-			FILE* output;
-			if (fopen_s(&output, OUTPUT_FILE_NAME, "w")) {
-				printf_s(ERR_OPEN_FILE, OUTPUT_FILE_NAME);
-				exit(1);
-			}
-			fprintf_s(output, "%d %d %d %d %d %d ", hero.Strength, hero.Dexterity, hero.Constitution, hero.Intellect, hero.Wisdom, hero.Charisma);
-			fprintf_s(output, "%d %d %d %d %d %d %d ", hero.hits, hero.tekhits, hero.armorclass, hero.armormod, hero.gold, hero.silver, hero.copper);
-			fprintf_s(output, "%d %d %d %d %d %d %d ", hero.xp, hero.level, hero.hitdice, hero.class, hero.progress, hero.proficiency, hero.race);
-			fprintf_s(output, "%s %s", hero.spelllist, hero.name);
-			fclose(output);
+			createsave();
 			break;
 		}
 		case '2': {
-			FILE* input;
-			if (fopen_s(&input, INPUT_FILE_NAME, "r")) {
-				printf_s(ERR_OPEN_FILE, INPUT_FILE_NAME);
-				exit(1);
-			}
-			fscanf_s(input, "%d %d %d %d %d %d", &hero.Strength, &hero.Dexterity, &hero.Constitution, &hero.Intellect, &hero.Wisdom, &hero.Charisma);
-			fscanf_s(input, "%d %d %d %d %d %d %d", &hero.hits, &hero.tekhits, &hero.armorclass, &hero.armormod, &hero.gold, &hero.silver, &hero.copper);
-			fscanf_s(input, "%d %d %d %d %d %d %d", &hero.xp, &hero.level, &hero.hitdice, &hero.class, &hero.progress, &hero.proficiency, &hero.race);
-			fscanf_s(input, "%s %s", hero.spelllist, amountofspells(), hero.name, 20);
-			switch (hero.class) {
-			case 1: {
-				strcpy_s(hero.classname, 8, "Warlock");
-				break;
-			}
-			}
-			switch (hero.race) {
-			case 1: {
-				strcpy_s(hero.racename, 6, "Human");
-				break;
-			}
-			}
-			modif();
-			fclose(input);
+			loadsave();
 			break;
 		}
 		}

@@ -1,4 +1,20 @@
 #include "rules.h"
+void rulerat() {
+	monster.modStr = Rat.modStr;
+	monster.modDex = Rat.modDex;
+	monster.modCon = Rat.modCon;
+	monster.modInt = Rat.modInt;
+	monster.modWis = Rat.modWis;
+	monster.modCha = Rat.modCha;
+	monster.armorclass = Rat.armorclass;
+	monster.hits = Rat.hits;
+	monsteraction.accur1 = Rataction.accur1;
+	monsteraction.damage1 = Rataction.damage1;
+	monsteraction.accur2 = Rataction.accur2;
+	monsteraction.damage2 = Rataction.damage2;
+	strcpy_s(monster.name, 10, Rat.name);
+	monster.proficiency = Rat.proficiency;
+}
 void rulebandit() {
 	monster.modStr = Bandit.modStr;
 	monster.modDex = Bandit.modDex;
@@ -43,12 +59,15 @@ void ruleset() {
 
 	hero.hitdice = 0;
 	hero.race = 0;
-
+	hero.amounthitdice = hero.level;
+	hero.crit = 0;
+	hero.weapons = 2;
+	hero.archetype = 0;
 
 	warlock.class = 1;
 	fighter.class = 2;
 
-
+	human.race = 1;
 	human.str = 1;
 	human.dex = 1;
 	human.con = 1;
@@ -56,6 +75,9 @@ void ruleset() {
 	human.wis = 1;
 	human.cha = 1;
 	human.race = 1;
+
+	dwarf.con = 2;
+	dwarf.race = 2;
 
 	eldritchblast.level = 0;
 	eldritchblast.amount = 1;
@@ -77,6 +99,15 @@ void ruleset() {
 	darkonesblessing.id = '2';
 
 	dagger.damage = d4;
+	dagger.finnese = 1;
+	dagger.id = '1';
+	strcpy_s(dagger.name, 7, "Dagger");
+
+	quarterstaff.damage = d8;
+	quarterstaff.finnese = 0;
+	quarterstaff.id = '2';
+	strcpy_s(quarterstaff.name, 13, "Quarterstaff");
+
 	armor.shield = 2;
 
 	armor.platearmor = 18;
@@ -93,6 +124,22 @@ void ruleset() {
 	armor.studdedleather = 12;
 	armor.leatherarmor = 11;
 	armor.paddedarmor = 11;
+
+	Rat.armorclass = 12;
+	Rat.hits = 7;
+	Rat.proficiency = 2;
+	Rat.level = 0;
+	Ratstat.Strength = 7;
+	Ratstat.Dexterity = 15;
+	Ratstat.Constitution = 11;
+	Ratstat.Intellect = 2;
+	Ratstat.Wisdom = 10;
+	Ratstat.Charisma = 4;
+	modif();
+	strcpy_s(Rat.name, 10, "Giant rat");
+	strcpy_s(Rataction.action1, 5, "Bite");
+	Rataction.damage1 = roll(d4) + Ratstat.modDex;
+	Rataction.accur1 = roll(d20) + Rat.proficiency + Ratstat.modDex;
 
 	Goblin.armorclass = 15;
 	Goblin.hits = 7;
@@ -143,6 +190,13 @@ void ruleset() {
 	Frankaction.accur1 = roll(d20) + Frank.proficiency + Frankstat.modStr;
 }
 void modif() {
+	Ratstat.modStr = (Ratstat.Strength - 10) / 2;
+	Ratstat.modDex = (Ratstat.Dexterity - 10) / 2;
+	Ratstat.modConst = (Ratstat.Constitution - 10) / 2;
+	Ratstat.modInt = (Ratstat.Intellect - 10) / 2;
+	Ratstat.modWis = (Ratstat.Wisdom - 10) / 2;
+	Ratstat.modCha = (Ratstat.Charisma - 10) / 2;
+
 	Banditstat.modStr = (Banditstat.Strength - 10) / 2;
 	Banditstat.modDex = (Banditstat.Dexterity - 10) / 2;
 	Banditstat.modConst = (Banditstat.Constitution - 10) / 2;

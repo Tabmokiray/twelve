@@ -1,10 +1,26 @@
 ﻿  reload.c
-C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(85,12): warning C4013: rulegoblin: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(108,12): warning C4013: rulebandit: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(181,20): warning C4013: roll: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(203,8): warning C4013: loot: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(235,7): warning C4101: savingthrow: неиспользованная локальная переменная
-C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(351,11): warning C4013: modif: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(365,7): warning C4101: n: неиспользованная локальная переменная
-C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(672): warning C4715: statgenerator: значение возвращается не при всех путях выполнения
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(91,38): warning C4013: roll: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(569,12): warning C4013: rulegoblin: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(597,12): warning C4013: rulebandit: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(624,9): warning C4013: rulerat: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(774,48): warning C4047: функция: "char *" отличается по уровням косвенного обращения от "char (*)[20]"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(774,37): warning C4024: weapons: различные типы для формального и фактического параметров 4
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(803,25): warning C4047: функция: "int *" отличается по уровням косвенного обращения от "int"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(803,24): warning C4024: abilitydesc: различные типы для формального и фактического параметров 3
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(814,8): warning C4013: loot: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(949,25): warning C4047: функция: "int *" отличается по уровням косвенного обращения от "int"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(949,24): warning C4024: abilitydesc: различные типы для формального и фактического параметров 3
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(990,50): warning C4047: функция: "char *" отличается по уровням косвенного обращения от "char (*)[20]"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(990,37): warning C4024: spell: различные типы для формального и фактического параметров 3
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(1024,25): warning C4047: функция: "int *" отличается по уровням косвенного обращения от "int"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(1024,24): warning C4024: abilitydesc: различные типы для формального и фактического параметров 3
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(994,7): warning C4101: savingthrow: неиспользованная локальная переменная
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(1152,11): warning C4013: modif: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(1166,7): warning C4101: n: неиспользованная локальная переменная
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(594): warning C4715: stage0: значение возвращается не при всех путях выполнения
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(621): warning C4715: stage1: значение возвращается не при всех путях выполнения
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(655): warning C4715: stage2: значение возвращается не при всех путях выполнения
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(1336): warning C4715: abilitydesc: значение возвращается не при всех путях выполнения
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(1081): warning C4715: actions: значение возвращается не при всех путях выполнения
+C:\Users\Tabmokiray\source\repos\4_Games_1.5\reload.c(1631): warning C4715: statgenerator: значение возвращается не при всех путях выполнения
   4_Games_1.5.vcxproj -> C:\Users\Tabmokiray\source\repos\4_Games_1.5\x64\Debug\4_Games_1.5.exe

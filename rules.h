@@ -1,4 +1,5 @@
 #include "struct.h"
+void rulerat();
 void rulebandit();
 void rulegoblin();
 void ruleset();
