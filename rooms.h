@@ -1,0 +1,13 @@
+#include "struct.h"
+void room0();
+void room1();
+void room2();
+void room3();
+void room4();
+void intro();
+void picture();
+int stage0();
+int stage1();
+int stage2();
+int stage3();
+void stages();

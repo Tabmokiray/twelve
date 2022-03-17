@@ -147,12 +147,14 @@
   <ItemGroup>
     <ClCompile Include="bestiary.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="reload.c" />
+    <ClCompile Include="mechanic.c" />
+    <ClCompile Include="rooms.c" />
     <ClCompile Include="rules.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bestiary.h" />
-    <ClInclude Include="reload.h" />
+    <ClInclude Include="mechanic.h" />
+    <ClInclude Include="rooms.h" />
     <ClInclude Include="rules.h" />
     <ClInclude Include="struct.h" />
   </ItemGroup>

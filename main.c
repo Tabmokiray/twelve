@@ -1,10 +1,6 @@
-#include "reload.h"
-
+#include "mechanic.h"
 int main(void) {
-	fullscreen();
-	srand(time(NULL));
-	ruleset();
-	hidecursor();
+	mechanicsatstart();
 	start();
 	save();
 	stages();

@@ -47,6 +47,23 @@ void rulegoblin() {
 	strcpy_s(monster.name, 7, Goblin.name);
 	monster.proficiency = Goblin.proficiency;
 }
+void ruleskeleton() {
+	monster.modStr = Skeleton.modStr;
+	monster.modDex = Skeleton.modDex;
+	monster.modCon = Skeleton.modCon;
+	monster.modInt = Skeleton.modInt;
+	monster.modWis = Skeleton.modWis;
+	monster.modCha = Skeleton.modCha;
+	monster.armorclass = Skeleton.armorclass;
+	monster.hits = Skeleton.hits;
+	monsteraction.accur1 = Skeletonaction.accur1;
+	monsteraction.damage1 = Skeletonaction.damage1;
+	monsteraction.accur2 = Skeletonaction.accur2;
+	monsteraction.damage2 = Skeletonaction.damage2;
+	strcpy_s(monster.name, 9, Skeleton.name);
+	monster.proficiency = Skeleton.proficiency;
+
+}
 void ruleset() {
 	int d4 = 4;
 	int d6 = 6;
@@ -103,6 +120,11 @@ void ruleset() {
 	dagger.id = '1';
 	strcpy_s(dagger.name, 7, "Dagger");
 
+	magicalshortsword.damage = d6 + 1;
+	magicalshortsword.finnese = 1;
+	magicalshortsword.id = '3';
+	strcpy_s(magicalshortsword.name, 20, "Magical short sword");
+
 	quarterstaff.damage = d8;
 	quarterstaff.finnese = 0;
 	quarterstaff.id = '2';
@@ -140,6 +162,22 @@ void ruleset() {
 	strcpy_s(Rataction.action1, 5, "Bite");
 	Rataction.damage1 = roll(d4) + Ratstat.modDex;
 	Rataction.accur1 = roll(d20) + Rat.proficiency + Ratstat.modDex;
+
+	Skeleton.armorclass = 13;
+	Skeleton.hits = 13;
+	Skeleton.proficiency = 2;
+	Skeleton.level = 0;
+	Skeletonstat.Strength = 10;
+	Skeletonstat.Dexterity = 14;
+	Skeletonstat.Constitution = 15;
+	Skeletonstat.Intellect = 6;
+	Skeletonstat.Wisdom = 8;
+	Skeletonstat.Charisma = 5;
+	modif();
+	strcpy_s(Skeleton.name, 9, "Skeleton");
+	strcpy_s(Skeletonaction.action1, 12, "Short sword");
+	Skeletonaction.damage1 = roll(d6) + Skeletonstat.modDex;
+	Skeletonaction.accur1 = roll(d20) + Skeleton.proficiency + Skeletonstat.modDex;
 
 	Goblin.armorclass = 15;
 	Goblin.hits = 7;
@@ -190,6 +228,13 @@ void ruleset() {
 	Frankaction.accur1 = roll(d20) + Frank.proficiency + Frankstat.modStr;
 }
 void modif() {
+	Skeletonstat.modStr = (Skeletonstat.Strength - 10) / 2;
+	Skeletonstat.modDex = (Skeletonstat.Dexterity - 10) / 2;
+	Skeletonstat.modConst = (Skeletonstat.Constitution - 10) / 2;
+	Skeletonstat.modInt = (Skeletonstat.Intellect - 10) / 2;
+	Skeletonstat.modWis = (Skeletonstat.Wisdom - 10) / 2;
+	Skeletonstat.modCha = (Skeletonstat.Charisma - 10) / 2;
+
 	Ratstat.modStr = (Ratstat.Strength - 10) / 2;
 	Ratstat.modDex = (Ratstat.Dexterity - 10) / 2;
 	Ratstat.modConst = (Ratstat.Constitution - 10) / 2;
@@ -263,7 +308,7 @@ void loot() {
 	gotoxy(3, 6);
 	printf_s("Your xp is %d", hero.xp);
 	levels();
-	Sleep(1500);
+	Sleep(5000);
 }
 void levels() {
 	if (hero.xp >= 300 && hero.level == 1) {
@@ -328,4 +373,326 @@ void proficiency() {
 			}
 		}
 	}
+}
+void condition(int* attack) {
+	switch (monster.condition) {
+	case 1: {//Frightend
+		int a = monsteraction.accur1;
+		int b = monsteraction.accur1;
+		if (a > b) {
+			*attack = b;
+		}
+		else {
+			*attack = a;
+		}
+		break;
+	}
+	case 2: {//Charmed
+		*attack = -1;
+		break;
+	}
+	}
+}
+void weapons(int z, int* damage, int* attack, char* damagetype) {
+	switch (z) {
+	case 1: {
+		strcpy_s(damagetype, 9, "piercing");
+		if (hero.modDex > hero.modStr) {
+			*damage = dagger.damage + hero.modDex;
+			*attack = roll(20) + hero.modDex + hero.proficiency;
+			if (*attack == 20 + hero.modDex + hero.proficiency) {
+				*damage = dagger.damage + dagger.damage + hero.modDex;
+				hero.crit = 1;
+			}
+		}
+		else {
+			*damage = dagger.damage + hero.modStr;
+			*attack = roll(20) + hero.modStr + hero.proficiency;
+			if (*attack == 20 + hero.modStr + hero.proficiency) {
+				*damage = dagger.damage + dagger.damage + hero.modStr;
+				hero.crit = 1;
+			}
+		}
+
+		break;
+	}
+	case 2: {
+		strcpy_s(damagetype, 12, "bludgeoning");
+		*damage = quarterstaff.damage + hero.modStr;
+		*attack = roll(20) + hero.modStr + hero.proficiency;
+		if (*attack == 20 + hero.modStr + hero.proficiency) {
+			*damage = quarterstaff.damage + quarterstaff.damage + hero.modStr;
+			hero.crit = 1;
+		}
+		break;
+	}
+	case 3: {
+		strcpy_s(damagetype, 9, "piercing");
+		if (hero.modDex > hero.modStr) {
+			*damage = magicalshortsword.damage + hero.modDex;
+			*attack = roll(20) + hero.modDex + hero.proficiency + 1;
+			if (*attack == 20 + hero.modDex + hero.proficiency + 1) {
+				*damage = magicalshortsword.damage + magicalshortsword.damage + hero.modDex - 1;
+				hero.crit = 1;
+			}
+		}
+		else {
+			*damage = magicalshortsword.damage + hero.modStr;
+			*attack = roll(20) + hero.modStr + hero.proficiency + 1;
+			if (*attack == 20 + hero.modStr + hero.proficiency + 1) {
+				*damage = magicalshortsword.damage + magicalshortsword.damage + hero.modStr - 1;
+				hero.crit = 1;
+			}
+		}
+
+		break;
+	}
+	}
+}
+int abilitydesc(int z, int* damage, int* characteristic) {
+	for (int j = 20; j < 31; j++) {
+		gotoxy(3, j);
+		printf_s("|");
+		gotoxy(113, j);
+		printf_s("|");
+	}
+	for (int i = 3; i < 113; i++) {
+		gotoxy(i, 19);
+		printf_s("_");
+		gotoxy(i, 31);
+		printf_s("_");
+	}
+	switch (hero.ablist[z]) {
+	case '1': {
+		*characteristic = 5;
+		hero.spelldc = hero.modCha + hero.proficiency + 8;
+		int j = 21;
+		int f = 6;
+		for (int i = 3; i < 310; i++) {
+			if (feyancestry.description[i - 3] == '\n') {
+				j++;
+				f = 6;
+			}
+			gotoxy(f, j);
+			printf_s("%c", feyancestry.description[i - 3]);
+			f++;
+
+		}
+		gotoxy(3, 12);
+		printf_s("Choose the condititon:");
+		gotoxy(3, 13);
+		printf_s("Frightend(1) Charmed(2)");
+		char choose = _getch();
+		if (choose == 's') {
+			createsave();
+		}
+		switch (choose) {
+		case '1': {
+			hero.mode = 1;
+			break;
+		}
+		case '2': {
+			hero.mode = 2;
+			break;
+		}
+		}
+		return 2;
+		Sleep(2000);
+		break;
+	}
+	case '2': {
+		int j = 21;
+		int f = 6;
+		for (int i = 3; i < 174; i++) {
+			if (darkonesblessing.description[i - 3] == '\n') {
+				j++;
+				f = 6;
+			}
+			gotoxy(f, j);
+			printf_s("%c", darkonesblessing.description[i - 3]);
+			f++;
+
+		}
+		return 0;
+		Sleep(5000);
+		break;
+	}
+	}
+}
+int spell(int z, int* damage, char* typeofdamage) {
+	for (int j = 20; j < 31; j++) {
+		gotoxy(3, j);
+		printf_s("|");
+		gotoxy(103, j);
+		printf_s("|");
+	}
+	for (int i = 3; i < 103; i++) {
+		gotoxy(i, 19);
+		printf_s("_");
+		gotoxy(i, 31);
+		printf_s("_");
+	}
+	switch (hero.spelllist[z]) {
+	case '1': {
+		strcpy_s(typeofdamage, 6, eldritchblast.typeofdamage);
+		int j = 21;
+		int f = 6;
+		*damage = roll(eldritchblast.damage);
+		for (int i = 3; i < 310; i++) {
+			if (eldritchblast.description[i - 3] == '\n') {
+				j++;
+				f = 6;
+			}
+			gotoxy(f, j);
+			printf_s("%c", eldritchblast.description[i - 3]);
+			f++;
+
+		}
+		return 1;
+		Sleep(2000);
+		break;
+	}
+	}
+
+}
+void shortrest() {
+	system("cls");
+	gotoxy(50, 5);
+	printf_s("You build a small fire, eat rations and give yourself some rest.");
+	gotoxy(50, 6);
+	printf_s("Would you like to spend hit-dices to heal yourself?");
+	gotoxy(50, 7);
+	printf_s("Yes(1) End shortrest(2)");
+	char choose = '0';
+	while (choose != '2') {
+		choose = _getch();
+		if (choose == 's') {
+			createsave();
+		}
+		switch (choose) {
+		case '1': {
+			if (hero.amounthitdice != 0) {
+				gotoxy(50, 8);
+				int hitdice = roll(hero.hitdice) + hero.modConst;
+
+				hero.tekhits += hitdice;
+				if (hero.tekhits > hero.hits) {
+					hero.tekhits = hero.hits;
+				}
+				hero.amounthitdice -= 1;
+				printf_s("You heal %d, your hits is %d", hitdice, hero.tekhits);
+				Sleep(2000);
+				gotoxy(50, 8);
+				printf_s("                                 ");
+			}
+			else {
+				gotoxy(50, 8);
+				printf_s("You are so tired, only long rest can help you.");
+				gotoxy(50, 9);
+				printf_s("À long rest can only be spent in quiet places where you can sleep.");
+				Sleep(3000);
+				for (int i = 50; i < 118; i++) {
+					for (int j = 8; j < 10; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
+			}
+			break;
+		}
+		}
+	}
+	system("cls");
+}
+int amountofspells() {
+	return hero.level + 1;
+}
+void characterlist() {
+	system("cls");
+	for (int i = 20; i < 100; i++) {
+		gotoxy(i, 3);
+		printf_s("_");
+		gotoxy(i, 57);
+		printf_s("_");
+	}
+	for (int j = 4; j < 58; j++) {
+		gotoxy(20, j);
+		printf_s("|");
+		gotoxy(99, j);
+		printf_s("|");
+	}
+	gotoxy(22, 5);
+	printf_s("%s", hero.name);
+	gotoxy(22, 6);
+	printf_s("Hero name");
+	gotoxy(62, 5);
+	printf_s("%s", hero.classname);
+	gotoxy(62, 6);
+	printf_s("Class");
+	gotoxy(70, 5);
+	printf_s("%s", warlock.archetypename);
+	for (int i = 21; i < 99; i++) {
+		gotoxy(i, 7);
+		printf_s("_");
+	}
+	for (int j = 8; j < 32; j++) {
+		gotoxy(34, j);
+		printf_s("|");
+	}
+	for (int i = 21; i < 34; i++) {
+		gotoxy(i, 31);
+		printf_s("_");
+	}
+	gotoxy(40, 9);
+	printf_s("Armor Class");
+	gotoxy(41, 10);
+	printf_s("%d", hero.armorclass);
+	gotoxy(40, 11);
+	printf_s("Initiative");
+	gotoxy(41, 12);
+	printf_s("%d", hero.modDex);
+	gotoxy(60, 9);
+	printf_s("HITS");
+	gotoxy(61, 10);
+	printf_s("%d", hero.hits);
+	gotoxy(60, 11);
+	printf_s("Hit dice");
+	gotoxy(61, 12);
+	printf_s("d%d", hero.hits - hero.modConst);
+	gotoxy(22, 8);
+	printf_s("Strength");
+	gotoxy(22, 9);
+	printf_s("%d", hero.Strength);
+	gotoxy(22, 10);
+	printf_s("%d Mod", hero.modStr);
+	gotoxy(22, 12);
+	printf_s("Dexterity");
+	gotoxy(22, 13);
+	printf_s("%d", hero.Dexterity);
+	gotoxy(22, 14);
+	printf_s("%d Mod", hero.modDex);
+	gotoxy(22, 16);
+	printf_s("Constitution");
+	gotoxy(22, 17);
+	printf_s("%d", hero.Constitution);
+	gotoxy(22, 18);
+	printf_s("%d Mod", hero.modConst);
+	gotoxy(22, 20);
+	printf_s("Intellect");
+	gotoxy(22, 21);
+	printf_s("%d", hero.Intellect);
+	gotoxy(22, 22);
+	printf_s("%d Mod", hero.modInt);
+	gotoxy(22, 24);
+	printf_s("Wisdom");
+	gotoxy(22, 25);
+	printf_s("%d", hero.Wisdom);
+	gotoxy(22, 26);
+	printf_s("%d Mod", hero.modWis);
+	gotoxy(22, 28);
+	printf_s("Charisma");
+	gotoxy(22, 29);
+	printf_s("%d", hero.Charisma);
+	gotoxy(22, 30);
+	printf_s("%d Mod", hero.modCha);
 }

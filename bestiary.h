@@ -1,5 +1,5 @@
-#include "struct.h"
+#include "rooms.h"
 void bandit();
 void rat();
 void goblin();
-int spell(int z, int* damage, char* typeofdamage);
+void skeleton();

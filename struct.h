@@ -45,7 +45,7 @@ struct stats {
 	int crit;
 	int weapons;
 };
-struct stats hero, Frankstat, Goblinstat, Banditstat,Ratstat;
+struct stats hero, Frankstat, Goblinstat, Banditstat, Ratstat, Skeletonstat;
 struct race {
 	int race;
 	int str;
@@ -60,7 +60,7 @@ struct race {
 	int size;
 	int subrace;
 };
-struct race human,dwarf;
+struct race human, dwarf;
 struct class {
 	int spellcaster;
 	int hitdice;
@@ -83,7 +83,7 @@ struct npc {
 	int modCha;
 	int condition;
 };
-struct npc Frank, Goblin, Bandit, monster,Rat;
+struct npc Frank, Goblin, Bandit, monster, Rat, Skeleton;
 struct action {
 	char action1[20];
 	char action2[20];
@@ -92,7 +92,7 @@ struct action {
 	int accur1;
 	int accur2;
 };
-struct action Frankaction, Goblinaction, Banditaction, monsteraction,Rataction;
+struct action Frankaction, Goblinaction, Banditaction, monsteraction, Rataction, Skeletonaction;
 struct armor {
 	int shield;
 
@@ -119,7 +119,7 @@ struct weapon {
 	char damagetype[20];
 	char id;
 };
-struct weapon dagger, quarterstaff;
+struct weapon dagger, quarterstaff,magicalshortsword;
 struct spell {
 	char id;
 	char name[20];
@@ -130,9 +130,9 @@ struct spell {
 	char* description;
 	int mode;
 };
-struct spell eldritchblast,darkonesblessing,feyancestry;
+struct spell eldritchblast, darkonesblessing, feyancestry;
 struct text {
 	char* text1;
 	char* text2;
 };
-struct text intr,columns;
+struct text intr, columns;

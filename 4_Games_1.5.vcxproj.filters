@@ -18,7 +18,7 @@
     <ClCompile Include="main.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="reload.c">
+    <ClCompile Include="mechanic.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="bestiary.c">
@@ -27,9 +27,12 @@
     <ClCompile Include="rules.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="rooms.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="reload.h">
+    <ClInclude Include="mechanic.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="bestiary.h">
@@ -39,6 +42,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="rules.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="rooms.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
