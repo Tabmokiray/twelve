@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <Windows.h>
-#include <limits.h>
 struct stats {
 	char name[20];
 	int gold;
