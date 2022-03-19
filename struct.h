@@ -43,8 +43,9 @@ struct stats {
 	int temphits;
 	int crit;
 	int weapons;
+	char itemlist[20];
 };
-struct stats hero, Frankstat, Goblinstat, Banditstat, Ratstat, Skeletonstat;
+struct stats hero, Frankstat, Goblinstat, Banditstat, Ratstat, Skeletonstat, Swordstat;
 struct race {
 	int race;
 	int str;
@@ -82,7 +83,7 @@ struct npc {
 	int modCha;
 	int condition;
 };
-struct npc Frank, Goblin, Bandit, monster, Rat, Skeleton;
+struct npc Goblin, Bandit, monster, Rat, Skeleton, Sword;
 struct action {
 	char action1[20];
 	char action2[20];
@@ -91,7 +92,7 @@ struct action {
 	int accur1;
 	int accur2;
 };
-struct action Frankaction, Goblinaction, Banditaction, monsteraction, Rataction, Skeletonaction;
+struct action Goblinaction, Banditaction, monsteraction, Rataction, Skeletonaction, Swordaction;
 struct armor {
 	int shield;
 
@@ -117,8 +118,10 @@ struct weapon {
 	char name[20];
 	char damagetype[20];
 	char id;
+	int mods;
+	int amount;
 };
-struct weapon dagger, quarterstaff,magicalshortsword;
+struct weapon dagger, quarterstaff, magicalshortsword;
 struct spell {
 	char id;
 	char name[20];
@@ -128,10 +131,21 @@ struct spell {
 	char typeofdamage[20];
 	char* description;
 	int mode;
+	int mods;
 };
 struct spell eldritchblast, darkonesblessing, feyancestry;
 struct text {
 	char* text1;
 	char* text2;
 };
-struct text intr, columns;
+struct text intr, columns, magicsword;
+struct item {
+	char id;
+	char name[20];
+	int damage;
+	char typeofdamage[20];
+	char* description;
+	int amount;
+	int mods;
+};
+struct item healingpotion;

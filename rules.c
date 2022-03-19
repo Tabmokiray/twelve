@@ -64,6 +64,23 @@ void ruleskeleton() {
 	monster.proficiency = Skeleton.proficiency;
 
 }
+void rulesword() {
+	monster.modStr = Sword.modStr;
+	monster.modDex = Sword.modDex;
+	monster.modCon = Sword.modCon;
+	monster.modInt = Sword.modInt;
+	monster.modWis = Sword.modWis;
+	monster.modCha = Sword.modCha;
+	monster.armorclass = Sword.armorclass;
+	monster.hits = Sword.hits;
+	monsteraction.accur1 = Swordaction.accur1;
+	monsteraction.damage1 = Swordaction.damage1;
+	monsteraction.accur2 = Swordaction.accur2;
+	monsteraction.damage2 = Swordaction.damage2;
+	strcpy_s(monster.name, 20, Sword.name);
+	monster.proficiency = Sword.proficiency;
+
+}
 void ruleset() {
 	int d4 = 4;
 	int d6 = 6;
@@ -96,9 +113,18 @@ void ruleset() {
 	dwarf.con = 2;
 	dwarf.race = 2;
 
+	healingpotion.damage = -1 * d4;
+	healingpotion.amount = 2;
+	healingpotion.mods = 2;
+	healingpotion.description = (char*)malloc(100);
+	strcpy_s(healingpotion.description, 36, "Healing potion restore 2d4 + 2 hits");
+	healingpotion.id = '1';
+	strcpy_s(healingpotion.name, 15, "Healing potion");
+	strcpy_s(healingpotion.typeofdamage, 8, "healing");
+
 	eldritchblast.level = 0;
 	eldritchblast.amount = 1;
-	eldritchblast.damage = eldritchblast.amount * d10;
+	eldritchblast.damage = d10;
 	strcpy_s(eldritchblast.name, 15, "Eldritch blast");
 	eldritchblast.description = (char*)malloc(400);
 	strcpy_s(eldritchblast.description, 310, "A beam of crackling energy streaks toward a creature within range.\nMake a ranged spell attack against the target.\nOn a hit, the target takes 1d10 force damage.\nThe spell creates more than one beam when you reach higher levels :\ntwo beams at 5th level, three beams at 11th level,\nand four beams at 17th level.");
@@ -112,21 +138,24 @@ void ruleset() {
 
 	strcpy_s(darkonesblessing.name, 20, "Dark One's blessing");
 	darkonesblessing.description = (char*)malloc(200);
-	strcpy_s(darkonesblessing.description, 174, "Starting at 1st level, when you reduce a hostile creature to 0 hit points,\nyou gain temporary hit points equal to your Charisma modifier + your warlock level (minimum of 1).");
+	strcpy_s(darkonesblessing.description, 175, "Starting at 1st level, when you reduce a hostile creature to 0 hit points,\nyou gain temporary hit points equal\nto your Charisma modifier + your warlock level (minimum of 1).");
 	darkonesblessing.id = '2';
 
 	dagger.damage = d4;
 	dagger.finnese = 1;
+	dagger.mods = 0;
 	dagger.id = '1';
 	strcpy_s(dagger.name, 7, "Dagger");
 
-	magicalshortsword.damage = d6 + 1;
+	magicalshortsword.damage = d6;
+	magicalshortsword.mods = 1;
 	magicalshortsword.finnese = 1;
 	magicalshortsword.id = '3';
 	strcpy_s(magicalshortsword.name, 20, "Magical short sword");
 
 	quarterstaff.damage = d8;
 	quarterstaff.finnese = 0;
+	quarterstaff.mods = 0;
 	quarterstaff.id = '2';
 	strcpy_s(quarterstaff.name, 13, "Quarterstaff");
 
@@ -160,8 +189,24 @@ void ruleset() {
 	modif();
 	strcpy_s(Rat.name, 10, "Giant rat");
 	strcpy_s(Rataction.action1, 5, "Bite");
-	Rataction.damage1 = roll(d4) + Ratstat.modDex;
-	Rataction.accur1 = roll(d20) + Rat.proficiency + Ratstat.modDex;
+	Rataction.damage1 = roll(1, d4, Ratstat.modDex);
+	Rataction.accur1 = roll(1, d20, Rat.proficiency + Ratstat.modDex);
+
+	Sword.armorclass = 15;
+	Sword.hits = 20;
+	Sword.proficiency = 3;
+	Sword.level = 3;
+	Swordstat.Strength = 15;
+	Swordstat.Dexterity = 15;
+	Swordstat.Constitution = 12;
+	Swordstat.Intellect = 15;
+	Swordstat.Wisdom = 10;
+	Swordstat.Charisma = 15;
+	modif();
+	strcpy_s(Sword.name, 20, magicalshortsword.name);
+	strcpy_s(Swordaction.action1, 8, "Strike");
+	Swordaction.damage1 = roll(1, d6, Swordstat.modDex);
+	Swordaction.accur1 = roll(1, d20, Sword.proficiency + Swordstat.modDex);
 
 	Skeleton.armorclass = 13;
 	Skeleton.hits = 13;
@@ -176,8 +221,8 @@ void ruleset() {
 	modif();
 	strcpy_s(Skeleton.name, 9, "Skeleton");
 	strcpy_s(Skeletonaction.action1, 12, "Short sword");
-	Skeletonaction.damage1 = roll(d6) + Skeletonstat.modDex;
-	Skeletonaction.accur1 = roll(d20) + Skeleton.proficiency + Skeletonstat.modDex;
+	Skeletonaction.damage1 = roll(1, d6, Skeletonstat.modDex);
+	Skeletonaction.accur1 = roll(1, d20, Skeleton.proficiency + Skeletonstat.modDex);
 
 	Goblin.armorclass = 15;
 	Goblin.hits = 7;
@@ -192,8 +237,8 @@ void ruleset() {
 	modif();
 	strcpy_s(Goblin.name, 7, "Goblin");
 	strcpy_s(Goblinaction.action1, 9, "Scimitar");
-	Goblinaction.damage1 = roll(d6) + Goblinstat.modDex;
-	Goblinaction.accur1 = roll(d20) + Goblin.proficiency + Goblinstat.modDex;
+	Goblinaction.damage1 = roll(1, d6, Goblinstat.modDex);
+	Goblinaction.accur1 = roll(1, d20, Goblin.proficiency + Goblinstat.modDex);
 
 	Bandit.armorclass = 12;
 	Bandit.hits = 11;
@@ -208,26 +253,17 @@ void ruleset() {
 	modif();
 	strcpy_s(Bandit.name, 7, "Bandit");
 	strcpy_s(Banditaction.action1, 9, "Scimitar");
-	Banditaction.damage1 = roll(d6) + Banditstat.modDex;
-	Banditaction.accur1 = roll(d20) + Bandit.proficiency + Banditstat.modDex;
-
-	Frank.level = 5;
-	Frank.proficiency = 3;
-	Frankstat.Strength = 18;
-	Frankstat.Dexterity = 10;
-	Frankstat.Constitution = 14;
-	Frankstat.Intellect = 10;
-	Frankstat.Wisdom = 15;
-	Frankstat.Charisma = 12;
-	modif();
-	Frank.armorclass = armor.platearmor;
-	Frank.hits = (Frank.level - 1) * ((fighter.hitdice / 2) + 1) + fighter.hitdice + Frankstat.modConst * Frank.level;
-	strcpy_s(Frank.name, 6, "Frank");
-	strcpy_s(Frankaction.action1, 5, "Kick");
-	Frankaction.damage1 = roll(d4) + Frankstat.modStr;
-	Frankaction.accur1 = roll(d20) + Frank.proficiency + Frankstat.modStr;
+	Banditaction.damage1 = roll(1, d6, Banditstat.modDex);
+	Banditaction.accur1 = roll(1, d20, Bandit.proficiency + Banditstat.modDex);
 }
 void modif() {
+	Swordstat.modStr = (Swordstat.Strength - 10) / 2;
+	Swordstat.modDex = (Swordstat.Dexterity - 10) / 2;
+	Swordstat.modConst = (Swordstat.Constitution - 10) / 2;
+	Swordstat.modInt = (Swordstat.Intellect - 10) / 2;
+	Swordstat.modWis = (Swordstat.Wisdom - 10) / 2;
+	Swordstat.modCha = (Swordstat.Charisma - 10) / 2;
+
 	Skeletonstat.modStr = (Skeletonstat.Strength - 10) / 2;
 	Skeletonstat.modDex = (Skeletonstat.Dexterity - 10) / 2;
 	Skeletonstat.modConst = (Skeletonstat.Constitution - 10) / 2;
@@ -256,13 +292,6 @@ void modif() {
 	Goblinstat.modWis = (Goblinstat.Wisdom - 10) / 2;
 	Goblinstat.modCha = (Goblinstat.Charisma - 10) / 2;
 
-	Frankstat.modStr = (Frankstat.Strength - 10) / 2;
-	Frankstat.modDex = (Frankstat.Dexterity - 10) / 2;
-	Frankstat.modConst = (Frankstat.Constitution - 10) / 2;
-	Frankstat.modInt = (Frankstat.Intellect - 10) / 2;
-	Frankstat.modWis = (Frankstat.Wisdom - 10) / 2;
-	Frankstat.modCha = (Frankstat.Charisma - 10) / 2;
-
 	hero.modStr = (hero.Strength - 10) / 2;
 	hero.modDex = (hero.Dexterity - 10) / 2;
 	hero.modConst = (hero.Constitution - 10) / 2;
@@ -289,9 +318,9 @@ void modif() {
 	}
 }
 void loot() {
-	int lootgold = (roll(10) + roll(10)) * monster.level;
-	int lootsilver = (roll(10) + roll(10) * (monster.level + 1));
-	int lootcopper = (roll(10) + roll(10) * (monster.level + 2));
+	int lootgold = (roll(2,10,0)) * monster.level;
+	int lootsilver = roll(2,10,0) * (monster.level + 1);
+	int lootcopper = roll(2,10,0) * (monster.level + 2);
 	int xp = monster.level * 150 + 50;
 	gotoxy(3, 3);
 	printf_s("In dead body you find:");
@@ -348,8 +377,12 @@ void money() {
 		hero.gold += k;
 	}
 }
-int roll(int dice) {
-	return rand() % dice + 1;
+int roll(int amount, int dice, int mods) {
+	int roll = 0;
+	for (int i = 0; i < amount; i++) {
+		roll += rand() % dice + 1;
+	}
+	return (roll + mods);
 }
 void proficiency() {
 	if (hero.level < 5) {
@@ -399,7 +432,7 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 		strcpy_s(damagetype, 9, "piercing");
 		if (hero.modDex > hero.modStr) {
 			*damage = dagger.damage + hero.modDex;
-			*attack = roll(20) + hero.modDex + hero.proficiency;
+			*attack = roll(1,20, hero.modDex + hero.proficiency);
 			if (*attack == 20 + hero.modDex + hero.proficiency) {
 				*damage = dagger.damage + dagger.damage + hero.modDex;
 				hero.crit = 1;
@@ -407,7 +440,7 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 		}
 		else {
 			*damage = dagger.damage + hero.modStr;
-			*attack = roll(20) + hero.modStr + hero.proficiency;
+			*attack = roll(1,20, hero.modStr + hero.proficiency);
 			if (*attack == 20 + hero.modStr + hero.proficiency) {
 				*damage = dagger.damage + dagger.damage + hero.modStr;
 				hero.crit = 1;
@@ -419,7 +452,7 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 	case 2: {
 		strcpy_s(damagetype, 12, "bludgeoning");
 		*damage = quarterstaff.damage + hero.modStr;
-		*attack = roll(20) + hero.modStr + hero.proficiency;
+		*attack = roll(1,20, hero.modStr + hero.proficiency);
 		if (*attack == 20 + hero.modStr + hero.proficiency) {
 			*damage = quarterstaff.damage + quarterstaff.damage + hero.modStr;
 			hero.crit = 1;
@@ -430,7 +463,7 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 		strcpy_s(damagetype, 9, "piercing");
 		if (hero.modDex > hero.modStr) {
 			*damage = magicalshortsword.damage + hero.modDex;
-			*attack = roll(20) + hero.modDex + hero.proficiency + 1;
+			*attack = roll(1,20, hero.modDex + hero.proficiency + 1);
 			if (*attack == 20 + hero.modDex + hero.proficiency + 1) {
 				*damage = magicalshortsword.damage + magicalshortsword.damage + hero.modDex - 1;
 				hero.crit = 1;
@@ -438,7 +471,7 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 		}
 		else {
 			*damage = magicalshortsword.damage + hero.modStr;
-			*attack = roll(20) + hero.modStr + hero.proficiency + 1;
+			*attack = roll(1,20, hero.modStr + hero.proficiency + 1);
 			if (*attack == 20 + hero.modStr + hero.proficiency + 1) {
 				*damage = magicalshortsword.damage + magicalshortsword.damage + hero.modStr - 1;
 				hero.crit = 1;
@@ -472,6 +505,7 @@ int abilitydesc(int z, int* damage, int* characteristic) {
 			if (feyancestry.description[i - 3] == '\n') {
 				j++;
 				f = 6;
+				i++;
 			}
 			gotoxy(f, j);
 			printf_s("%c", feyancestry.description[i - 3]);
@@ -507,6 +541,7 @@ int abilitydesc(int z, int* damage, int* characteristic) {
 			if (darkonesblessing.description[i - 3] == '\n') {
 				j++;
 				f = 6;
+				i++;
 			}
 			gotoxy(f, j);
 			printf_s("%c", darkonesblessing.description[i - 3]);
@@ -537,7 +572,7 @@ int spell(int z, int* damage, char* typeofdamage) {
 		strcpy_s(typeofdamage, 6, eldritchblast.typeofdamage);
 		int j = 21;
 		int f = 6;
-		*damage = roll(eldritchblast.damage);
+		*damage = roll(eldritchblast.amount,eldritchblast.damage,eldritchblast.mode);
 		for (int i = 3; i < 310; i++) {
 			if (eldritchblast.description[i - 3] == '\n') {
 				j++;
@@ -554,6 +589,41 @@ int spell(int z, int* damage, char* typeofdamage) {
 	}
 	}
 
+}
+int item(int z, int* damage, int* attack, char* damagetype) {
+	for (int j = 20; j < 31; j++) {
+		gotoxy(3, j);
+		printf_s("|");
+		gotoxy(103, j);
+		printf_s("|");
+	}
+	for (int i = 3; i < 103; i++) {
+		gotoxy(i, 19);
+		printf_s("_");
+		gotoxy(i, 31);
+		printf_s("_");
+	}
+	switch (hero.itemlist[z]) {
+	case '1': {
+		strcpy_s(damagetype, 6, healingpotion.typeofdamage);
+		int j = 21;
+		int f = 6;
+		*damage = roll(2,healingpotion.damage,2);
+		for (int i = 3; i < 310; i++) {
+			if (healingpotion.description[i - 3] == '\n') {
+				j++;
+				f = 6;
+			}
+			gotoxy(f, j);
+			printf_s("%c", healingpotion.description[i - 3]);
+			f++;
+
+		}
+		return 0;
+		Sleep(2000);
+		break;
+	}
+	}
 }
 void shortrest() {
 	system("cls");
@@ -573,7 +643,7 @@ void shortrest() {
 		case '1': {
 			if (hero.amounthitdice != 0) {
 				gotoxy(50, 8);
-				int hitdice = roll(hero.hitdice) + hero.modConst;
+				int hitdice = roll(1,hero.hitdice,hero.modConst);
 
 				hero.tekhits += hitdice;
 				if (hero.tekhits > hero.hits) {
@@ -589,7 +659,7 @@ void shortrest() {
 				gotoxy(50, 8);
 				printf_s("You are so tired, only long rest can help you.");
 				gotoxy(50, 9);
-				printf_s("À long rest can only be spent in quiet places where you can sleep.");
+				printf_s("A long rest can only be spent in quiet places where you can sleep.");
 				Sleep(3000);
 				for (int i = 50; i < 118; i++) {
 					for (int j = 8; j < 10; j++) {

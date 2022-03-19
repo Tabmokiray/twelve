@@ -3,3 +3,4 @@ void bandit();
 void rat();
 void goblin();
 void skeleton();
+void sword();

@@ -1,0 +1,9 @@
+﻿  rules.c
+C:\Users\Tabmokiray\source\repos\twelve\rules.c(325,8): warning C4013: gotoxy: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rules.c(521,14): warning C4013: createsave: нет определения; предполагается "extern" с возвратом типа "int"
+  Создание кода
+  3 of 53 functions ( 5.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  4_Games_1.5.vcxproj -> C:\Users\Tabmokiray\Source\Repos\twelve\x64\Release\4_Games_1.5.exe

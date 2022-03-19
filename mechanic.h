@@ -14,3 +14,4 @@ void save();
 void hidecursor();
 void gotoxy(int column, int row);
 void mechanicsatstart();
+void cleanstdin();

@@ -100,7 +100,7 @@ void room0() {
 			if (rope == 1) {
 				printf_s("You try to climb down the knotted rope,");
 				gotoxy(50, 9);
-				int athletic = hero.modStr + roll(20);
+				int athletic = roll(1, 20, hero.modStr);
 				printf_s("using the wall to brace yourself...%d", athletic);
 				if (athletic < 10) {
 					gotoxy(50, 10);
@@ -109,7 +109,7 @@ void room0() {
 					gotoxy(50, 11);
 					printf_s("You fall down about 25 feet");
 					gotoxy(50, 12);
-					int damage = 2 * roll(6);
+					int damage = roll(2, 6, 0);
 					printf_s("You take %d bludgeoning damage from falling", damage);
 					Sleep(3000);
 					if (hero.temphits < 1) {
@@ -119,6 +119,7 @@ void room0() {
 						hero.temphits -= damage;
 						if (hero.temphits < 0) {
 							hero.tekhits += hero.temphits;
+							hero.temphits = 0;
 						}
 					}
 					if (hero.tekhits < 1) {
@@ -363,7 +364,7 @@ void room3() {
 	gotoxy(3, 40);
 	printf_s("Type (s) to save game");
 	gotoxy(20, 6);
-	printf_s("Investigate the bodies(1) Remove the spear from the wall(2) Investigate the walls(3) Go to the north door(4) Go to the soutn door(5)");
+	printf_s("Investigate the bodies(1) Remove the spear from the wall(2) Investigate the walls(3) Go to the north door(4) Go to the south door(5)");
 	while (1) {
 		choose = _getch();
 		if (choose == 's') {
@@ -423,9 +424,9 @@ void room3() {
 		}
 		case '3': {
 			gotoxy(50, 8);
-			int perception = roll(20) + hero.modWis;
+			int perception = roll(1, 20, hero.modWis);
 			printf_s("You try to investigate the walls...%d", perception);
-			if (perception < 14 || perc == -1) {
+			if (perception < 10 || perc == -1) {
 				gotoxy(50, 9);
 				Sleep(2000);
 				printf_s("Failed. You didn't find anything interesting");
@@ -436,18 +437,18 @@ void room3() {
 				Sleep(2000);
 				gotoxy(50, 9);
 				printf_s("Success. You find a secret door");
-				gotoxy(20, 6);
-				printf_s("Investigate the bodies(1) Remove the spear from the wall(2) Go to the secret door(9) Go to the north door(4) Go to the soutn door(5)");
+				gotoxy(50, 10);
+				printf_s("Open the secret door(9)");
 			}
 			for (int i = 50; i < 150; i++) {
-				for (int j = 8; j < 11; j++) {
+				for (int j = 8; j < 10; j++) {
 					gotoxy(i, j);
 					printf_s(" ");
 				}
 			}
 			break;
 		}
-		case'9': {
+		case '9': {
 			if (perc == -1) {
 				//break;
 			}
@@ -487,6 +488,9 @@ void room3() {
 					case '1': {
 						hero.weaponlist[2] = magicalshortsword.id;
 						hero.progress += 1;
+						gotoxy(50, 8);
+						printf_s("<Sword> Right choice, young adventurer");
+						Sleep(1500);
 						stages();
 						break;
 					}
@@ -496,9 +500,10 @@ void room3() {
 							stages();
 						}
 						gotoxy(50, 8);
-						printf_s("<Sword> Are you sure? I am m a g i c a l sword!");
+						printf_s("<Sword> Are you sure? I am M~A~G~I~C~A~L sword!");
 						Sleep(3000);
-						system("cls");
+						gotoxy(50, 8);
+						printf_s("                                               ");
 						gotoxy(50, 5);
 						printf_s("In the remains of the skeleton you find a magical short sword");
 						gotoxy(50, 6);
@@ -551,13 +556,137 @@ void room3() {
 
 }
 void room4() {
-	system("cls");
-	gotoxy(50, 5);
-	stage0();
-	system("cls");
-	gotoxy(50, 5);
-	printf_s("Demo version is over");
-	system("pause");
+	sword();
+	gotoxy(3, 40);
+	printf_s("Type (s) to save game");
+	int i = 80;
+	gotoxy(i, 20);
+	printf_s("Hello?(1) Back(2)");
+	char s = '0';
+	while (1) {
+		s = _getch();
+		if (s == 's') {
+			createsave();
+			gotoxy(3, 42);
+			printf_s("Save is success");
+			Sleep(3000);
+			gotoxy(3, 42);
+			printf_s("               ");
+		}
+		switch (s) {
+		case '1': {
+			gotoxy(i, 10);
+			printf_s("<%s> Hello?", hero.name);
+			gotoxy(i, 11);
+			printf_s("<%s> Yes, I hear you, mortal!", magicalshortsword.name);
+			gotoxy(i, 20);
+			printf_s("Who are you?(1) You will pay for calling me mortal!(2) Back(3)");
+			while (1) {
+				s = _getch();
+				switch (s) {
+				case '1': {
+					gotoxy(i, 12);
+					printf_s("<%s> Who are you?", hero.name);
+					strcpy_s(magicalshortsword.name, 6, "Kring");
+					gotoxy(i, 13);
+					printf_s("<%s> My name is Kring, I am mighty sword, that can be used only by TRUE hero!", magicalshortsword.name);
+					gotoxy(i, 20);
+					printf_s("Back(1)                                                                 ");
+					while (1) {
+						s = _getch();
+						if (s == '1') {
+							stages();
+						}
+					}
+
+					break;
+				}
+				case '2': {
+					gotoxy(i, 12);
+					printf_s("<%s> You will pay for calling me mortal!", hero.name);
+					gotoxy(i, 13);
+					printf_s("<%s> No, I don't think so",magicalshortsword.name);
+					gotoxy(i, 20);
+					printf_s("Attack the sword(1) Please kindly forgive me mighty magic sword(2)");
+					while (1) {
+						s = _getch();
+						switch (s) {
+						case '1': {
+							system("cls");
+							switch (stage4()) {
+							case 1: {
+								system("cls");
+								gotoxy(50, 5);
+								printf_s("What you want to do?");
+								gotoxy(50, 6);
+								printf_s("Go next(1) Make short rest(2)");
+								gotoxy(3, 40);
+								printf_s("Type (s) to save game");
+								while (1) {
+									s = _getch();
+									if (s == 's') {
+										createsave();
+										gotoxy(3, 42);
+										printf_s("Save is success");
+										Sleep(3000);
+										gotoxy(3, 42);
+										printf_s("               ");
+									}
+									switch (s) {
+									case '1': {
+										hero.weaponlist[2] = '\0';
+										stages();
+										break;
+									}
+									case '2': {
+										shortrest();
+										system("cls");
+										gotoxy(50, 5);
+										printf_s("What you want to do?");
+										gotoxy(50, 6);
+										printf_s("Go next(1) Make short rest(2)");
+										break;
+									}
+									}
+								}
+							}
+							case 2: {
+								stages();
+							}
+							}
+							break;
+						}
+						case '2': {
+							gotoxy(i, 13);
+							printf_s("<%s> Please kindly forgive me mighty magic sword", hero.name);
+							gotoxy(i, 14);
+							printf_s("<%s> Okay, I forgive you, you can stop crying", magicalshortsword.name);
+							Sleep(3000);
+							stages();
+							break;
+						}
+						}
+					}
+					break;
+				}
+				case '3': {
+					stages();
+					break;
+				}
+				}
+				break;
+			}
+			break;
+		}
+		case '2': {
+			stages();
+			break;
+		}
+		}
+	}
+
+	
+	Sleep(10000);
 }
 void intro() {
 	FILE* intro;
@@ -589,7 +718,7 @@ void intro() {
 			gotoxy(50, z);
 		}
 		printf_s("%c", intr.text1[j]);
-		Sleep(80);
+		Sleep(30);
 	}
 	gotoxy(3, 40);
 	printf_s("Type (s) to save game");
@@ -650,7 +779,7 @@ void picture() {
 			j++;
 		}
 		printf_s("%c", columns.text2[j]);
-		Sleep(80);
+		Sleep(30);
 	}
 	char s = _getch();
 	if (s == 's') {
@@ -757,6 +886,38 @@ int stage3() {
 		}
 		if (control != 'i') {
 			skeleton();
+			clearchat();
+		}
+
+		switch (actions(&control)) {
+		case 1: {
+			return 1;
+			break;
+		}
+		case 2: {
+			return 2;
+			break;
+		}
+		}
+	}
+}
+int stage4() {
+	hero.weaponlist[2] = '\0';
+	char control = 0;
+	rulesword();
+	//sword();
+	clearchat();
+	while (control != '`') {
+		control = _getch();
+		if (control == 'i') {
+			system("cls");
+			characterlist();
+		}
+		if (control == 27) {
+			system("cls");
+		}
+		if (control != 'i') {
+			//sword();
 			clearchat();
 		}
 
