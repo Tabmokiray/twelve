@@ -14,6 +14,7 @@ void rulerat() {
 	monsteraction.damage2 = Rataction.damage2;
 	strcpy_s(monster.name, 10, Rat.name);
 	monster.proficiency = Rat.proficiency;
+	monster.level = Rat.level;
 }
 void rulebandit() {
 	monster.modStr = Bandit.modStr;
@@ -30,6 +31,7 @@ void rulebandit() {
 	monsteraction.damage2 = Banditaction.damage2;
 	strcpy_s(monster.name, 7, Bandit.name);
 	monster.proficiency = Bandit.proficiency;
+	monster.level = Bandit.level;
 }
 void rulegoblin() {
 	monster.modStr = Goblin.modStr;
@@ -46,6 +48,7 @@ void rulegoblin() {
 	monsteraction.damage2 = Goblinaction.damage2;
 	strcpy_s(monster.name, 7, Goblin.name);
 	monster.proficiency = Goblin.proficiency;
+	monster.level = Goblin.level;
 }
 void ruleskeleton() {
 	monster.modStr = Skeleton.modStr;
@@ -62,6 +65,7 @@ void ruleskeleton() {
 	monsteraction.damage2 = Skeletonaction.damage2;
 	strcpy_s(monster.name, 9, Skeleton.name);
 	monster.proficiency = Skeleton.proficiency;
+	monster.level = Skeleton.level;
 
 }
 void rulesword() {
@@ -79,6 +83,7 @@ void rulesword() {
 	monsteraction.damage2 = Swordaction.damage2;
 	strcpy_s(monster.name, 20, Sword.name);
 	monster.proficiency = Sword.proficiency;
+	monster.level = Sword.level;
 
 }
 void ruleset() {
@@ -113,7 +118,7 @@ void ruleset() {
 	dwarf.con = 2;
 	dwarf.race = 2;
 
-	healingpotion.damage = -1 * d4;
+	healingpotion.damage = d4;
 	healingpotion.amount = 2;
 	healingpotion.mods = 2;
 	healingpotion.description = (char*)malloc(100);
@@ -605,11 +610,12 @@ int item(int z, int* damage, int* attack, char* damagetype) {
 	}
 	switch (hero.itemlist[z]) {
 	case '1': {
-		strcpy_s(damagetype, 6, healingpotion.typeofdamage);
+		strcpy_s(damagetype, 8, healingpotion.typeofdamage);
 		int j = 21;
 		int f = 6;
-		*damage = roll(2,healingpotion.damage,2);
-		for (int i = 3; i < 310; i++) {
+		int d = healingpotion.damage;
+		*damage = roll(2,d,2);
+		for (int i = 3; i < 39; i++) {
 			if (healingpotion.description[i - 3] == '\n') {
 				j++;
 				f = 6;

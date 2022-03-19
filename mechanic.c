@@ -393,6 +393,10 @@ int actions(char* control) {
 				j++;
 				printf_s("You drink healing potion and restore %d hits", damage);
 				hero.itemlist[0] = '\0';
+				hero.tekhits += damage;
+				if (hero.tekhits > hero.hits) {
+					hero.tekhits = hero.hits;
+				}
 				Sleep(1500);
 			}
 			if (type == 1) {
@@ -423,7 +427,6 @@ int actions(char* control) {
 			}
 		}
 	}
-	clearchat();
 	if (monster.hits > 0)
 		if ((*control == '1' || *control == '2' || *control == '3' || *control == '4') && (ch != 'b')) {
 			gotoxy(3, 3);

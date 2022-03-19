@@ -105,6 +105,38 @@ void skeleton() {
 }
 void sword(){
 	system("cls");
+	int i = 70;
+	gotoxy(i, 3);
+	printf_s("       ..");
+	gotoxy(i, 4);
+	printf_s("      =##=");
+	gotoxy(i, 5);
+	printf_s("     .#  #.");
+	gotoxy(i, 6);
+	printf_s("     .#  #.");
+	gotoxy(i, 7);
+	printf_s("     .#  #.");
+	gotoxy(i, 8);
+	printf_s("     .#  #.");
+	gotoxy(i, 9);
+	printf_s("     .#  #.");
+	gotoxy(i, 10);
+	printf_s("     .#  #.");
+	gotoxy(i, 11);
+	printf_s("     .#  #.");
+	gotoxy(i, 12);
+	printf_s("  #@###  ####@#");
+	gotoxy(i, 13);
+	printf_s("    #@.  .@#");
+	gotoxy(i, 14);
+	printf_s("      .##.");
+	gotoxy(i, 15);
+	printf_s("      .##.");
+	gotoxy(i, 16);
+	printf_s("     .####.");
+}
+void msword() {
+	system("cls");
 	FILE* sword;
 
 	if ((fopen_s(&sword, "magicsword.txt", "r")) != 0) {

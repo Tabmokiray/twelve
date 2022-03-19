@@ -426,7 +426,7 @@ void room3() {
 			gotoxy(50, 8);
 			int perception = roll(1, 20, hero.modWis);
 			printf_s("You try to investigate the walls...%d", perception);
-			if (perception < 10 || perc == -1) {
+			if (perception < 10) {
 				gotoxy(50, 9);
 				Sleep(2000);
 				printf_s("Failed. You didn't find anything interesting");
@@ -437,6 +437,7 @@ void room3() {
 				Sleep(2000);
 				gotoxy(50, 9);
 				printf_s("Success. You find a secret door");
+				Sleep(1500);
 				gotoxy(50, 10);
 				printf_s("Open the secret door(9)");
 			}
@@ -556,7 +557,7 @@ void room3() {
 
 }
 void room4() {
-	sword();
+	msword();
 	gotoxy(3, 40);
 	printf_s("Type (s) to save game");
 	int i = 80;
@@ -605,7 +606,7 @@ void room4() {
 					gotoxy(i, 12);
 					printf_s("<%s> You will pay for calling me mortal!", hero.name);
 					gotoxy(i, 13);
-					printf_s("<%s> No, I don't think so",magicalshortsword.name);
+					printf_s("<%s> No, I don't think so", magicalshortsword.name);
 					gotoxy(i, 20);
 					printf_s("Attack the sword(1) Please kindly forgive me mighty magic sword(2)");
 					while (1) {
@@ -657,9 +658,9 @@ void room4() {
 							break;
 						}
 						case '2': {
-							gotoxy(i, 13);
-							printf_s("<%s> Please kindly forgive me mighty magic sword", hero.name);
 							gotoxy(i, 14);
+							printf_s("<%s> Please kindly forgive me mighty magic sword", hero.name);
+							gotoxy(i, 15);
 							printf_s("<%s> Okay, I forgive you, you can stop crying", magicalshortsword.name);
 							Sleep(3000);
 							stages();
@@ -685,7 +686,7 @@ void room4() {
 		}
 	}
 
-	
+
 	Sleep(10000);
 }
 void intro() {
@@ -905,7 +906,7 @@ int stage4() {
 	hero.weaponlist[2] = '\0';
 	char control = 0;
 	rulesword();
-	//sword();
+	sword();
 	clearchat();
 	while (control != '`') {
 		control = _getch();
@@ -917,7 +918,7 @@ int stage4() {
 			system("cls");
 		}
 		if (control != 'i') {
-			//sword();
+			sword();
 			clearchat();
 		}
 
