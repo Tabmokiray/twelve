@@ -102,7 +102,7 @@ void room0() {
 				gotoxy(50, 9);
 				int athletic = roll(1, 20, hero.modStr);
 				printf_s("using the wall to brace yourself...%d", athletic);
-				if (athletic < 10) {
+				if (athletic < 5) {
 					gotoxy(50, 10);
 					Sleep(1500);
 					printf_s("Failed");
@@ -149,7 +149,7 @@ void room0() {
 				int athletic = hero.modStr + roll(20);
 				printf_s("and footholds...%d", athletic);
 				Sleep(1500);
-				if (athletic < 15) {
+				if (athletic < 10) {
 					gotoxy(50, 10);
 					Sleep(1500);
 					printf_s("Failed");
@@ -772,7 +772,7 @@ void picture() {
 		fscanf_s(oldroad, "%c", &columns.text2[i], 1);
 	}
 	int z = 3;
-	gotoxy(115, z);
+	gotoxy(110, z);
 	for (int j = 0; j < 472; j++) {
 		if (columns.text2[j] == '\n') {
 			z++;

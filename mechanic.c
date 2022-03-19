@@ -384,7 +384,7 @@ int actions(char* control) {
 			char typeofdamage[20];
 			int attack;
 			int savingthrow;
-			int type = item(choose, &damage,&attack, &typeofdamage);
+			int type = item(choose, &damage, &attack, &typeofdamage);
 			Sleep(3000);
 			clearchat();
 
@@ -581,7 +581,7 @@ void charactercreator() {
 			printf_s("At 1st level, you have struck a bargain with an otherworldly being chosen from the list of available patrons.");
 			gotoxy(50, 10);
 			printf_s("Your choice grants you features at 1st level and again at 6th, 10th, and 14th level.");
-			while (choose != '1' && choose != '2') {
+			while (warlock.archetype == 0) {
 				choose = _getch();
 				switch (choose) {
 				case '1': {
@@ -605,7 +605,7 @@ void charactercreator() {
 					gotoxy(50, 12);
 					printf_s(" a striving for greater magical power or the settling of age-old grudges.");
 					hero.ablist[0] = feyancestry.id;
-					_getch();
+					char r = _getch();
 					break;
 				}
 				case '2': {
@@ -627,7 +627,7 @@ void charactercreator() {
 					gotoxy(50, 11);
 					printf_s("ultimately including you.");
 					hero.ablist[0] = darkonesblessing.id;
-					_getch();
+					char r = _getch();
 					break;
 				}
 				}

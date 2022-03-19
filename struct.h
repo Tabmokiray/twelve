@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <Windows.h>
+#include <MMSystem.h>
+#pragma comment(lib, "winmm.lib")
 struct stats {
 	char name[20];
 	int gold;
