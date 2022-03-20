@@ -53,7 +53,7 @@ int actions(char* control) {
 	char ch = '0';
 	if (*control == '1') {
 		gotoxy(3, 3);
-		printf_s("Choose the weapon:");
+		printf_s("Choose the weapon: (B) to back");
 		int j = 4;
 		for (int i = 0; i < strlen(hero.weaponlist); i++) {
 			gotoxy(3, j);
@@ -89,6 +89,7 @@ int actions(char* control) {
 			weapons(choose, &damage, &attack, &damagetype);
 			gotoxy(3, 3);
 			printf_s("You are trying to attack: %d...", attack);
+
 			Sleep(1500);
 			if (attack < monster.armorclass) {
 				gotoxy(3, 4);
@@ -126,16 +127,25 @@ int actions(char* control) {
 					}
 					}
 				}
-				system("cls");
+				for (int i = 0; i < 150; i++) {
+					for (int j = 0; j < 30; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
 				loot();
 				Sleep(1500);
 				return 1;
 			}
 		}
+		else {
+			clearchat();
+			*control = '0';
+		}
 	}
 	if (*control == '2') {
 		gotoxy(3, 3);
-		printf_s("Choose the ability:");
+		printf_s("Choose the ability: (B) to back");
 		int j = 4;
 		for (int i = 0; i < strlen(hero.ablist); i++) {
 			gotoxy(3, j);
@@ -273,17 +283,26 @@ int actions(char* control) {
 					}
 					}
 				}
-				system("cls");
+				for (int i = 0; i < 150; i++) {
+					for (int j = 0; j < 30; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
 				loot();
 				Sleep(1500);
 				return 1;
 			}
 			clearchat();
 		}
+		else {
+			clearchat();
+			*control = '0';
+		}
 	}
 	if (*control == '3') {
 		gotoxy(3, 3);
-		printf_s("Choose the spell:");
+		printf_s("Choose the spell: (B) to back");
 		int j = 4;
 		for (int i = 0; i < strlen(hero.spelllist); i++) {
 			gotoxy(3, j);
@@ -350,11 +369,20 @@ int actions(char* control) {
 					}
 					}
 				}
-				system("cls");
+				for (int i = 0; i < 150; i++) {
+					for (int j = 0; j < 30; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
 				loot();
 				Sleep(1500);
 				return 1;
 			}
+		}
+		else {
+			clearchat();
+			*control = '0';
 		}
 	}
 	if (*control == '4') {
@@ -420,11 +448,20 @@ int actions(char* control) {
 					}
 					}
 				}
-				system("cls");
+				for (int i = 0; i < 150; i++) {
+					for (int j = 0; j < 30; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
 				loot();
 				Sleep(1500);
 				return 1;
 			}
+		}
+		else {
+			clearchat();
+			*control = '0';
 		}
 	}
 	if (monster.hits > 0)
@@ -492,6 +529,7 @@ void charactercreator() {
 	hero.progress = 0;
 	hero.proficiency = 2;
 	hero.itemlist[0] = '1';
+	hero.items = 1;
 	gotoxy(50, 5);
 	printf_s("Choose your race: - Human(1)");
 	gotoxy(50, 6);
@@ -503,7 +541,12 @@ void charactercreator() {
 			hero.race = human.race;
 			printf_s("Time to generate your stats");
 			Sleep(1500);
-			system("cls");
+			for (int i = 50; i < 80; i++) {
+				for (int j = 5; j < 7; j++) {
+					gotoxy(i, j);
+					printf_s(" ");
+				}
+			}
 			int points = 27;
 			while (1) {
 				for (int i = 50; i < 86; i++) {
@@ -532,7 +575,12 @@ void charactercreator() {
 				}
 
 			}
-			system("cls");
+			for (int i = 50; i < 95; i++) {
+				for (int j = 5; j < 18; j++) {
+					gotoxy(i, j);
+					printf_s(" ");
+				}
+			}
 			break;
 		}
 		}
@@ -550,7 +598,12 @@ void charactercreator() {
 	gotoxy(50, 7);
 	printf_s("%s? Wonderful name!", hero.name);
 	Sleep(1000);
-	system("cls");
+	for (int i = 50; i < 90; i++) {
+		for (int j = 5; j < 8; j++) {
+			gotoxy(i, j);
+			printf_s(" ");
+		}
+	}
 	gotoxy(50, 5);
 	printf_s("Choose your class");
 	gotoxy(50, 6);
@@ -570,7 +623,12 @@ void charactercreator() {
 			hero.weaponlist[1] = quarterstaff.id;
 			hero.amounthitdice = hero.level;
 			hero.armormod = armor.leatherarmor;
-			system("cls");
+			for (int i = 50; i < 70; i++) {
+				for (int j = 5; j < 7; j++) {
+					gotoxy(i, j);
+					printf_s(" ");
+				}
+			}
 			gotoxy(50, 5);
 			printf_s("Choose your Otherwordly patron");
 			gotoxy(50, 6);
@@ -589,7 +647,7 @@ void charactercreator() {
 					hero.archetype = 1;
 					strcpy_s(warlock.archetypename, 8, "Archfey");
 					for (int i = 50; i < 161; i++) {
-						for (int j = 8; j < 11; j++) {
+						for (int j = 5; j < 11; j++) {
 							gotoxy(i, j);
 							printf_s(" ");
 						}
@@ -613,7 +671,7 @@ void charactercreator() {
 					hero.archetype = 2;
 					strcpy_s(warlock.archetypename, 6, "Fiend");
 					for (int i = 50; i < 161; i++) {
-						for (int j = 8; j < 11; j++) {
+						for (int j = 5; j < 11; j++) {
 							gotoxy(i, j);
 							printf_s(" ");
 						}
@@ -636,7 +694,12 @@ void charactercreator() {
 		}
 		}
 	}
-	system("cls");
+	for (int i = 50; i < 161; i++) {
+		for (int j = 5; j < 13; j++) {
+			gotoxy(i, j);
+			printf_s(" ");
+		}
+	}
 }
 void start() {
 	FILE* wood;
@@ -656,7 +719,6 @@ void start() {
 		fscanf_s(wood, "%c", &intr.text2[i], 1);
 	}
 	gotoxy(50, 5);
-	system("cls");
 	int k = 0;
 	Sleep(2000);
 	gotoxy(30, k);
@@ -672,7 +734,12 @@ void start() {
 	free(intr.text2);
 	fclose(wood);
 	Sleep(2000);
-	system("cls");
+	for (int i = 30; i < 130; i++) {
+		for (int j = 0; j < 40; j++) {
+			gotoxy(i, j);
+			printf_s(" ");
+		}
+	}
 	gotoxy(50, 5);
 	printf_s("The Sunless Citadel");
 	gotoxy(50, 7);
@@ -689,7 +756,12 @@ void start() {
 			break;
 		}
 		case '2': {
-			system("cls");
+			for (int i = 50; i < 90; i++) {
+				for (int j = 5; j < 15; j++) {
+					gotoxy(i, j);
+					printf_s(" ");
+				}
+			}
 			gotoxy(50, 5);
 			printf_s("(Enter) after you read text");
 			gotoxy(50, 6);
@@ -699,7 +771,12 @@ void start() {
 			gotoxy(50, 8);
 			printf_s("(S) save game");
 			_getch();
-			system("cls");
+			for (int i = 50; i < 90; i++) {
+				for (int j = 5; j < 15; j++) {
+					gotoxy(i, j);
+					printf_s(" ");
+				}
+			}
 			gotoxy(50, 5);
 			printf_s("The Sunless Citadel");
 			gotoxy(50, 7);
@@ -711,7 +788,12 @@ void start() {
 			break;
 		}
 		case '3': {
-			system("cls");
+			for (int i = 50; i < 70; i++) {
+				for (int j = 5; j < 15; j++) {
+					gotoxy(i, j);
+					printf_s(" ");
+				}
+			}
 			gotoxy(50, 5);
 			printf_s("See you later ^_^");
 			gotoxy(60, 5);
@@ -720,8 +802,12 @@ void start() {
 		}
 		}
 	}
-	system("cls");
-
+	for (int i = 50; i < 90; i++) {
+		for (int j = 5; j < 15; j++) {
+			gotoxy(i, j);
+			printf_s(" ");
+		}
+	}
 
 }
 char statgenerator(int* points) {
@@ -940,8 +1026,39 @@ void loadsave() {
 	}
 	fscanf_s(input, "%d %d %d %d %d %d", &hero.Strength, &hero.Dexterity, &hero.Constitution, &hero.Intellect, &hero.Wisdom, &hero.Charisma);
 	fscanf_s(input, "%d %d %d %d %d %d %d", &hero.hits, &hero.tekhits, &hero.armorclass, &hero.armormod, &hero.gold, &hero.silver, &hero.copper);
-	fscanf_s(input, "%d %d %d %d %d %d %d %d", &hero.xp, &hero.level, &hero.class, &hero.hitdice, &hero.archetype, &hero.progress, &hero.proficiency, &hero.race);
-	fscanf_s(input, "%d %s %s %d %d %s %d %s", &hero.weapons, hero.spelllist, amountofspells(), hero.ablist, hero.level, &hero.amounthitdice, &hero.spelldc, hero.weaponlist, hero.weapons, &hero.temphits, hero.name, 20);
+	fscanf_s(input, "%d %d %d %d %d %d %d %d %d ", &hero.items, &hero.xp, &hero.level, &hero.class, &hero.hitdice, &hero.archetype, &hero.progress, &hero.proficiency, &hero.race);
+	fscanf_s(input, "%d %d %d %d ", &hero.weapons, &hero.amounthitdice, &hero.spelldc, &hero.temphits);
+
+	int i = -1;
+	do {
+		i++;
+		fscanf_s(input, "%c", &hero.itemlist[i], 1);
+	} while (hero.itemlist[i] != ' ');
+	hero.itemlist[i] = '\0';
+	i = -1;
+	do {
+		i++;
+		fscanf_s(input, "%c", &hero.spelllist[i], 1);
+	} while (hero.spelllist[i] != ' ');
+	hero.spelllist[i] = '\0';
+	i = -1;
+	do {
+		i++;
+		fscanf_s(input, "%c", &hero.ablist[i], 1);
+	} while (hero.ablist[i] != ' ');
+	hero.ablist[i] = '\0';
+	i = -1;
+	do {
+		i++;
+		fscanf_s(input, "%c", &hero.weaponlist[i], 1);
+	} while (hero.weaponlist[i] != ' ');
+	hero.weaponlist[i] = '\0';
+	i = -1;
+	do {
+		i++;
+		fscanf_s(input, "%c", &hero.name[i], 1);
+	} while (hero.name[i] != ' ');
+	hero.name[i] = '\0';
 	switch (hero.class) {
 	case 1: {
 		strcpy_s(hero.classname, 8, "Warlock");
@@ -982,19 +1099,28 @@ void createsave() {
 	}
 	fprintf_s(output, "%d %d %d %d %d %d ", hero.Strength, hero.Dexterity, hero.Constitution, hero.Intellect, hero.Wisdom, hero.Charisma);
 	fprintf_s(output, "%d %d %d %d %d %d %d ", hero.hits, hero.tekhits, hero.armorclass, hero.armormod, hero.gold, hero.silver, hero.copper);
-	fprintf_s(output, "%d %d %d %d %d %d %d %d ", hero.xp, hero.level, hero.class, hero.hitdice, hero.archetype, hero.progress, hero.proficiency, hero.race);
-	fprintf_s(output, "%d %s %s %d %d %s %d %s", hero.weapons, hero.spelllist, hero.ablist, hero.amounthitdice, hero.spelldc, hero.weaponlist, hero.temphits, hero.name);
+	fprintf_s(output, "%d %d %d %d %d %d %d %d %d ", hero.items, hero.xp, hero.level, hero.class, hero.hitdice, hero.archetype, hero.progress, hero.proficiency, hero.race);
+	fprintf_s(output, "%d %d %d %d ", hero.weapons, hero.amounthitdice, hero.spelldc, hero.temphits);
+
+	fprintf_s(output, "%s %s %s %s %s ", hero.itemlist, hero.spelllist, hero.ablist, hero.weaponlist, hero.name);
+
+
 	fclose(output);
 }
 void save() {
-	char cntrl = 0;
+	char cntrl = '0';
 	while (cntrl != '1' && cntrl != '2') {
 		gotoxy(50, 5);
 		printf_s("Would you like to create a character?");
 		gotoxy(50, 6);
 		printf_s("Yes(1)  I already have one(2)");
 		cntrl = _getch();
-		system("cls");
+		for (int i = 50; i < 90; i++) {
+			for (int j = 5; j < 7; j++) {
+				gotoxy(i, j);
+				printf_s(" ");
+			}
+		}
 		switch (cntrl) {
 		case '1': {
 			charactercreator();

@@ -198,11 +198,11 @@ void ruleset() {
 	Rataction.accur1 = roll(1, d20, Rat.proficiency + Ratstat.modDex);
 
 	Sword.armorclass = 15;
-	Sword.hits = 20;
+	Sword.hits = 30;
 	Sword.proficiency = 3;
 	Sword.level = 3;
 	Swordstat.Strength = 15;
-	Swordstat.Dexterity = 15;
+	Swordstat.Dexterity = 16;
 	Swordstat.Constitution = 12;
 	Swordstat.Intellect = 15;
 	Swordstat.Wisdom = 10;
@@ -323,9 +323,9 @@ void modif() {
 	}
 }
 void loot() {
-	int lootgold = (roll(2,10,0)) * monster.level;
-	int lootsilver = roll(2,10,0) * (monster.level + 1);
-	int lootcopper = roll(2,10,0) * (monster.level + 2);
+	int lootgold = (roll(2, 10, 0)) * monster.level;
+	int lootsilver = roll(2, 10, 0) * (monster.level + 1);
+	int lootcopper = roll(2, 10, 0) * (monster.level + 2);
 	int xp = monster.level * 150 + 50;
 	gotoxy(3, 3);
 	printf_s("In dead body you find:");
@@ -437,7 +437,7 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 		strcpy_s(damagetype, 9, "piercing");
 		if (hero.modDex > hero.modStr) {
 			*damage = dagger.damage + hero.modDex;
-			*attack = roll(1,20, hero.modDex + hero.proficiency);
+			*attack = roll(1, 20, hero.modDex + hero.proficiency);
 			if (*attack == 20 + hero.modDex + hero.proficiency) {
 				*damage = dagger.damage + dagger.damage + hero.modDex;
 				hero.crit = 1;
@@ -445,7 +445,7 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 		}
 		else {
 			*damage = dagger.damage + hero.modStr;
-			*attack = roll(1,20, hero.modStr + hero.proficiency);
+			*attack = roll(1, 20, hero.modStr + hero.proficiency);
 			if (*attack == 20 + hero.modStr + hero.proficiency) {
 				*damage = dagger.damage + dagger.damage + hero.modStr;
 				hero.crit = 1;
@@ -457,7 +457,7 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 	case 2: {
 		strcpy_s(damagetype, 12, "bludgeoning");
 		*damage = quarterstaff.damage + hero.modStr;
-		*attack = roll(1,20, hero.modStr + hero.proficiency);
+		*attack = roll(1, 20, hero.modStr + hero.proficiency);
 		if (*attack == 20 + hero.modStr + hero.proficiency) {
 			*damage = quarterstaff.damage + quarterstaff.damage + hero.modStr;
 			hero.crit = 1;
@@ -468,7 +468,7 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 		strcpy_s(damagetype, 9, "piercing");
 		if (hero.modDex > hero.modStr) {
 			*damage = magicalshortsword.damage + hero.modDex;
-			*attack = roll(1,20, hero.modDex + hero.proficiency + 1);
+			*attack = roll(1, 20, hero.modDex + hero.proficiency + 1);
 			if (*attack == 20 + hero.modDex + hero.proficiency + 1) {
 				*damage = magicalshortsword.damage + magicalshortsword.damage + hero.modDex - 1;
 				hero.crit = 1;
@@ -476,7 +476,7 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 		}
 		else {
 			*damage = magicalshortsword.damage + hero.modStr;
-			*attack = roll(1,20, hero.modStr + hero.proficiency + 1);
+			*attack = roll(1, 20, hero.modStr + hero.proficiency + 1);
 			if (*attack == 20 + hero.modStr + hero.proficiency + 1) {
 				*damage = magicalshortsword.damage + magicalshortsword.damage + hero.modStr - 1;
 				hero.crit = 1;
@@ -577,7 +577,7 @@ int spell(int z, int* damage, char* typeofdamage) {
 		strcpy_s(typeofdamage, 6, eldritchblast.typeofdamage);
 		int j = 21;
 		int f = 6;
-		*damage = roll(eldritchblast.amount,eldritchblast.damage,eldritchblast.mode);
+		*damage = roll(eldritchblast.amount, eldritchblast.damage, eldritchblast.mode);
 		for (int i = 3; i < 310; i++) {
 			if (eldritchblast.description[i - 3] == '\n') {
 				j++;
@@ -614,7 +614,7 @@ int item(int z, int* damage, int* attack, char* damagetype) {
 		int j = 21;
 		int f = 6;
 		int d = healingpotion.damage;
-		*damage = roll(2,d,2);
+		*damage = roll(2, d, 2);
 		for (int i = 3; i < 39; i++) {
 			if (healingpotion.description[i - 3] == '\n') {
 				j++;
@@ -649,7 +649,7 @@ void shortrest() {
 		case '1': {
 			if (hero.amounthitdice != 0) {
 				gotoxy(50, 8);
-				int hitdice = roll(1,hero.hitdice,hero.modConst);
+				int hitdice = roll(1, hero.hitdice, hero.modConst);
 
 				hero.tekhits += hitdice;
 				if (hero.tekhits > hero.hits) {

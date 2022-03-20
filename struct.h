@@ -46,6 +46,7 @@ struct stats {
 	int crit;
 	int weapons;
 	char itemlist[20];
+	int items;
 };
 struct stats hero, Frankstat, Goblinstat, Banditstat, Ratstat, Skeletonstat, Swordstat;
 struct race {

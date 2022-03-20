@@ -1,5 +1,5 @@
 #include "bestiary.h"
-#define INPUT_FILE_NAME "input"
+#define INPUT_FILE_NAME "input.txt"
 #define ERR_OPEN_FILE "ERROR:couldn't open file '%s'\nEXIT WITH ERROR CODE 1\n"
 void fullscreen();
 void freeetc();

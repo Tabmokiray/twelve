@@ -776,7 +776,7 @@ void picture() {
 	for (int j = 0; j < 472; j++) {
 		if (columns.text2[j] == '\n') {
 			z++;
-			gotoxy(115, z);
+			gotoxy(110, z);
 			j++;
 		}
 		printf_s("%c", columns.text2[j]);
