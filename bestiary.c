@@ -155,7 +155,7 @@ void msword() {
 		fscanf_s(sword, "%c", &magicsword.text1[i], 1);
 	}
 	int z = 3;
-	gotoxy(40, z);
+	gotoxy(50, z);
 	for (int j = 0; j < 900; j++) {
 		if (magicsword.text1[j] == '\n') {
 			j++;

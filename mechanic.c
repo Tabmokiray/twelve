@@ -9,6 +9,7 @@ void freeetc() {
 	free(eldritchblast.description);
 	free(feyancestry.description);
 	free(darkonesblessing.description);
+	free(healingpotion.description);
 }
 void clearchat() {
 	for (int i = 3; i < 47; i++) {
@@ -120,6 +121,9 @@ int actions(char* control) {
 						abilitydesc(0, 0, 6);
 						gotoxy(3, 6);
 						int temphits = hero.modCha + hero.level;
+						if (temphits < 1) {
+							temphits = 1;
+						}
 						printf_s("After death of monster you recieve %d temporary hits", temphits);
 						hero.temphits = temphits;
 						Sleep(5000);
@@ -127,8 +131,8 @@ int actions(char* control) {
 					}
 					}
 				}
-				for (int i = 0; i < 150; i++) {
-					for (int j = 0; j < 30; j++) {
+				for (int i = 0; i < 180; i++) {
+					for (int j = 0; j < 35; j++) {
 						gotoxy(i, j);
 						printf_s(" ");
 					}
@@ -325,15 +329,14 @@ int actions(char* control) {
 			choose--;
 			int damage = 0;
 			char typeofdamage[20];
-			int type = spell(choose, &damage, &typeofdamage);
+			int attack = 0;
+			int type = spell(&attack, choose, &damage, &typeofdamage);
 			Sleep(3000);
 			clearchat();
-			int attack;
 			int savingthrow;
 			if (type == 1) {
 				gotoxy(3, j);
 				j++;
-				attack = roll(1, 20, hero.modCha + hero.proficiency);
 				printf_s("You try to attack with the spell: %d...", attack);
 				Sleep(1500);
 				if (attack < monster.armorclass) {
@@ -346,6 +349,12 @@ int actions(char* control) {
 					gotoxy(3, j);
 					j++;
 					printf_s("You deal %d %s damage", damage, typeofdamage);
+					if (hero.crit == 1) {
+						gotoxy(3, 5);
+						printf_s("CRIT!!!");
+						hero.crit = 0;
+						Sleep(2000);
+					}
 					monster.hits -= damage;
 					Sleep(1500);
 				}
@@ -360,6 +369,7 @@ int actions(char* control) {
 					switch (hero.ablist[i]) {
 					case '2': {
 						abilitydesc(0, 0, 6);
+						Sleep(1500);
 						gotoxy(3, 6);
 						int temphits = hero.modCha + hero.level;
 						printf_s("After death of monster you recieve %d temporary hits", temphits);
@@ -369,8 +379,8 @@ int actions(char* control) {
 					}
 					}
 				}
-				for (int i = 0; i < 150; i++) {
-					for (int j = 0; j < 30; j++) {
+				for (int i = 0; i < 170; i++) {
+					for (int j = 0; j < 32; j++) {
 						gotoxy(i, j);
 						printf_s(" ");
 					}
@@ -613,6 +623,8 @@ void charactercreator() {
 		switch (choose) {
 		case '1': {
 			hero.class = warlock.class;
+			strcpy_s(hero.spellcaster, 4, "CHA");
+			hero.spellac = hero.modCha + hero.proficiency;
 			strcpy_s(hero.classname, 8, "Warlock");
 			hero.hitdice = warlock.hitdice;
 			hero.hits = hero.hitdice + hero.modConst;
@@ -639,13 +651,12 @@ void charactercreator() {
 			printf_s("At 1st level, you have struck a bargain with an otherworldly being chosen from the list of available patrons.");
 			gotoxy(50, 10);
 			printf_s("Your choice grants you features at 1st level and again at 6th, 10th, and 14th level.");
-			while (warlock.archetype == 0) {
+			while (hero.archetype == 0) {
 				choose = _getch();
 				switch (choose) {
 				case '1': {
-					warlock.archetype = 1;
 					hero.archetype = 1;
-					strcpy_s(warlock.archetypename, 8, "Archfey");
+					strcpy_s(hero.archetypename, 8, "Archfey");
 					for (int i = 50; i < 161; i++) {
 						for (int j = 5; j < 11; j++) {
 							gotoxy(i, j);
@@ -667,9 +678,8 @@ void charactercreator() {
 					break;
 				}
 				case '2': {
-					warlock.archetype = 2;
 					hero.archetype = 2;
-					strcpy_s(warlock.archetypename, 6, "Fiend");
+					strcpy_s(hero.archetypename, 6, "Fiend");
 					for (int i = 50; i < 161; i++) {
 						for (int j = 5; j < 11; j++) {
 							gotoxy(i, j);
@@ -700,6 +710,89 @@ void charactercreator() {
 			printf_s(" ");
 		}
 	}
+	gotoxy(50, 5);
+	printf_s("Choose two skills:");
+	gotoxy(50, 7);
+	int ch = 0;
+	printf_s("Investigation(1) Intimidation(2) History(3) Arcana(4) Deception(5) Nature(6) Religion(7)");
+	choose = '0';
+	while (ch != 2) {
+		choose = _getch();
+		switch (choose) {
+		case '1': {
+			if (hero.investigation != hero.proficiency + hero.modInt) {
+				hero.prinvestigation = 1;
+				ch += 1;
+			}
+			gotoxy(57, 8);
+			printf_s("^");
+			break;
+		}
+		case '2': {
+			if (hero.intimidation != hero.proficiency + hero.modCha) {
+				hero.prinimidation = 1;
+				ch += 1;
+			}
+			gotoxy(74, 8);
+			printf_s("^");
+			break;
+		}
+		case '3': {
+			if (hero.history != hero.proficiency + hero.modInt) {
+				hero.prhistory = 1;
+				ch += 1;
+			}
+			gotoxy(86, 8);
+			printf_s("^");
+			break;
+		}
+		case '4': {
+			if (hero.arcana != hero.proficiency + hero.modInt) {
+				hero.prarcana = 1;
+				ch += 1;
+			}
+			gotoxy(97, 8);
+			printf_s("^");
+			break;
+		}
+		case '5': {
+			if (hero.deception != hero.proficiency + hero.modCha) {
+				hero.prdeception = 1;
+				ch += 1;
+			}
+			gotoxy(109, 8);
+			printf_s("^");
+			break;
+		}
+		case '6': {
+			if (hero.nature != hero.proficiency + hero.modInt) {
+				hero.prdeception = 1;
+				ch += 1;
+			}
+			gotoxy(120, 8);
+			printf_s("^");
+			break;
+		}
+		case '7': {
+			if (hero.religion != hero.proficiency + hero.modInt) {
+				hero.prreligion = 1;
+				ch += 1;
+			}
+			gotoxy(130, 8);
+			printf_s("^");
+			break;
+		}
+		}
+		Sleep(1500);
+	}
+	for (int i = 50; i < 140; i++) {
+		for (int j = 5; j < 9; j++) {
+			gotoxy(i, j);
+			printf_s(" ");
+		}
+	}
+	skills();
+	profinskills();
 }
 void start() {
 	FILE* wood;
@@ -1027,9 +1120,16 @@ void loadsave() {
 	fscanf_s(input, "%d %d %d %d %d %d", &hero.Strength, &hero.Dexterity, &hero.Constitution, &hero.Intellect, &hero.Wisdom, &hero.Charisma);
 	fscanf_s(input, "%d %d %d %d %d %d %d", &hero.hits, &hero.tekhits, &hero.armorclass, &hero.armormod, &hero.gold, &hero.silver, &hero.copper);
 	fscanf_s(input, "%d %d %d %d %d %d %d %d %d ", &hero.items, &hero.xp, &hero.level, &hero.class, &hero.hitdice, &hero.archetype, &hero.progress, &hero.proficiency, &hero.race);
-	fscanf_s(input, "%d %d %d %d ", &hero.weapons, &hero.amounthitdice, &hero.spelldc, &hero.temphits);
+	fscanf_s(input, "%d %d %d %d %d ", &hero.weapons, &hero.amounthitdice, &hero.spelldc, &hero.temphits, &hero.spellac);
+	fscanf_s(input, "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d ", &hero.prsaveStr, &hero.prsaveDex, &hero.prsaveCon, &hero.prsaveInt, &hero.prsaveWis, &hero.prsaveCha, &hero.pracrobatic, &hero.pranimalhandling, &hero.prarcana, &hero.prathletics, &hero.prdeception, &hero.prhistory, &hero.prinimidation, &hero.prinsight, &hero.prinvestigation, &hero.prmedicine, &hero.prnature, &hero.prperception, &hero.prperformance, &hero.prpersusassion, &hero.prreligion, &hero.prsleightofhand, &hero.prstealth, &hero.prsurvival);
 
 	int i = -1;
+	do {
+		i++;
+		fscanf_s(input, "%c", &hero.spellcaster[i], 1);
+	} while (hero.spellcaster[i] != ' ');
+	hero.spellcaster[i] = '\0';
+	i = -1;
 	do {
 		i++;
 		fscanf_s(input, "%c", &hero.itemlist[i], 1);
@@ -1068,13 +1168,13 @@ void loadsave() {
 		case 1: {
 			hero.ablist[0] = feyancestry.id;
 			warlock.archetype = 1;
-			strcpy_s(warlock.archetypename, 8, "Archfey");
+			strcpy_s(hero.archetypename, 8, "Archfey");
 			break;
 		}
 		case 2: {
 			hero.ablist[0] = darkonesblessing.id;
 			warlock.archetype = 1;
-			strcpy_s(warlock.archetypename, 6, "Fiend");
+			strcpy_s(hero.archetypename, 6, "Fiend");
 			break;
 		}
 		}
@@ -1089,6 +1189,8 @@ void loadsave() {
 	}
 
 	modif();
+	skills();
+	profinskills();
 	fclose(input);
 }
 void createsave() {
@@ -1100,9 +1202,11 @@ void createsave() {
 	fprintf_s(output, "%d %d %d %d %d %d ", hero.Strength, hero.Dexterity, hero.Constitution, hero.Intellect, hero.Wisdom, hero.Charisma);
 	fprintf_s(output, "%d %d %d %d %d %d %d ", hero.hits, hero.tekhits, hero.armorclass, hero.armormod, hero.gold, hero.silver, hero.copper);
 	fprintf_s(output, "%d %d %d %d %d %d %d %d %d ", hero.items, hero.xp, hero.level, hero.class, hero.hitdice, hero.archetype, hero.progress, hero.proficiency, hero.race);
-	fprintf_s(output, "%d %d %d %d ", hero.weapons, hero.amounthitdice, hero.spelldc, hero.temphits);
+	fprintf_s(output, "%d %d %d %d %d ", hero.weapons, hero.amounthitdice, hero.spelldc, hero.temphits, hero.spellac);
 
-	fprintf_s(output, "%s %s %s %s %s ", hero.itemlist, hero.spelllist, hero.ablist, hero.weaponlist, hero.name);
+	fprintf_s(output, "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d ", hero.prsaveStr, hero.prsaveDex, hero.prsaveCon, hero.prsaveInt, hero.prsaveWis, hero.prsaveCha, hero.pracrobatic, hero.pranimalhandling, hero.prarcana, hero.prathletics, hero.prdeception, hero.prhistory, hero.prinimidation, hero.prinsight, hero.prinvestigation, hero.prmedicine, hero.prnature, hero.prperception, hero.prperformance, hero.prpersusassion, hero.prreligion, hero.prsleightofhand, hero.prstealth, hero.prsurvival);
+
+	fprintf_s(output, "%s %s %s %s %s %s ", hero.spellcaster, hero.itemlist, hero.spelllist, hero.ablist, hero.weaponlist, hero.name);
 
 
 	fclose(output);

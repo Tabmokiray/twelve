@@ -146,7 +146,7 @@ void room0() {
 			else {
 				printf_s("You try to climb the naked rock using the carved hand");
 				gotoxy(50, 9);
-				int athletic = hero.modStr + roll(20);
+				int athletic = roll(1,20,hero.modStr);
 				printf_s("and footholds...%d", athletic);
 				Sleep(1500);
 				if (athletic < 10) {
@@ -161,11 +161,13 @@ void room0() {
 					Sleep(3000);
 					if (hero.temphits < 1) {
 						hero.tekhits -= damage;
+						hero.temphits = 0;
 					}
 					else {
 						hero.temphits -= damage;
-						if (hero.temphits < 0) {
+						if (hero.temphits < 1) {
 							hero.tekhits += hero.temphits;
+							hero.temphits = 0;
 						}
 					}
 					if (hero.hits < 1) {
@@ -365,8 +367,20 @@ void room3() {
 	printf_s("Type (s) to save game");
 	gotoxy(20, 6);
 	printf_s("Investigate the bodies(1) Remove the spear from the wall(2) Investigate the walls(3) Go to the north door(4) Go to the south door(5)");
+	int perception = 0;
 	while (1) {
-		choose = _getch();
+		if (hero.xp > 50) {
+			gotoxy(20, 6);
+			printf_s("Investigate the bodies(1) Remove the spear from the wall(2) Go to the north door(4) Go to the south door(5)                 ");
+			choose = _getch();
+			if (choose == '3' || choose == '9') {
+				choose = '0';
+			}
+
+		}
+		if (hero.xp <= 50) {
+			choose = _getch();
+		}
 		if (choose == 's') {
 			createsave();
 			gotoxy(3, 42);
@@ -424,7 +438,17 @@ void room3() {
 		}
 		case '3': {
 			gotoxy(50, 8);
-			int perception = roll(1, 20, hero.modWis);
+			if (perc == -1) {
+				printf_s("You already tried to investigate");
+				for (int i = 50; i < 150; i++) {
+					for (int j = 8; j < 10; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
+				break;
+			}
+			perception = roll(1, 20, hero.modWis);
 			printf_s("You try to investigate the walls...%d", perception);
 			if (perception < 10) {
 				gotoxy(50, 9);
@@ -450,8 +474,8 @@ void room3() {
 			break;
 		}
 		case '9': {
-			if (perc == -1) {
-				//break;
+			if (perc == -1 || perception < 10) {
+				break;
 			}
 			gotoxy(50, 11);
 			printf_s("You see the skeleton of a dead knight. His eyes light up with blue fire and he rushes to attack.");
@@ -537,19 +561,8 @@ void room3() {
 			break;
 		}
 		case '5': {
-			gotoxy(50, 7);
-			printf_s("This room will be available later");
-			char s = _getch();
-			if (s == 's') {
-				createsave();
-				gotoxy(3, 42);
-				printf_s("Save is success");
-				Sleep(3000);
-				gotoxy(3, 42);
-				printf_s("               ");
-			}
-			gotoxy(50, 7);
-			printf_s("                                 ");
+			hero.progress = 5;
+			stages();
 			break;
 		}
 		}
@@ -596,6 +609,7 @@ void room4() {
 					while (1) {
 						s = _getch();
 						if (s == '1') {
+							hero.progress -= 1;
 							stages();
 						}
 					}
@@ -636,6 +650,7 @@ void room4() {
 									switch (s) {
 									case '1': {
 										hero.weaponlist[2] = '\0';
+										hero.progress -= 1;
 										stages();
 										break;
 									}
@@ -663,6 +678,7 @@ void room4() {
 							gotoxy(i, 15);
 							printf_s("<%s> Okay, I forgive you, you can stop crying", magicalshortsword.name);
 							Sleep(3000);
+							hero.progress -= 1;
 							stages();
 							break;
 						}
@@ -671,6 +687,7 @@ void room4() {
 					break;
 				}
 				case '3': {
+					hero.progress -= 1;
 					stages();
 					break;
 				}
@@ -680,14 +697,128 @@ void room4() {
 			break;
 		}
 		case '2': {
+			hero.progress -= 1;
 			stages();
 			break;
 		}
 		}
 	}
+}
+void room5() {
+	system("cls");
+	gotoxy(50, 5);
+	printf_s("As you enter the room, you notice a frozen goblin figure holding a silver key in its palm.");
+	gotoxy(50, 6);
+	printf_s("Take the key(1) Melt the ice with a burning torch(2) Break the statue(3) Go through the door ahead(4)");
+	char choose = '0';
+	int broken = 0;
+	while (1) {
+		choose = _getch();
+		if (broken > 0) {
+			if (choose != '1' && choose !='4') {
+				choose = '0';
+			}
+		}
+		switch (choose) {
+		case '1': {
+			hero.itemlist[1] = '2';
+			if (broken == 1) {
+				for (int i = 50; i < 152; i++) {
+					gotoxy(i, 6);
+					printf_s(" ");
+				}
+				gotoxy(50, 6);
+				printf_s("Go through the door ahead(4)");
+			}
+			else {
+				for (int i = 50; i < 152; i++) {
+					gotoxy(i, 6);
+					printf_s(" ");
+				}
+				gotoxy(50, 6);
+				printf_s("Melt the ice with a burning torch(2) Break the statue(3) Go through the door ahead(4)");
+			}
+			break;
+		}
+		case '2': {
+			gotoxy(50, 8);
+			printf_s("You are wasting time to unfreeze the goblin.");
+			gotoxy(50, 9);
+			printf_s("When he wakes up, saliva begins to drip from his mouth.");
+			gotoxy(50, 10);
+			printf_s("Then he rushes at you with hungry fury.");
+			_getch();
+			switch (stage0()) {
+			case 1: {
+				broken = 1;
+				system("cls");
+				gotoxy(50, 6);
+				if (hero.itemlist[1] == '2') {
+					printf_s("Go through the door ahead(4)");
+				}
+				else {
+					printf_s("Take the key(1) Go through the door ahead(4)");
+				}
+				while (1) {
+					choose = _getch();
+					if (choose == '4') {
+						hero.progress += 1;
+						stages();
+					}
+					if (hero.itemlist[1] != '2') {
+						if (choose == '1') {
+							hero.itemlist[1] = '2';
+							for (int i = 50; i < 152; i++) {
+								gotoxy(i, 6);
+								printf_s(" ");
+							}
+							gotoxy(50, 6);
+							printf_s("Go through the door ahead(4)");
+						}
+					}
 
 
-	Sleep(10000);
+				}
+				break;
+			}
+			case 2: {
+				stages();
+				break;
+			}
+			}
+			break;
+		}
+		case '3': {
+
+			gotoxy(50, 8);
+			printf_s("You broke the statue into many pieces of ice");
+			_getch();
+			for (int i = 50; i < 152; i++) {
+				gotoxy(i, 6);
+				printf_s(" ");
+			}
+			gotoxy(50, 8);
+			printf_s("                                            ");
+			broken = 1;
+			gotoxy(50, 6);
+			if (hero.itemlist[1] != '2') {
+				printf_s("Take the key(1) Go through the door ahead(4)");
+			}
+			else {
+				printf_s("Go through the door ahead(4)");
+			}
+			break;
+		}
+		case '4': {
+			hero.progress += 1;
+			stages();
+			break;
+		}
+		}
+	}
+}
+void room6() {
+
 }
 void intro() {
 	FILE* intro;
@@ -953,6 +1084,12 @@ void stages() {
 	}
 	case 4: {
 		room4();
+	}
+	case 5: {
+		room5();
+	}
+	case 6: {
+		room6();
 	}
 	}
 }

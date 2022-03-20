@@ -542,7 +542,7 @@ int abilitydesc(int z, int* damage, int* characteristic) {
 	case '2': {
 		int j = 21;
 		int f = 6;
-		for (int i = 3; i < 174; i++) {
+		for (int i = 3; i < 177; i++) {
 			if (darkonesblessing.description[i - 3] == '\n') {
 				j++;
 				f = 6;
@@ -559,7 +559,7 @@ int abilitydesc(int z, int* damage, int* characteristic) {
 	}
 	}
 }
-int spell(int z, int* damage, char* typeofdamage) {
+int spell(int* attack, int z, int* damage, char* typeofdamage) {
 	for (int j = 20; j < 31; j++) {
 		gotoxy(3, j);
 		printf_s("|");
@@ -574,10 +574,15 @@ int spell(int z, int* damage, char* typeofdamage) {
 	}
 	switch (hero.spelllist[z]) {
 	case '1': {
+		*attack = roll(1, 20, hero.modCha + hero.proficiency);
+		*damage = roll(eldritchblast.amount, eldritchblast.damage, eldritchblast.mode);
+		if (*attack == 20 + hero.modCha + hero.proficiency) {
+			roll(eldritchblast.amount * 2, eldritchblast.damage, eldritchblast.mode);
+			hero.crit = 1;
+		}
 		strcpy_s(typeofdamage, 6, eldritchblast.typeofdamage);
 		int j = 21;
 		int f = 6;
-		*damage = roll(eldritchblast.amount, eldritchblast.damage, eldritchblast.mode);
 		for (int i = 3; i < 310; i++) {
 			if (eldritchblast.description[i - 3] == '\n') {
 				j++;
@@ -683,92 +688,357 @@ void shortrest() {
 int amountofspells() {
 	return hero.level + 1;
 }
+void profinskills() {
+	if (hero.pracrobatic == 1)
+		hero.acrobatic += hero.proficiency;
+	if (hero.pranimalhandling == 1)
+		hero.animalhandling += hero.proficiency;
+	if (hero.prarcana == 1)
+		hero.arcana += hero.proficiency;
+	if (hero.prathletics == 1)
+		hero.athletics += hero.proficiency;
+	if (hero.prdeception == 1)
+		hero.deception += hero.proficiency;
+	if (hero.prhistory == 1)
+		hero.history += hero.proficiency;
+	if (hero.prinimidation == 1)
+		hero.intimidation += hero.proficiency;
+	if (hero.prinsight == 1)
+		hero.insight += hero.proficiency;
+	if (hero.prinvestigation == 1)
+		hero.investigation += hero.proficiency;
+	if (hero.prmedicine == 1)
+		hero.medicine += hero.proficiency;
+	if (hero.prnature == 1)
+		hero.nature += hero.proficiency;
+	if (hero.prperception == 1)
+		hero.perception += hero.proficiency;
+	if (hero.prperformance == 1)
+		hero.performance += hero.proficiency;
+	if (hero.prpersusassion == 1)
+		hero.persuassion += hero.proficiency;
+	if (hero.prreligion == 1)
+		hero.religion += hero.proficiency;
+	if (hero.prsaveCha == 1)
+		hero.saveCha += hero.proficiency;
+	if (hero.prsaveCon == 1)
+		hero.saveCon += hero.proficiency;
+	if (hero.prsaveDex == 1)
+		hero.saveDex += hero.proficiency;
+	if (hero.prsaveInt == 1)
+		hero.saveInt += hero.proficiency;
+	if (hero.prsaveStr == 1)
+		hero.saveStr += hero.proficiency;
+	if (hero.prsaveWis == 1)
+		hero.saveWis += hero.proficiency;
+	if (hero.prsleightofhand == 1)
+		hero.sleightofhand += hero.proficiency;
+	if (hero.prstealth == 1)
+		hero.stealth += hero.proficiency;
+	if (hero.prsurvival == 1)
+		hero.survival += hero.proficiency;
+}
+void skills() {
+	if (hero.class == 1) {
+		hero.prsaveWis = 1;
+		hero.prsaveCha = 1;
+	}
+	if (hero.class == 2) {
+		hero.prsaveStr = 1;
+		hero.prsaveDex = 1;
+	}
+	hero.saveStr += hero.modStr;
+	hero.saveDex += hero.modDex;
+	hero.saveCon += hero.modConst;
+	hero.saveInt += hero.modInt;
+	hero.saveWis += hero.modWis;
+	hero.saveCha += hero.modCha;
+
+	hero.acrobatic += hero.modDex;
+	hero.animalhandling += hero.modWis;
+	hero.arcana += hero.modInt;
+	hero.athletics += hero.modStr;
+	hero.deception += hero.modCha;
+	hero.history += hero.modInt;
+	hero.insight += hero.modWis;
+	hero.intimidation += hero.modCha;
+	hero.investigation += hero.modInt;
+	hero.medicine += hero.modWis;
+	hero.nature += hero.modInt;
+	hero.perception += hero.modWis;
+	hero.performance += hero.modCha;
+	hero.persuassion += hero.modCha;
+	hero.religion += hero.modInt;
+	hero.sleightofhand += hero.modDex;
+	hero.stealth += hero.modDex;
+	hero.survival += hero.modWis;
+}
 void characterlist() {
 	system("cls");
-	for (int i = 20; i < 100; i++) {
+	for (int i = 1; i < 79; i++) {
 		gotoxy(i, 3);
 		printf_s("_");
-		gotoxy(i, 57);
+		gotoxy(i, 43);
 		printf_s("_");
 	}
-	for (int j = 4; j < 58; j++) {
-		gotoxy(20, j);
+	for (int j = 4; j < 44; j++) {
+		gotoxy(0, j);
 		printf_s("|");
-		gotoxy(99, j);
+		gotoxy(79, j);
 		printf_s("|");
 	}
-	gotoxy(22, 5);
+
+	for (int i = 81; i < 159; i++) {
+		gotoxy(i, 3);
+		printf_s("_");
+		gotoxy(i, 43);
+		printf_s("_");
+	}
+	for (int j = 4; j < 44; j++) {
+		gotoxy(80, j);
+		printf_s("|");
+		gotoxy(159, j);
+		printf_s("|");
+	}
+	for (int i = 81; i < 159; i++) {
+		gotoxy(i, 7);
+		printf_s("_");
+
+	}
+	gotoxy(110, 2);
+	printf_s("Spell list");
+	gotoxy(88, 5);
+	printf_s("%s", hero.spellcaster);
+	gotoxy(110, 5);
+	printf_s("+ %d", hero.spellac);
+	gotoxy(126, 5);
+	printf_s("%d", hero.spelldc);
+	gotoxy(82, 6);
+	printf_s("Spell characteristic    Spell accuracy    Spell DC");
+	gotoxy(84, 8);
+	printf_s("Cantrips:");
+	int j = 10;
+	gotoxy(82, j);
+	for (int i = 0; i < strlen(hero.spelllist); i++) {
+		gotoxy(82, j);
+		switch (hero.spelllist[i]) {
+		case '1': {
+			printf_s("%s", eldritchblast.name);
+			break;
+		}
+		}
+		j++;
+	}
+	gotoxy(84, 16);
+	printf_s("1-st level spells:");
+
+	gotoxy(30, 2);
+	printf_s("Character list");
+	gotoxy(2, 5);
 	printf_s("%s", hero.name);
-	gotoxy(22, 6);
+	gotoxy(2, 6);
 	printf_s("Hero name");
-	gotoxy(62, 5);
+	gotoxy(42, 5);
 	printf_s("%s", hero.classname);
-	gotoxy(62, 6);
+	gotoxy(42, 6);
 	printf_s("Class");
-	gotoxy(70, 5);
-	printf_s("%s", warlock.archetypename);
-	for (int i = 21; i < 99; i++) {
+	gotoxy(58, 6);
+	printf_s("Level");
+	gotoxy(59, 5);
+	printf_s("%d", hero.level);
+	gotoxy(50, 5);
+	printf_s("%s", hero.archetypename);
+	for (int i = 1; i < 79; i++) {
 		gotoxy(i, 7);
 		printf_s("_");
 	}
 	for (int j = 8; j < 32; j++) {
-		gotoxy(34, j);
+		gotoxy(14, j);
 		printf_s("|");
 	}
-	for (int i = 21; i < 34; i++) {
+	for (int i = 1; i < 14; i++) {
 		gotoxy(i, 31);
 		printf_s("_");
 	}
-	gotoxy(40, 9);
+	gotoxy(38, 9);
 	printf_s("Armor Class");
-	gotoxy(41, 10);
+	gotoxy(39, 10);
 	printf_s("%d", hero.armorclass);
-	gotoxy(40, 11);
+	gotoxy(38, 11);
 	printf_s("Initiative");
-	gotoxy(41, 12);
+	gotoxy(39, 12);
 	printf_s("%d", hero.modDex);
-	gotoxy(60, 9);
-	printf_s("HITS");
-	gotoxy(61, 10);
-	printf_s("%d", hero.hits);
-	gotoxy(60, 11);
+	gotoxy(69, 9);
+	printf_s("Temp. Hits");
+	gotoxy(72, 10);
+	printf_s("%d", hero.temphits);
+	gotoxy(59, 9);
+	printf_s("Hits");
+	gotoxy(60, 10);
+	printf_s("%d/%d", hero.tekhits, hero.hits);
+	gotoxy(59, 11);
 	printf_s("Hit dice");
-	gotoxy(61, 12);
+	gotoxy(60, 12);
 	printf_s("d%d", hero.hits - hero.modConst);
-	gotoxy(22, 8);
+	gotoxy(2, 8);
 	printf_s("Strength");
-	gotoxy(22, 9);
+	gotoxy(2, 9);
 	printf_s("%d", hero.Strength);
-	gotoxy(22, 10);
+	gotoxy(2, 10);
 	printf_s("%d Mod", hero.modStr);
-	gotoxy(22, 12);
+	gotoxy(2, 12);
 	printf_s("Dexterity");
-	gotoxy(22, 13);
+	gotoxy(2, 13);
 	printf_s("%d", hero.Dexterity);
-	gotoxy(22, 14);
+	gotoxy(2, 14);
 	printf_s("%d Mod", hero.modDex);
-	gotoxy(22, 16);
+	gotoxy(2, 16);
 	printf_s("Constitution");
-	gotoxy(22, 17);
+	gotoxy(2, 17);
 	printf_s("%d", hero.Constitution);
-	gotoxy(22, 18);
+	gotoxy(2, 18);
 	printf_s("%d Mod", hero.modConst);
-	gotoxy(22, 20);
+	gotoxy(2, 20);
 	printf_s("Intellect");
-	gotoxy(22, 21);
+	gotoxy(2, 21);
 	printf_s("%d", hero.Intellect);
-	gotoxy(22, 22);
+	gotoxy(2, 22);
 	printf_s("%d Mod", hero.modInt);
-	gotoxy(22, 24);
+	gotoxy(2, 24);
 	printf_s("Wisdom");
-	gotoxy(22, 25);
+	gotoxy(2, 25);
 	printf_s("%d", hero.Wisdom);
-	gotoxy(22, 26);
+	gotoxy(2, 26);
 	printf_s("%d Mod", hero.modWis);
-	gotoxy(22, 28);
+	gotoxy(2, 28);
 	printf_s("Charisma");
-	gotoxy(22, 29);
+	gotoxy(2, 29);
 	printf_s("%d", hero.Charisma);
-	gotoxy(22, 30);
+	gotoxy(2, 30);
 	printf_s("%d Mod", hero.modCha);
+	int i = 18;
+	j = 8;
+	gotoxy(i, j);
+	printf_s("Str save        %d", hero.saveStr);
+	j++;
+	gotoxy(i, j);
+	printf_s("Dex save        %d", hero.saveDex);
+	j++;
+	gotoxy(i, j);
+	printf_s("Con save        %d", hero.saveCon);
+	j++;
+	gotoxy(i, j);
+	printf_s("Int save        %d", hero.saveInt);
+	j++;
+	gotoxy(i, j);
+	printf_s("Wis save        %d", hero.saveWis);
+	j++;
+	gotoxy(i, j);
+	printf_s("Cha save        %d", hero.saveCha);
+	j++;
+	gotoxy(i, j);
+	printf_s("Acrobatics      %d", hero.acrobatic);
+	j++;
+	gotoxy(i, j);
+	printf_s("Animal Handling %d", hero.animalhandling);
+	j++;
+	gotoxy(i, j);
+	printf_s("Arcana          %d", hero.arcana);
+	j++;
+	gotoxy(i, j);
+	printf_s("Athletics       %d", hero.athletics);
+	j++;
+	gotoxy(i, j);
+	printf_s("Deception       %d", hero.deception);
+	j++;
+	gotoxy(i, j);
+	printf_s("History         %d", hero.history);
+	j++;
+	gotoxy(i, j);
+	printf_s("Insight         %d", hero.insight);
+	j++;
+	gotoxy(i, j);
+	printf_s("Intimidation    %d", hero.intimidation);
+	j++;
+	gotoxy(i, j);
+	printf_s("Investigation   %d", hero.investigation);
+	j++;
+	gotoxy(i, j);
+	printf_s("Medicine        %d", hero.medicine);
+	j++;
+	gotoxy(i, j);
+	printf_s("Nature          %d", hero.nature);
+	j++;
+	gotoxy(i, j);
+	printf_s("Perception      %d", hero.perception);
+	j++;
+	gotoxy(i, j);
+	printf_s("Performance     %d", hero.performance);
+	j++;
+	gotoxy(i, j);
+	printf_s("Persuassion     %d", hero.persuassion);
+	j++;
+	gotoxy(i, j);
+	printf_s("Religion        %d", hero.religion);
+	j++;
+	gotoxy(i, j);
+	printf_s("Sleight of Hand %d", hero.sleightofhand);
+	j++;
+	gotoxy(i, j);
+	printf_s("Stealth         %d", hero.stealth);
+	j++;
+	gotoxy(i, j);
+	printf_s("Survival        %d", hero.survival);
+
+	j = 34;
+	gotoxy(52, j - 1);
+	printf_s("Abilities");
+	for (int i = 0; i < strlen(hero.ablist); i++) {
+		gotoxy(54, j);
+		switch (hero.ablist[i]) {
+		case '1': {
+			printf_s("%s", feyancestry.name);
+			break;
+		}
+		case '2': {
+			printf_s("%s", darkonesblessing.name);
+			break;
+		}
+		}
+		j++;
+	}
+	j = 34;
+	gotoxy(33, j - 1);
+	printf_s("Items");
+	for (int i = 0; i < strlen(hero.itemlist); i++) {
+		gotoxy(35, j);
+		switch (hero.itemlist[i]) {
+		case '1': {
+			printf_s("%s", healingpotion.name);
+			break;
+		}
+		}
+		j++;
+	}
+	j = 34;
+	gotoxy(16, j - 1);
+	printf_s("Weapons");
+	for (int i = 0; i < strlen(hero.weaponlist); i++) {
+		gotoxy(18, j);
+		switch (hero.weaponlist[i]) {
+		case '1': {
+			printf_s("%s", dagger.name);
+			break;
+		}
+		case '2': {
+			printf_s("%s", quarterstaff.name);
+			break;
+		}
+		case '3': {
+			printf_s("%s", magicalshortsword.name);
+			break;
+		}
+		}
+		j++;
+	}
 }
