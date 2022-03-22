@@ -609,7 +609,6 @@ void room4() {
 					while (1) {
 						s = _getch();
 						if (s == '1') {
-							hero.progress -= 1;
 							stages();
 						}
 					}
@@ -678,7 +677,6 @@ void room4() {
 							gotoxy(i, 15);
 							printf_s("<%s> Okay, I forgive you, you can stop crying", magicalshortsword.name);
 							Sleep(3000);
-							hero.progress -= 1;
 							stages();
 							break;
 						}
@@ -687,7 +685,6 @@ void room4() {
 					break;
 				}
 				case '3': {
-					hero.progress -= 1;
 					stages();
 					break;
 				}
@@ -1267,7 +1264,7 @@ void shop() {
 					donthavemoney();
 					break;
 				}
-			hero.weaponlist[0] = '1';
+			hero.weaponlist[1] = '1';
 			gotoxy(95, 13);
 			printf_s("Buyed       ");
 			break;
@@ -1280,7 +1277,7 @@ void shop() {
 					donthavemoney();
 					break;
 				}
-			hero.weaponlist[1] = '2';
+			hero.weaponlist[2] = '2';
 			gotoxy(95, 15);
 			printf_s("Buyed          ");
 			break;
@@ -1293,7 +1290,7 @@ void shop() {
 					donthavemoney();
 					break;
 				}
-			hero.weaponlist[3] = '4';
+			hero.weaponlist[4] = '4';
 			gotoxy(95, 17);
 			printf_s("Buyed            ");
 			break;
