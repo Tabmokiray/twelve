@@ -10,6 +10,13 @@ void freeetc() {
 	free(feyancestry.description);
 	free(darkonesblessing.description);
 	free(healingpotion.description);
+	free(agonizingblast.description);
+	free(armorofshadows.description);
+	free(beguilinginfluence.description);
+	for (int i = 0; i < 40; i++) {
+		free(sunlesscitadel.map[i]);
+	}
+	free(sunlesscitadel.map);
 }
 void clearchat() {
 	for (int i = 3; i < 47; i++) {
@@ -47,8 +54,19 @@ void clearchat() {
 	printf_s("Your armor class: %d     Your hits: %d/%d    Your temporary hits: %d   ", hero.armorclass, hero.tekhits, hero.hits, hero.temphits);
 	gotoxy(135, j + 2);
 	printf_s("Open character list(i)");
+	gotoxy(135, j + 3);
+	printf_s("Open equipment list(e)");
+	gotoxy(135, j + 4);
+	printf_s("Open map(m)");
 	gotoxy(70, 1);
 	printf_s("%s hits: %d  ", monster.name, monster.hits);
+}
+void donthavemoney() {
+	gotoxy(75, 6);
+	printf_s("You dont have enough money");
+	Sleep(1000);
+	gotoxy(75, 7);
+	printf_s("                          ");
 }
 int actions(char* control) {
 	char ch = '0';
@@ -71,6 +89,10 @@ int actions(char* control) {
 			}
 			case '3': {
 				printf_s("%s", magicalshortsword.name);
+				break;
+			}
+			case '4': {
+				printf_s("%s", lightcrossbow.name);
 				break;
 			}
 			}
@@ -518,8 +540,6 @@ int actions(char* control) {
 }
 void charactercreator() {
 	char choose;
-	fighter.hitdice = 10;
-	fighter.spellcaster = 0;
 	hero.level = 1;
 	warlock.hitdice = 8;
 	warlock.spellcaster = 1;
@@ -540,9 +560,9 @@ void charactercreator() {
 	hero.proficiency = 2;
 	hero.itemlist[0] = '1';
 	hero.items = 1;
-	gotoxy(50, 5);
+	gotoxy(60, 5);
 	printf_s("Choose your race: - Human(1)");
-	gotoxy(50, 6);
+	gotoxy(60, 6);
 	while (hero.race == 0) {
 		choose = _getch();
 		switch (choose) {
@@ -551,7 +571,7 @@ void charactercreator() {
 			hero.race = human.race;
 			printf_s("Time to generate your stats");
 			Sleep(1500);
-			for (int i = 50; i < 80; i++) {
+			for (int i = 50; i < 90; i++) {
 				for (int j = 5; j < 7; j++) {
 					gotoxy(i, j);
 					printf_s(" ");
@@ -559,14 +579,14 @@ void charactercreator() {
 			}
 			int points = 27;
 			while (1) {
-				for (int i = 50; i < 86; i++) {
+				for (int i = 50; i < 96; i++) {
 					for (int j = 5; j < 17; j++) {
 						printf_s(" ");
 					}
 				}
-				gotoxy(50, 15);
+				gotoxy(60, 15);
 				printf_s("Total Points: %d/27 ", points);
-				gotoxy(50, 17);
+				gotoxy(60, 17);
 				printf_s("Human race give +1 to each stat");
 				for (int j = 6; j < 12; j++) {
 					gotoxy(88, j);
@@ -580,12 +600,11 @@ void charactercreator() {
 					hero.Wisdom += human.wis;
 					hero.Charisma += human.cha;
 					modif();
-					hero.armorclass = 10 + hero.modDex + hero.armormod;
 					break;
 				}
 
 			}
-			for (int i = 50; i < 95; i++) {
+			for (int i = 50; i < 105; i++) {
 				for (int j = 5; j < 18; j++) {
 					gotoxy(i, j);
 					printf_s(" ");
@@ -595,28 +614,28 @@ void charactercreator() {
 		}
 		}
 	}
-	gotoxy(50, 5);
+	gotoxy(60, 5);
 	printf_s("Write name of your character");
 	int i = -1;
 	char n;
-	gotoxy(50, 6);
+	gotoxy(60, 6);
 	do {
 		i++;
 		scanf_s("%c", &hero.name[i], 1);
 	} while (hero.name[i] != '\n');
 	hero.name[i] = '\0';
-	gotoxy(50, 7);
+	gotoxy(60, 7);
 	printf_s("%s? Wonderful name!", hero.name);
 	Sleep(1000);
-	for (int i = 50; i < 90; i++) {
+	for (int i = 50; i < 100; i++) {
 		for (int j = 5; j < 8; j++) {
 			gotoxy(i, j);
 			printf_s(" ");
 		}
 	}
-	gotoxy(50, 5);
+	gotoxy(60, 5);
 	printf_s("Choose your class");
-	gotoxy(50, 6);
+	gotoxy(60, 6);
 	printf_s("Warlock(1)");
 	while (hero.hitdice == 0) {
 		choose = _getch();
@@ -629,27 +648,24 @@ void charactercreator() {
 			hero.hitdice = warlock.hitdice;
 			hero.hits = hero.hitdice + hero.modConst;
 			hero.tekhits = hero.hits;
-			hero.spelllist[0] = eldritchblast.id;
-			hero.weaponlist[0] = dagger.id;
 			hero.spelldc = hero.modCha + 8 + hero.proficiency;
-			hero.weaponlist[1] = quarterstaff.id;
 			hero.amounthitdice = hero.level;
-			hero.armormod = armor.leatherarmor;
-			for (int i = 50; i < 70; i++) {
+			hero.armorclass = 10 + hero.modDex;
+			for (int i = 50; i < 80; i++) {
 				for (int j = 5; j < 7; j++) {
 					gotoxy(i, j);
 					printf_s(" ");
 				}
 			}
-			gotoxy(50, 5);
+			gotoxy(60, 5);
 			printf_s("Choose your Otherwordly patron");
-			gotoxy(50, 6);
+			gotoxy(60, 6);
 			printf_s("Archfey(1) Fiend(2)");
-			gotoxy(50, 8);
+			gotoxy(60, 8);
 			printf_s("Otherwordly patron");
-			gotoxy(50, 9);
+			gotoxy(60, 9);
 			printf_s("At 1st level, you have struck a bargain with an otherworldly being chosen from the list of available patrons.");
-			gotoxy(50, 10);
+			gotoxy(60, 10);
 			printf_s("Your choice grants you features at 1st level and again at 6th, 10th, and 14th level.");
 			while (hero.archetype == 0) {
 				choose = _getch();
@@ -657,21 +673,21 @@ void charactercreator() {
 				case '1': {
 					hero.archetype = 1;
 					strcpy_s(hero.archetypename, 8, "Archfey");
-					for (int i = 50; i < 161; i++) {
+					for (int i = 50; i < 171; i++) {
 						for (int j = 5; j < 11; j++) {
 							gotoxy(i, j);
 							printf_s(" ");
 						}
 					}
-					gotoxy(50, 8);
+					gotoxy(60, 8);
 					printf_s("The Archfey");
-					gotoxy(50, 9);
+					gotoxy(60, 9);
 					printf_s("Your patron is a lord or lady of the fey, a creature of legend who holds secrets");
-					gotoxy(50, 10);
+					gotoxy(60, 10);
 					printf_s("that were forgotten before the mortal races were born.");
-					gotoxy(50, 11);
+					gotoxy(60, 11);
 					printf_s("This being's motivations are often inscrutable, and sometimes whimsical, and might involve");
-					gotoxy(50, 12);
+					gotoxy(60, 12);
 					printf_s(" a striving for greater magical power or the settling of age-old grudges.");
 					hero.ablist[0] = feyancestry.id;
 					char r = _getch();
@@ -680,19 +696,19 @@ void charactercreator() {
 				case '2': {
 					hero.archetype = 2;
 					strcpy_s(hero.archetypename, 6, "Fiend");
-					for (int i = 50; i < 161; i++) {
+					for (int i = 50; i < 171; i++) {
 						for (int j = 5; j < 11; j++) {
 							gotoxy(i, j);
 							printf_s(" ");
 						}
 					}
-					gotoxy(50, 8);
+					gotoxy(60, 8);
 					printf_s("The Fiend");
-					gotoxy(50, 9);
+					gotoxy(60, 9);
 					printf_s("You have made a pact with a fiend from the lower planes of existence, a being whose aims are evil,");
-					gotoxy(50, 10);
+					gotoxy(60, 10);
 					printf_s("even if you strive against those aims. Such beings desire the corruption or destruction of all things,");
-					gotoxy(50, 11);
+					gotoxy(60, 11);
 					printf_s("ultimately including you.");
 					hero.ablist[0] = darkonesblessing.id;
 					char r = _getch();
@@ -704,13 +720,13 @@ void charactercreator() {
 		}
 		}
 	}
-	for (int i = 50; i < 161; i++) {
+	for (int i = 50; i < 171; i++) {
 		for (int j = 5; j < 13; j++) {
 			gotoxy(i, j);
 			printf_s(" ");
 		}
 	}
-	gotoxy(50, 5);
+	gotoxy(60, 5);
 	printf_s("Choose two skills:");
 	gotoxy(50, 7);
 	int ch = 0;
@@ -785,7 +801,7 @@ void charactercreator() {
 		}
 		Sleep(1500);
 	}
-	for (int i = 50; i < 140; i++) {
+	for (int i = 50; i < 150; i++) {
 		for (int j = 5; j < 9; j++) {
 			gotoxy(i, j);
 			printf_s(" ");
@@ -795,6 +811,8 @@ void charactercreator() {
 	profinskills();
 }
 void start() {
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
 	FILE* wood;
 	if ((fopen_s(&wood, "wood.txt", "r")) != 0) {
 		exit(1);
@@ -833,13 +851,36 @@ void start() {
 			printf_s(" ");
 		}
 	}
-	gotoxy(50, 5);
+
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_FONT_INFOEX fontInfo;
+	fontInfo.cbSize = sizeof(fontInfo);
+	GetCurrentConsoleFontEx(hConsole, TRUE, &fontInfo);
+	wcscpy_s(fontInfo.FaceName, 15, L"Consolas");
+	fontInfo.dwFontSize.Y = 72;
+	SetCurrentConsoleFontEx(hConsole, TRUE, &fontInfo);
+
+	handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	gotoxy(8, 2);
 	printf_s("The Sunless Citadel");
-	gotoxy(50, 7);
+	Sleep(2000);
+	gotoxy(8, 2);
+	printf_s("                   ");
+	gotoxy(60, 5);
+	printf_s("Game menu");
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	fontInfo.cbSize = sizeof(fontInfo);
+	GetCurrentConsoleFontEx(hConsole, TRUE, &fontInfo);
+	wcscpy_s(fontInfo.FaceName, 15, L"Consolas");
+	fontInfo.dwFontSize.Y = 16;
+	SetCurrentConsoleFontEx(hConsole, TRUE, &fontInfo);
+
+	gotoxy(60, 7);
 	printf_s("Start or continue game(1)");
-	gotoxy(50, 8);
+	gotoxy(60, 8);
 	printf_s("Controls(2)");
-	gotoxy(50, 9);
+	gotoxy(60, 9);
 	printf_s("Exit(3)");
 	char control = '0';
 	while (control != '1') {
@@ -849,45 +890,45 @@ void start() {
 			break;
 		}
 		case '2': {
-			for (int i = 50; i < 90; i++) {
+			for (int i = 50; i < 100; i++) {
 				for (int j = 5; j < 15; j++) {
 					gotoxy(i, j);
 					printf_s(" ");
 				}
 			}
-			gotoxy(50, 5);
+			gotoxy(60, 5);
 			printf_s("(Enter) after you read text");
-			gotoxy(50, 6);
+			gotoxy(60, 6);
 			printf_s("(-) after you set your character stats");
-			gotoxy(50, 7);
+			gotoxy(60, 7);
 			printf_s("(number) buttons");
-			gotoxy(50, 8);
+			gotoxy(60, 8);
 			printf_s("(S) save game");
 			_getch();
-			for (int i = 50; i < 90; i++) {
+			for (int i = 50; i < 100; i++) {
 				for (int j = 5; j < 15; j++) {
 					gotoxy(i, j);
 					printf_s(" ");
 				}
 			}
-			gotoxy(50, 5);
-			printf_s("The Sunless Citadel");
-			gotoxy(50, 7);
+			gotoxy(60, 5);
+			printf_s("Game menu");
+			gotoxy(60, 7);
 			printf_s("Start or continue game(1)");
-			gotoxy(50, 8);
+			gotoxy(60, 8);
 			printf_s("Controls(2)");
-			gotoxy(50, 9);
+			gotoxy(60, 9);
 			printf_s("Exit(3)");
 			break;
 		}
 		case '3': {
-			for (int i = 50; i < 70; i++) {
+			for (int i = 50; i < 90; i++) {
 				for (int j = 5; j < 15; j++) {
 					gotoxy(i, j);
 					printf_s(" ");
 				}
 			}
-			gotoxy(50, 5);
+			gotoxy(60, 5);
 			printf_s("See you later ^_^");
 			gotoxy(60, 5);
 			Sleep(1500);
@@ -1214,12 +1255,12 @@ void createsave() {
 void save() {
 	char cntrl = '0';
 	while (cntrl != '1' && cntrl != '2') {
-		gotoxy(50, 5);
+		gotoxy(60, 5);
 		printf_s("Would you like to create a character?");
-		gotoxy(50, 6);
+		gotoxy(60, 6);
 		printf_s("Yes(1)  I already have one(2)");
 		cntrl = _getch();
-		for (int i = 50; i < 90; i++) {
+		for (int i = 50; i < 100; i++) {
 			for (int j = 5; j < 7; j++) {
 				gotoxy(i, j);
 				printf_s(" ");
@@ -1263,9 +1304,79 @@ void gotoxy(int column, int row)
 	SetConsoleCursorPosition(hCons, crd);
 	//#endif
 }
+void makemap() {
+	FILE* map;
+	if ((fopen_s(&map, "map.txt", "r")) != 0) {
+		exit(1);
+	}
+
+	sunlesscitadel.map = (char*)malloc(5760);
+	if (sunlesscitadel.map == 0) {
+		exit(1);
+	}
+	int i = 0;
+
+	fscanf_s(map, "%c", &sunlesscitadel.map[i], 1);
+	while (sunlesscitadel.map[i] != '\0') {
+		i++;
+		fscanf_s(map, "%c", &sunlesscitadel.map[i], 1);
+	}
+	gotoxy(0, 0);
+	int k = 0;
+	Sleep(2000);
+	for (int j = 0; j < 5760; j++) {
+		printf_s("%c", sunlesscitadel.map[j]);
+	}
+	free(sunlesscitadel.map);
+	fclose(map);
+	switch (hero.progress) {
+	case 0: {
+		mapping(97, 22);
+		break;
+	}
+	case 1: {
+		mapping(88, 28);
+		break;
+	}
+	case 2: {
+		mapping(98, 32);
+		break;
+	}
+	case 3: {
+		mapping(69, 35);
+		break;
+	}
+	case 4: {
+		mapping(69, 35);
+		break;
+	}
+	case 5: {
+		mapping(60, 41);
+		break;
+	}
+	case 6: {
+		mapping(45, 40);
+		break;
+	}
+	}
+	_getch();
+}
 void mechanicsatstart() {
 	fullscreen();
 	srand(time(NULL));
 	ruleset();
 	hidecursor();
+}
+void mapping(int x,int y) {
+	y -= 2;
+	for (int i = 0; i < 6; i++) {
+		gotoxy(x, y);
+		printf_s(" ");
+		Sleep(500);
+		gotoxy(x, y);
+		printf_s("&");
+		Sleep(500);
+	}
+	gotoxy(x, y);
+	printf_s("&");
 }

@@ -98,6 +98,14 @@ struct stats {
 	int prstealth;
 	int survival;
 	int prsurvival;
+	char equiplist[20];
+	char equphead[20];
+	char equipchest[20];
+	char equipbracers[20];
+	char equiplefthand[20];
+	char equipcape[20];
+	char equipfeet[20];
+	char equiprings[20];
 };
 struct stats hero, Frankstat, Goblinstat, Banditstat, Ratstat, Skeletonstat, Swordstat;
 struct race {
@@ -120,8 +128,15 @@ struct class {
 	int hitdice;
 	int class;
 	int archetype;
+	char eldritchinvocations[20];
 };
-struct class warlock, fighter;
+struct class warlock;
+struct invocations {
+	char id;
+	char name[20];
+	char* description;
+};
+struct invocations agonizingblast, armorofshadows, beguilinginfluence;
 struct npc {
 	int armorclass;
 	char name[20];
@@ -146,25 +161,14 @@ struct action {
 	int accur2;
 };
 struct action Goblinaction, Banditaction, monsteraction, Rataction, Skeletonaction, Swordaction;
-struct armor {
-	int shield;
-
-	int platearmor;
-	int splintarmor;
-	int chainmail;
-	int ringmailarmor;
-
-	int halfplatearmor;
-	int breastplate;
-	int scalemailarmor;
-	int chainshirt;
-	int hidearmor;
-
-	int studdedleather;
-	int leatherarmor;
-	int paddedarmor;
+struct arm {
+	int startarmor;
+	int type;
+	int cost;
+	char name[20];
+	char id;
 };
-struct armor armor;
+struct arm shield, platearmor, splintarmor, chainmail, ringmailarmor, halfplatearmor, breastplate, scalemailarmor, chainshirt, hidearmor, studdedleather, leatherarmor, paddedarmor;
 struct weapon {
 	int finnese;
 	int damage;
@@ -173,8 +177,9 @@ struct weapon {
 	char id;
 	int mods;
 	int amount;
+	int cost;
 };
-struct weapon dagger, quarterstaff, magicalshortsword;
+struct weapon dagger, quarterstaff, magicalshortsword, lightcrossbow;
 struct spell {
 	char id;
 	char name[20];
@@ -186,12 +191,16 @@ struct spell {
 	int mode;
 	int mods;
 };
-struct spell eldritchblast, darkonesblessing, feyancestry;
+struct spell eldritchblast,magearmor, darkonesblessing, feyancestry;
 struct text {
 	char* text1;
 	char* text2;
 };
-struct text intr, columns, magicsword;
+struct text intr, columns, magicsword, shopman;
+struct maps {
+	char* map;
+};
+struct maps sunlesscitadel;
 struct item {
 	char id;
 	char name[20];

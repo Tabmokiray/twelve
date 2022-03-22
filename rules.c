@@ -104,7 +104,6 @@ void ruleset() {
 	hero.archetype = 0;
 
 	warlock.class = 1;
-	fighter.class = 2;
 
 	human.race = 1;
 	human.str = 1;
@@ -151,35 +150,110 @@ void ruleset() {
 	dagger.mods = 0;
 	dagger.id = '1';
 	strcpy_s(dagger.name, 7, "Dagger");
+	dagger.cost = 2;
 
 	magicalshortsword.damage = d6;
 	magicalshortsword.mods = 1;
 	magicalshortsword.finnese = 1;
 	magicalshortsword.id = '3';
 	strcpy_s(magicalshortsword.name, 20, "Magical short sword");
+	magicalshortsword.cost = 500;
 
 	quarterstaff.damage = d8;
 	quarterstaff.finnese = 0;
 	quarterstaff.mods = 0;
 	quarterstaff.id = '2';
 	strcpy_s(quarterstaff.name, 13, "Quarterstaff");
+	quarterstaff.cost = 1;
 
-	armor.shield = 2;
+	lightcrossbow.damage = d8;
+	lightcrossbow.finnese = 0;
+	lightcrossbow.mods = 0;
+	lightcrossbow.id = '4';
+	strcpy_s(lightcrossbow.name, 15, "Light crossbow");
+	lightcrossbow.cost = 25;
 
-	armor.platearmor = 18;
-	armor.splintarmor = 17;
-	armor.chainmail = 16;
-	armor.ringmailarmor = 14;
+	shield.startarmor = 2;
+	shield.type = 0;
+	strcpy_s(shield.name, 7, "Shield");
+	shield.id = '5';
+	shield.cost = 10;
 
-	armor.halfplatearmor = 15;
-	armor.breastplate = 14;
-	armor.scalemailarmor = 14;
-	armor.chainshirt = 13;
-	armor.hidearmor = 12;
+	platearmor.startarmor = 18;
+	platearmor.type = 3;
+	strcpy_s(platearmor.name, 12, "Plate armor");
+	platearmor.id = '6';
+	platearmor.cost = 1500;
+	splintarmor.startarmor = 17;
+	splintarmor.type = 3;
+	strcpy_s(splintarmor.name, 13, "Splint armor");
+	splintarmor.id = '7';
+	splintarmor.cost = 200;
+	chainmail.startarmor = 16;
+	chainmail.type = 3;
+	strcpy_s(chainmail.name, 11, "Chain mail");
+	chainmail.id = '8';
+	chainmail.cost = 75;
+	ringmailarmor.startarmor = 14;
+	ringmailarmor.type = 3;
+	strcpy_s(ringmailarmor.name, 16, "Ring mail armor");
+	ringmailarmor.id = '9';
+	ringmailarmor.cost = 30;
 
-	armor.studdedleather = 12;
-	armor.leatherarmor = 11;
-	armor.paddedarmor = 11;
+	halfplatearmor.startarmor = 15;
+	halfplatearmor.type = 2;
+	strcpy_s(halfplatearmor.name, 17, "Half plate armor");
+	halfplatearmor.id = 'q';
+	halfplatearmor.cost = 750;
+	breastplate.startarmor = 14;
+	breastplate.type = 2;
+	strcpy_s(breastplate.name, 13, "Breast plate");
+	breastplate.id = 'w';
+	breastplate.cost = 400;
+	scalemailarmor.startarmor = 14;
+	scalemailarmor.type = 2;
+	strcpy_s(scalemailarmor.name, 17, "Scale mail armor");
+	scalemailarmor.id = 'e';
+	scalemailarmor.cost = 50;
+	chainshirt.startarmor = 13;
+	chainshirt.type = 2;
+	strcpy_s(chainshirt.name, 12, "Chain shirt");
+	chainshirt.id = 'r';
+	chainshirt.cost = 50;
+	hidearmor.startarmor = 12;
+	hidearmor.type = 2;
+	strcpy_s(hidearmor.name, 11, "Hide armor");
+	hidearmor.id = 't';
+	hidearmor.cost = 10;
+
+	studdedleather.startarmor = 12;
+	studdedleather.type = 1;
+	strcpy_s(studdedleather.name, 16, "Studded leather");
+	studdedleather.id = 'y';
+	studdedleather.cost = 45;
+	leatherarmor.startarmor = 11;
+	leatherarmor.type = 1;
+	strcpy_s(leatherarmor.name, 14, "Leather armor");
+	leatherarmor.id = 'u';
+	leatherarmor.cost = 10;
+	paddedarmor.startarmor = 11;
+	paddedarmor.type = 1;
+	strcpy_s(paddedarmor.name, 13, "Padded armor");
+	paddedarmor.id = 'i';
+	paddedarmor.cost = 5;
+
+	agonizingblast.id = '1';
+	strcpy_s(agonizingblast.name, 16, "Agonizing blast");
+	agonizingblast.description = (char*)malloc(90);
+	strcpy_s(agonizingblast.description, 91, "When you cast eldritch blast, add your Charisma modifier\nto the damage it deals on a hit.");
+	armorofshadows.id = '2';
+	strcpy_s(armorofshadows.name, 17, "Armor of shadows");
+	armorofshadows.description = (char*)malloc(100);
+	strcpy_s(armorofshadows.description, 101, "You can cast mage armor on yourself at will,\nwithout expending a spell slot or material components.");
+	beguilinginfluence.id = '3';
+	strcpy_s(beguilinginfluence.name, 20, "Beguiling influence");
+	beguilinginfluence.description = (char*)malloc(61);
+	strcpy_s(beguilinginfluence.description, 62, "You gain proficiency in the Deception and Persuasion skills.");
 
 	Rat.armorclass = 12;
 	Rat.hits = 7;
@@ -327,6 +401,9 @@ void loot() {
 	int lootsilver = roll(2, 10, 0) * (monster.level + 1);
 	int lootcopper = roll(2, 10, 0) * (monster.level + 2);
 	int xp = monster.level * 150 + 50;
+	if (monster.level == 0) {
+		xp = 150;
+	}
 	gotoxy(3, 3);
 	printf_s("In dead body you find:");
 	gotoxy(3, 4);
@@ -341,7 +418,6 @@ void loot() {
 	hero.xp += xp;
 	gotoxy(3, 6);
 	printf_s("Your xp is %d", hero.xp);
-	levels();
 	Sleep(5000);
 }
 void levels() {
@@ -353,6 +429,8 @@ void levels() {
 		hero.level = 2;
 		gotoxy(3, 8);
 		printf_s("Congratulations! Your level is %d", hero.level);
+		warlock2();
+		stages();
 	}
 	if (hero.xp >= 900 && hero.level == 2) {
 		for (int i = 0; i < 5; i++) {
@@ -363,6 +441,86 @@ void levels() {
 		gotoxy(3, 8);
 		printf_s("Congratulations! Your level is %d", hero.level);
 	}
+}
+void warlock2() {
+	system("cls");
+	gotoxy(50, 5);
+	printf_s("%s is pleased with your success and bestows a particle of his ancient knowledge", hero.archetypename);
+	gotoxy(50, 6);
+	printf_s("Choose two Eldritch invocations:");
+	gotoxy(50, 8);
+	int j = 9;
+	printf_s("(1)%s", agonizingblast.name);
+	gotoxy(55, j);
+	for (int i = 0; i < strlen(agonizingblast.description); i++) {
+		if (agonizingblast.description[i] == '\n') {
+			j++;
+			i++;
+			gotoxy(55, j);
+		}
+		printf_s("%c", agonizingblast.description[i]);
+	}
+	j = 12;
+	gotoxy(50, 11);
+	printf_s("(2)%s", armorofshadows.name);
+	gotoxy(55, j);
+	for (int i = 0; i < strlen(armorofshadows.description); i++) {
+		if (armorofshadows.description[i] == '\n') {
+			j++;
+			i++;
+			gotoxy(55, j);
+		}
+		printf_s("%c", armorofshadows.description[i]);
+	}
+	j = 15;
+	gotoxy(50, 14);
+	printf_s("(3)%s", beguilinginfluence.name);
+	gotoxy(55, j);
+	for (int i = 0; i < strlen(beguilinginfluence.description); i++) {
+		if (beguilinginfluence.description[i] == '\n') {
+			j++;
+			i++;
+			gotoxy(55, j);
+		}
+		printf_s("%c", beguilinginfluence.description[i]);
+	}
+	char s = '0';
+	int inv = 0;
+	while (inv!=2) {
+		s = _getch();
+		switch (s) {
+		case '1': {
+			warlock.eldritchinvocations[0] = agonizingblast.id;
+			inv++;
+			eldritchblast.mods += hero.modCha;
+			gotoxy(48, 8);
+			printf_s(">");
+			break;
+		}
+		case '2': {
+			warlock.eldritchinvocations[1] = armorofshadows.id;
+			inv++;
+			hero.spelllist[1] = magearmor.id;
+			gotoxy(48, 11);
+			printf_s(">");
+			break;
+		}
+		case '3': {
+			warlock.eldritchinvocations[2] = beguilinginfluence.id;
+			inv++;
+			hero.prdeception = 1;
+			hero.prpersusassion = 1;
+			hero.spelllist[1] = magearmor.id;
+			gotoxy(48, 14);
+			printf_s(">");
+			break;
+		}
+		}
+	}
+	Sleep(1000);
+	hero.hits += 5 + hero.modConst;
+	hero.tekhits = hero.hits;
+	stages();
 }
 void money() {
 	int k = 0;
@@ -431,6 +589,213 @@ void condition(int* attack) {
 	}
 	}
 }
+void equips(int id) {
+	//0-head 1-chest 2-bracers 3-lefthand 4-righthand 5-cape 6-feet 7-rings
+	if (id == '5') {
+		if (hero.equiplist[3] != '0') {
+			if (hero.equiplist[3] == '5') {
+				hero.gold += shield.cost;
+			}
+		}
+	}
+	if (id != '5') {
+		if (hero.equiplist[1] != '0') {
+			switch (hero.equiplist[1]) {
+			case '6': {
+				hero.gold += platearmor.cost;
+				break;
+			}
+			case '7': {
+				hero.gold += splintarmor.cost;
+				break;
+			}
+			case '8': {
+				hero.gold += chainmail.cost;
+				break;
+			}
+			case '9': {
+				hero.gold += ringmailarmor.cost;
+				break;
+			}
+			case 'q': {
+				hero.gold += halfplatearmor.cost;
+				break;
+			}
+			case 'w': {
+				hero.gold += breastplate.cost;
+				break;
+			}
+			case 'e': {
+				hero.gold += scalemailarmor.cost;
+				break;
+			}
+			case 'r': {
+				hero.gold += chainshirt.cost;
+				break;
+			}
+			case 't': {
+				hero.gold += hidearmor.cost;
+				break;
+			}
+			case 'y': {
+				hero.gold += studdedleather.cost;
+				break;
+			}
+			case 'u': {
+				hero.gold += leatherarmor.cost;
+				break;
+			}
+			case 'i': {
+				hero.gold += paddedarmor.cost;
+				break;
+			}
+			}
+		}
+	}
+	switch (id) {
+	case '5': {
+		hero.equiplist[3] = shield.id;
+		hero.armormod += shield.startarmor;
+		hero.gold -= shield.cost;
+		break;
+	}
+	case '6': {
+
+		hero.equiplist[1] = platearmor.id;
+		hero.armorclass = platearmor.startarmor + hero.armormod;
+		hero.gold -= platearmor.cost;
+		break;
+	}
+	case '7': {
+		hero.equiplist[1] = splintarmor.id;
+		hero.armorclass = splintarmor.startarmor + hero.armormod;
+		hero.gold -= splintarmor.cost;
+		break;
+	}
+	case '8': {
+		hero.equiplist[1] = chainmail.id;
+		hero.armorclass = chainmail.startarmor + hero.armormod;
+		hero.gold -= chainmail.cost;
+		break;
+	}
+	case '9': {
+		hero.equiplist[1] = ringmailarmor.id;
+		hero.armorclass = ringmailarmor.startarmor + hero.armormod;
+		hero.gold -= ringmailarmor.cost;
+		break;
+	}
+	case 'q': {
+		hero.equiplist[1] = halfplatearmor.id;
+		if (hero.modDex < 3)
+			hero.armorclass = halfplatearmor.startarmor + hero.armormod + hero.modDex;
+		else {
+			hero.armorclass = halfplatearmor.startarmor + hero.armormod;
+		}
+		hero.gold -= halfplatearmor.cost;
+		break;
+	}
+	case 'w': {
+		hero.equiplist[1] = breastplate.id;
+		if (hero.modDex < 3)
+			hero.armorclass = breastplate.startarmor + hero.armormod + hero.modDex;
+		else {
+			hero.armorclass = breastplate.startarmor + hero.armormod;
+		}
+		hero.gold -= breastplate.cost;
+		break;
+	}
+	case 'e': {
+		hero.equiplist[1] = scalemailarmor.id;
+		if (hero.modDex < 3)
+			hero.armorclass = scalemailarmor.startarmor + hero.armormod + hero.modDex;
+		else {
+			hero.armorclass = scalemailarmor.startarmor + hero.armormod;
+		}
+		hero.gold -= scalemailarmor.cost;
+		break;
+	}
+	case 'r': {
+		hero.equiplist[1] = chainshirt.id;
+		if (hero.modDex < 3)
+			hero.armorclass = chainshirt.startarmor + hero.armormod + hero.modDex;
+		else {
+			hero.armorclass = scalemailarmor.startarmor + hero.armormod;
+		}
+		hero.gold -= scalemailarmor.cost;
+		break;
+	}
+	case 't': {
+		hero.equiplist[1] = hidearmor.id;
+		if (hero.modDex < 3)
+			hero.armorclass = hidearmor.startarmor + hero.armormod + hero.modDex;
+		else {
+			hero.armorclass = hidearmor.startarmor + hero.armormod;
+		}
+		hero.gold -= hidearmor.cost;
+		break;
+	}
+	case 'y': {
+		hero.equiplist[1] = studdedleather.id;
+		hero.armorclass = studdedleather.startarmor + hero.armormod + hero.modDex;
+		hero.gold -= studdedleather.cost;
+		break;
+	}
+	case 'u': {
+		hero.equiplist[1] = leatherarmor.id;
+		hero.armorclass = leatherarmor.startarmor + hero.armormod + hero.modDex;
+		hero.gold -= leatherarmor.cost;
+		break;
+	}
+	case 'i': {
+		hero.equiplist[1] = paddedarmor.id;
+		hero.armorclass = paddedarmor.startarmor + hero.armormod + hero.modDex;
+		hero.gold -= paddedarmor.cost;
+		break;
+	}
+	}
+}
+void showequip() {
+	system("cls");
+	gotoxy(60, 5);
+	printf_s("Head [%s]", hero.equphead);
+	gotoxy(60, 7);
+	printf_s("Chest [%s]", hero.equipchest);
+	gotoxy(60, 9);
+	printf_s("Bracers [%s]", hero.equipbracers);
+	gotoxy(60, 11);
+	printf_s("Left hand [%s]", hero.equiplefthand);
+	gotoxy(60, 13);
+	printf_s("Right hand [");
+	for (int i = 0; i < strlen(hero.weaponlist); i++) {
+		switch (hero.weaponlist[i]) {
+		case '1': {
+			printf_s("%s ", dagger.name);
+			break;
+		}
+		case '2': {
+			printf_s("%s ", quarterstaff.name);
+			break;
+		}
+		case '3': {
+			printf_s("%s ", magicalshortsword.name);
+			break;
+		}
+		case '4': {
+			printf_s("%s ", lightcrossbow.name);
+			break;
+		}
+		}
+	}
+	printf_s("]");
+	gotoxy(60, 15);
+	printf_s("Cape [%s]", hero.equipcape);
+	gotoxy(60, 17);
+	printf_s("Feet [%s]", hero.equipcape);
+	gotoxy(60, 19);
+	printf_s("Rings [%s]", hero.equiprings);
+	_getch();
+
+}
 void weapons(int z, int* damage, int* attack, char* damagetype) {
 	switch (z) {
 	case 1: {
@@ -483,6 +848,16 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 			}
 		}
 
+		break;
+	}
+	case 4: {
+		strcpy_s(damagetype, 9, "piercing");
+		*damage = lightcrossbow.damage + hero.modDex;
+		*attack = roll(1, 20, hero.modDex + hero.proficiency);
+		if (*attack == 20 + hero.modDex + hero.proficiency) {
+			*damage = lightcrossbow.damage + lightcrossbow.damage + hero.modDex;
+			hero.crit = 1;
+		}
 		break;
 	}
 	}
