@@ -20,18 +20,18 @@ void freeetc() {
 }
 void clearchat() {
 	for (int i = 3; i < 47; i++) {
-		for (int j = 0; j < 16; j++) {
+		for (int j = 0; j < 20; j++) {
 			gotoxy(i, j);
 			printf_s(" ");
 		}
 	}
-	for (int i = 3; i < 200; i++) {
-		for (int j = 19; j < 32; j++) {
+	for (int i = 1; i < 201; i++) {
+		for (int j = 19; j < 36; j++) {
 			gotoxy(i, j);
 			printf_s(" ");
 		}
 	}
-	int j = 16;
+	int j = 20;
 	gotoxy(50, j);
 	printf_s("Weapons");
 	gotoxy(53, j + 1);
@@ -59,13 +59,13 @@ void clearchat() {
 	gotoxy(135, j + 4);
 	printf_s("Open map(m)");
 	gotoxy(70, 1);
-	printf_s("%s hits: %d  ", monster.name, monster.hits);
+	printf_s("%s hits: %d   ", monster.name, monster.hits);
 }
 void donthavemoney() {
 	gotoxy(75, 6);
 	printf_s("You dont have enough money");
 	Sleep(1000);
-	gotoxy(75, 7);
+	gotoxy(75, 6);
 	printf_s("                          ");
 }
 int actions(char* control) {
@@ -108,30 +108,32 @@ int actions(char* control) {
 			int damage = 0;
 			int attack = 0;
 			char damagetype[20];
-
-			weapons(choose, &damage, &attack, &damagetype);
-			gotoxy(3, 3);
-			printf_s("You are trying to attack: %d...", attack);
-
-			Sleep(1500);
-			if (attack < monster.armorclass) {
-				gotoxy(3, 4);
-				printf_s("Failed");
-				Sleep(1500);
+			if ((choose == 1 && hero.weaponlist[1] == '1') || (choose == 2 && hero.weaponlist[2] == '2' || (choose == 3 && hero.weaponlist[3] == '3') || (choose == 4 && hero.weaponlist[4] == '4'))) {
+				weapons(choose, &damage, &attack, &damagetype);
+				gotoxy(3, 3);
+				printf_s("You are trying to attack: %d...", attack);
+				Sleep(1000);
+				if (attack < monster.armorclass) {
+					gotoxy(3, 4);
+					printf_s("Failed");
+					Sleep(1500);
+				}
+				else {
+					gotoxy(3, 4);
+					printf_s("You deal %d %s damage", damage, damagetype);
+					if (hero.crit == 1) {
+						gotoxy(3, 5);
+						printf_s("CRIT!!!");
+						hero.crit = 0;
+						Sleep(2000);
+					}
+					monster.hits -= damage;
+					Sleep(1500);
+				}
 			}
 			else {
-				gotoxy(3, 4);
-				printf_s("You deal %d %s damage", damage, damagetype);
-				if (hero.crit == 1) {
-					gotoxy(3, 5);
-					printf_s("CRIT!!!");
-					hero.crit = 0;
-					Sleep(2000);
-				}
-				monster.hits -= damage;
-				Sleep(1500);
+				*control = '0';
 			}
-
 			clearchat();
 			if (monster.hits < 1) {
 				gotoxy(3, 5);
@@ -339,6 +341,10 @@ int actions(char* control) {
 				printf_s("%s", eldritchblast.name);
 				break;
 			}
+			case '2': {
+				printf_s("%s", magearmor.name);
+				break;
+			}
 			}
 			j++;
 		}
@@ -352,34 +358,39 @@ int actions(char* control) {
 			int damage = 0;
 			char typeofdamage[20];
 			int attack = 0;
-			int type = spell(&attack, choose, &damage, &typeofdamage);
-			Sleep(3000);
-			clearchat();
-			int savingthrow;
-			if (type == 1) {
-				gotoxy(3, j);
-				j++;
-				printf_s("You try to attack with the spell: %d...", attack);
-				Sleep(1500);
-				if (attack < monster.armorclass) {
+			if ((choose == 0 && hero.spelllist[0] == '1') || (choose == 1 && hero.spelllist[1] == '2')) {
+				int type = spell(&attack, choose, &damage, &typeofdamage);
+				Sleep(3000);
+				clearchat();
+				int savingthrow;
+				if (type == 1) {
 					gotoxy(3, j);
 					j++;
-					printf_s("Failed");
+					printf_s("You try to attack with the spell: %d...", attack);
 					Sleep(1500);
-				}
-				else {
-					gotoxy(3, j);
-					j++;
-					printf_s("You deal %d %s damage", damage, typeofdamage);
-					if (hero.crit == 1) {
-						gotoxy(3, 5);
-						printf_s("CRIT!!!");
-						hero.crit = 0;
-						Sleep(2000);
+					if (attack < monster.armorclass) {
+						gotoxy(3, j);
+						j++;
+						printf_s("Failed");
+						Sleep(1500);
 					}
-					monster.hits -= damage;
-					Sleep(1500);
+					else {
+						gotoxy(3, j);
+						j++;
+						printf_s("You deal %d %s damage", damage, typeofdamage);
+						if (hero.crit == 1) {
+							gotoxy(3, 7);
+							printf_s("CRIT!!!");
+							hero.crit = 0;
+							Sleep(2000);
+						}
+						monster.hits -= damage;
+						Sleep(1500);
+					}
 				}
+			}
+			else {
+				*control = '0';
 			}
 			clearchat();
 			if (monster.hits < 1) {
@@ -401,8 +412,8 @@ int actions(char* control) {
 					}
 					}
 				}
-				for (int i = 0; i < 170; i++) {
-					for (int j = 0; j < 32; j++) {
+				for (int i = 0; i < 180; i++) {
+					for (int j = 0; j < 36; j++) {
 						gotoxy(i, j);
 						printf_s(" ");
 					}
@@ -502,30 +513,82 @@ int actions(char* control) {
 			printf_s("%s turn!", monster.name);
 			Sleep(1500);
 			gotoxy(3, 4);
-			int attack = monsteraction.accur1;
-			condition(&attack);
-			printf_s("%s trying to Attack: %d...", monster.name, attack);
-			Sleep(1500);
-			if (attack < hero.armorclass) {
-				gotoxy(3, 5);
-				printf_s("Failed");
-				Sleep(1500);
-			}
-			else {
-				gotoxy(3, 5);
-				int damage = monsteraction.damage1;
-				printf_s("%s deal %d slashing damage", monster.name, damage);
-				if (hero.temphits < 1) {
-					hero.tekhits -= damage;
-				}
-				else {
-					hero.temphits -= damage;
-					if (hero.temphits < 0) {
-						hero.tekhits += hero.temphits;
-						hero.temphits = 0;
+			if (monsteraction.accur2 != 0) {
+				if (roll(1, 6, 0) > 4) {
+					printf_s("%s using %s", monster.name, monsteraction.action2);
+					gotoxy(3, 5);
+					int savingthrow = roll(1, 20, hero.saveDex);
+					printf_s("You are trying to dodge...%d", savingthrow);
+					Sleep(1500);
+					if (savingthrow < monsteraction.accur2) {
+						gotoxy(3, 6);
+						int damage = monsteraction.damage2;
+						printf_s("Failed. You take %d damage", damage);
+						Sleep(1000);
+						hero.tekhits -= damage;
+					}
+					else {
+						gotoxy(3, 6);
+						int damage = monsteraction.damage2 / 2;
+						printf_s("Success. You take %d damage", damage);
+						Sleep(1000);
+						hero.tekhits -= damage;
 					}
 				}
+				else {
+					int attack = monsteraction.accur1;
+					condition(&attack);
+					printf_s("%s trying to Attack: %d...", monster.name, attack);
+					Sleep(1500);
+					if (attack < hero.armorclass) {
+						gotoxy(3, 5);
+						printf_s("Failed");
+						Sleep(1500);
+					}
+					else {
+						gotoxy(3, 5);
+						int damage = monsteraction.damage1;
+						printf_s("%s deal %d slashing damage", monster.name, damage);
+						if (hero.temphits < 1) {
+							hero.tekhits -= damage;
+						}
+						else {
+							hero.temphits -= damage;
+							if (hero.temphits < 0) {
+								hero.tekhits += hero.temphits;
+								hero.temphits = 0;
+							}
+						}
+						Sleep(1500);
+					}
+				}
+			}
+			else {
+				int attack = monsteraction.accur1;
+				condition(&attack);
+				printf_s("%s trying to Attack: %d...", monster.name, attack);
 				Sleep(1500);
+				if (attack < hero.armorclass) {
+					gotoxy(3, 5);
+					printf_s("Failed");
+					Sleep(1500);
+				}
+				else {
+					gotoxy(3, 5);
+					int damage = monsteraction.damage1;
+					printf_s("%s deal %d slashing damage", monster.name, damage);
+					if (hero.temphits < 1) {
+						hero.tekhits -= damage;
+					}
+					else {
+						hero.temphits -= damage;
+						if (hero.temphits < 0) {
+							hero.tekhits += hero.temphits;
+							hero.temphits = 0;
+						}
+					}
+					Sleep(1500);
+				}
 			}
 			clearchat();
 			if (hero.tekhits < 1) {
@@ -1279,8 +1342,8 @@ void save() {
 		}
 	}
 }
-void hidecursor()
-{
+void hidecursor() {
+
 	HANDLE hCons;
 	CONSOLE_CURSOR_INFO cci;
 	hCons = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -1323,7 +1386,6 @@ void makemap() {
 	}
 	gotoxy(0, 0);
 	int k = 0;
-	Sleep(2000);
 	for (int j = 0; j < 5760; j++) {
 		printf_s("%c", sunlesscitadel.map[j]);
 	}
@@ -1359,15 +1421,14 @@ void makemap() {
 		break;
 	}
 	}
-	_getch();
 }
 void mechanicsatstart() {
+	PlaySound(TEXT("Darkshort.wav"), NULL, SND_LOOP | SND_ASYNC);
 	fullscreen();
-	srand(time(NULL));
 	ruleset();
 	hidecursor();
 }
-void mapping(int x,int y) {
+void mapping(int x, int y) {
 	y -= 2;
 	for (int i = 0; i < 6; i++) {
 		gotoxy(x, y);

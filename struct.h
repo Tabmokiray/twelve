@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <MMSystem.h>
 #pragma comment(lib, "winmm.lib")
+#include <time.h>
 struct stats {
 	char name[20];
 	int gold;
@@ -49,6 +50,7 @@ struct stats {
 	char itemlist[20];
 	int items;
 	char archetypename[20];
+	int spellslots1;
 
 	int saveStr;
 	int prsaveStr;
@@ -107,7 +109,7 @@ struct stats {
 	char equipfeet[20];
 	char equiprings[20];
 };
-struct stats hero, Frankstat, Goblinstat, Banditstat, Ratstat, Skeletonstat, Swordstat;
+struct stats hero, Frankstat, Goblinstat, Banditstat, Ratstat, Skeletonstat, Swordstat,Dragonstat;
 struct race {
 	int race;
 	int str;
@@ -151,7 +153,7 @@ struct npc {
 	int modCha;
 	int condition;
 };
-struct npc Goblin, Bandit, monster, Rat, Skeleton, Sword;
+struct npc Goblin, Bandit, monster,monster2, Rat, Skeleton, Sword,Dragon;
 struct action {
 	char action1[20];
 	char action2[20];
@@ -160,7 +162,7 @@ struct action {
 	int accur1;
 	int accur2;
 };
-struct action Goblinaction, Banditaction, monsteraction, Rataction, Skeletonaction, Swordaction;
+struct action Goblinaction, Banditaction, monsteraction,monster2action, Rataction, Skeletonaction, Swordaction,Dragonaction;
 struct arm {
 	int startarmor;
 	int type;
@@ -196,7 +198,7 @@ struct text {
 	char* text1;
 	char* text2;
 };
-struct text intr, columns, magicsword, shopman;
+struct text intr, columns, magicsword, shopman,reddragon;
 struct maps {
 	char* map;
 };

@@ -1,90 +1,269 @@
 #include "rules.h"
-void rulerat() {
-	monster.modStr = Rat.modStr;
-	monster.modDex = Rat.modDex;
-	monster.modCon = Rat.modCon;
-	monster.modInt = Rat.modInt;
-	monster.modWis = Rat.modWis;
-	monster.modCha = Rat.modCha;
-	monster.armorclass = Rat.armorclass;
-	monster.hits = Rat.hits;
-	monsteraction.accur1 = Rataction.accur1;
-	monsteraction.damage1 = Rataction.damage1;
-	monsteraction.accur2 = Rataction.accur2;
-	monsteraction.damage2 = Rataction.damage2;
-	strcpy_s(monster.name, 10, Rat.name);
-	monster.proficiency = Rat.proficiency;
-	monster.level = Rat.level;
+void rulerat(int num) {
+	if (num == 1) {
+		monster.modStr = Rat.modStr;
+		monster.modDex = Rat.modDex;
+		monster.modCon = Rat.modCon;
+		monster.modInt = Rat.modInt;
+		monster.modWis = Rat.modWis;
+		monster.modCha = Rat.modCha;
+		monster.armorclass = Rat.armorclass;
+		monster.hits = Rat.hits;
+		monsteraction.accur1 = Rataction.accur1;
+		monsteraction.damage1 = Rataction.damage1;
+		monsteraction.accur2 = Rataction.accur2;
+		monsteraction.damage2 = Rataction.damage2;
+		strcpy_s(monster.name, 10, Rat.name);
+		monster.proficiency = Rat.proficiency;
+		monster.level = Rat.level;
+	}
+	if (num == 2) {
+		monster2.modStr = Rat.modStr;
+		monster2.modDex = Rat.modDex;
+		monster2.modCon = Rat.modCon;
+		monster2.modInt = Rat.modInt;
+		monster2.modWis = Rat.modWis;
+		monster2.modCha = Rat.modCha;
+		monster2.armorclass = Rat.armorclass;
+		monster2.hits = Rat.hits;
+		monster2action.accur1 = Rataction.accur1;
+		monster2action.damage1 = Rataction.damage1;
+		monster2action.accur2 = Rataction.accur2;
+		monster2action.damage2 = Rataction.damage2;
+		strcpy_s(monster2.name, 10, Rat.name);
+		monster2.proficiency = Rat.proficiency;
+		monster2.level = Rat.level;
+	}
 }
-void rulebandit() {
-	monster.modStr = Bandit.modStr;
-	monster.modDex = Bandit.modDex;
-	monster.modCon = Bandit.modCon;
-	monster.modInt = Bandit.modInt;
-	monster.modWis = Bandit.modWis;
-	monster.modCha = Bandit.modCha;
-	monster.armorclass = Bandit.armorclass;
-	monster.hits = Bandit.hits;
-	monsteraction.accur1 = Banditaction.accur1;
-	monsteraction.damage1 = Banditaction.damage1;
-	monsteraction.accur2 = Banditaction.accur2;
-	monsteraction.damage2 = Banditaction.damage2;
-	strcpy_s(monster.name, 7, Bandit.name);
-	monster.proficiency = Bandit.proficiency;
-	monster.level = Bandit.level;
+void rulebandit(int num) {
+	if (num == 1) {
+		monster.modStr = Bandit.modStr;
+		monster.modDex = Bandit.modDex;
+		monster.modCon = Bandit.modCon;
+		monster.modInt = Bandit.modInt;
+		monster.modWis = Bandit.modWis;
+		monster.modCha = Bandit.modCha;
+		monster.armorclass = Bandit.armorclass;
+		monster.hits = Bandit.hits;
+		monsteraction.accur1 = Banditaction.accur1;
+		monsteraction.damage1 = Banditaction.damage1;
+		monsteraction.accur2 = Banditaction.accur2;
+		monsteraction.damage2 = Banditaction.damage2;
+		strcpy_s(monster.name, 7, Bandit.name);
+		monster.proficiency = Bandit.proficiency;
+		monster.level = Bandit.level;
+	}
+	if (num == 2) {
+		monster2.modStr = Bandit.modStr;
+		monster2.modDex = Bandit.modDex;
+		monster2.modCon = Bandit.modCon;
+		monster2.modInt = Bandit.modInt;
+		monster2.modWis = Bandit.modWis;
+		monster2.modCha = Bandit.modCha;
+		monster2.armorclass = Bandit.armorclass;
+		monster2.hits = Bandit.hits;
+		monster2action.accur1 = Banditaction.accur1;
+		monster2action.damage1 = Banditaction.damage1;
+		monster2action.accur2 = Banditaction.accur2;
+		monster2action.damage2 = Banditaction.damage2;
+		strcpy_s(monster2.name, 7, Bandit.name);
+		monster2.proficiency = Bandit.proficiency;
+		monster2.level = Bandit.level;
+	}
 }
-void rulegoblin() {
-	monster.modStr = Goblin.modStr;
-	monster.modDex = Goblin.modDex;
-	monster.modCon = Goblin.modCon;
-	monster.modInt = Goblin.modInt;
-	monster.modWis = Goblin.modWis;
-	monster.modCha = Goblin.modCha;
-	monster.armorclass = Goblin.armorclass;
-	monster.hits = Goblin.hits;
-	monsteraction.accur1 = Goblinaction.accur1;
-	monsteraction.damage1 = Goblinaction.damage1;
-	monsteraction.accur2 = Goblinaction.accur2;
-	monsteraction.damage2 = Goblinaction.damage2;
-	strcpy_s(monster.name, 7, Goblin.name);
-	monster.proficiency = Goblin.proficiency;
-	monster.level = Goblin.level;
+void rulegoblin(int num) {
+	if (num == 1) {
+		monster.modStr = Goblin.modStr;
+		monster.modDex = Goblin.modDex;
+		monster.modCon = Goblin.modCon;
+		monster.modInt = Goblin.modInt;
+		monster.modWis = Goblin.modWis;
+		monster.modCha = Goblin.modCha;
+		monster.armorclass = Goblin.armorclass;
+		monster.hits = Goblin.hits;
+		monsteraction.accur1 = Goblinaction.accur1;
+		monsteraction.damage1 = Goblinaction.damage1;
+		monsteraction.accur2 = Goblinaction.accur2;
+		monsteraction.damage2 = Goblinaction.damage2;
+		strcpy_s(monster.name, 7, Goblin.name);
+		monster.proficiency = Goblin.proficiency;
+		monster.level = Goblin.level;
+	}
+	if (num == 2) {
+		monster2.modStr = Goblin.modStr;
+		monster2.modDex = Goblin.modDex;
+		monster2.modCon = Goblin.modCon;
+		monster2.modInt = Goblin.modInt;
+		monster2.modWis = Goblin.modWis;
+		monster2.modCha = Goblin.modCha;
+		monster2.armorclass = Goblin.armorclass;
+		monster2.hits = Goblin.hits;
+		monster2action.accur1 = Goblinaction.accur1;
+		monster2action.damage1 = Goblinaction.damage1;
+		monster2action.accur2 = Goblinaction.accur2;
+		monster2action.damage2 = Goblinaction.damage2;
+		strcpy_s(monster2.name, 7, Goblin.name);
+		monster2.proficiency = Goblin.proficiency;
+		monster2.level = Goblin.level;
+	}
 }
-void ruleskeleton() {
-	monster.modStr = Skeleton.modStr;
-	monster.modDex = Skeleton.modDex;
-	monster.modCon = Skeleton.modCon;
-	monster.modInt = Skeleton.modInt;
-	monster.modWis = Skeleton.modWis;
-	monster.modCha = Skeleton.modCha;
-	monster.armorclass = Skeleton.armorclass;
-	monster.hits = Skeleton.hits;
-	monsteraction.accur1 = Skeletonaction.accur1;
-	monsteraction.damage1 = Skeletonaction.damage1;
-	monsteraction.accur2 = Skeletonaction.accur2;
-	monsteraction.damage2 = Skeletonaction.damage2;
-	strcpy_s(monster.name, 9, Skeleton.name);
-	monster.proficiency = Skeleton.proficiency;
-	monster.level = Skeleton.level;
-
+void ruleskeleton(int num) {
+	if (num == 1) {
+		monster.modStr = Skeleton.modStr;
+		monster.modDex = Skeleton.modDex;
+		monster.modCon = Skeleton.modCon;
+		monster.modInt = Skeleton.modInt;
+		monster.modWis = Skeleton.modWis;
+		monster.modCha = Skeleton.modCha;
+		monster.armorclass = Skeleton.armorclass;
+		monster.hits = Skeleton.hits;
+		monsteraction.accur1 = Skeletonaction.accur1;
+		monsteraction.damage1 = Skeletonaction.damage1;
+		monsteraction.accur2 = Skeletonaction.accur2;
+		monsteraction.damage2 = Skeletonaction.damage2;
+		strcpy_s(monster.name, 9, Skeleton.name);
+		monster.proficiency = Skeleton.proficiency;
+		monster.level = Skeleton.level;
+	}
+	if (num == 2) {
+		monster2.modStr = Skeleton.modStr;
+		monster2.modDex = Skeleton.modDex;
+		monster2.modCon = Skeleton.modCon;
+		monster2.modInt = Skeleton.modInt;
+		monster2.modWis = Skeleton.modWis;
+		monster2.modCha = Skeleton.modCha;
+		monster2.armorclass = Skeleton.armorclass;
+		monster2.hits = Skeleton.hits;
+		monster2action.accur1 = Skeletonaction.accur1;
+		monster2action.damage1 = Skeletonaction.damage1;
+		monster2action.accur2 = Skeletonaction.accur2;
+		monster2action.damage2 = Skeletonaction.damage2;
+		strcpy_s(monster2.name, 9, Skeleton.name);
+		monster2.proficiency = Skeleton.proficiency;
+		monster2.level = Skeleton.level;
+	}
 }
-void rulesword() {
-	monster.modStr = Sword.modStr;
-	monster.modDex = Sword.modDex;
-	monster.modCon = Sword.modCon;
-	monster.modInt = Sword.modInt;
-	monster.modWis = Sword.modWis;
-	monster.modCha = Sword.modCha;
-	monster.armorclass = Sword.armorclass;
-	monster.hits = Sword.hits;
-	monsteraction.accur1 = Swordaction.accur1;
-	monsteraction.damage1 = Swordaction.damage1;
-	monsteraction.accur2 = Swordaction.accur2;
-	monsteraction.damage2 = Swordaction.damage2;
-	strcpy_s(monster.name, 20, Sword.name);
-	monster.proficiency = Sword.proficiency;
-	monster.level = Sword.level;
-
+void rulesword(int num) {
+	if (num == 1) {
+		monster.modStr = Sword.modStr;
+		monster.modDex = Sword.modDex;
+		monster.modCon = Sword.modCon;
+		monster.modInt = Sword.modInt;
+		monster.modWis = Sword.modWis;
+		monster.modCha = Sword.modCha;
+		monster.armorclass = Sword.armorclass;
+		monster.hits = Sword.hits;
+		monsteraction.accur1 = Swordaction.accur1;
+		monsteraction.damage1 = Swordaction.damage1;
+		monsteraction.accur2 = Swordaction.accur2;
+		monsteraction.damage2 = Swordaction.damage2;
+		strcpy_s(monster.name, 20, Sword.name);
+		monster.proficiency = Sword.proficiency;
+		monster.level = Sword.level;
+	}
+	if (num == 2) {
+		monster2.modStr = Sword.modStr;
+		monster2.modDex = Sword.modDex;
+		monster2.modCon = Sword.modCon;
+		monster2.modInt = Sword.modInt;
+		monster2.modWis = Sword.modWis;
+		monster2.modCha = Sword.modCha;
+		monster2.armorclass = Sword.armorclass;
+		monster2.hits = Sword.hits;
+		monster2action.accur1 = Swordaction.accur1;
+		monster2action.damage1 = Swordaction.damage1;
+		monster2action.accur2 = Swordaction.accur2;
+		monster2action.damage2 = Swordaction.damage2;
+		strcpy_s(monster2.name, 20, Sword.name);
+		monster2.proficiency = Sword.proficiency;
+		monster2.level = Sword.level;
+	}
+}
+void ruledragon(int num) {
+	if (num == 1) {
+		monster.modStr = Dragon.modStr;
+		monster.modDex = Dragon.modDex;
+		monster.modCon = Dragon.modCon;
+		monster.modInt = Dragon.modInt;
+		monster.modWis = Dragon.modWis;
+		monster.modCha = Dragon.modCha;
+		monster.armorclass = Dragon.armorclass;
+		monster.hits = Dragon.hits;
+		monsteraction.accur1 = Dragonaction.accur1;
+		monsteraction.damage1 = Dragonaction.damage1;
+		strcpy_s(monsteraction.action1,5 , Dragonaction.action1);
+		monsteraction.accur2 = Dragonaction.accur2;
+		monsteraction.damage2 = Dragonaction.damage2;
+		strcpy_s(monsteraction.action2, 12, Dragonaction.action2);
+		strcpy_s(monster.name, 7, Dragon.name);
+		monster.proficiency = Dragon.proficiency;
+		monster.level = Dragon.level;
+	}
+	if (num == 2) {
+		monster2.modStr = Dragon.modStr;
+		monster2.modDex = Dragon.modDex;
+		monster2.modCon = Dragon.modCon;
+		monster2.modInt = Dragon.modInt;
+		monster2.modWis = Dragon.modWis;
+		monster2.modCha = Dragon.modCha;
+		monster2.armorclass = Dragon.armorclass;
+		monster2.hits = Dragon.hits;
+		monster2action.accur1 = Dragonaction.accur1;
+		monster2action.damage1 = Dragonaction.damage1;
+		monster2action.accur2 = Dragonaction.accur2;
+		monster2action.damage2 = Dragonaction.damage2;
+		strcpy_s(monster2.name, 7, Dragon.name);
+		monster2.proficiency = Dragon.proficiency;
+		monster2.level = Dragon.level;
+	}
+}
+void rulemon1(int id) {
+	switch (id) {
+	case 0: {
+		rulegoblin(1);
+		break;
+	}
+	case 1: {
+		rulebandit(1);
+		break;
+	}
+	case 2: {
+		rulerat(1);
+		break;
+	}
+	case 3: {
+		ruleskeleton(1);
+		break;
+	}
+	case 4: {
+		rulesword(1);
+		break;
+	}
+	}
+}
+void rulemon2(int id) {
+	switch (id) {
+	case 0: {
+		rulegoblin(2);
+		break;
+	}
+	case 1: {
+		rulebandit(2);
+		break;
+	}
+	case 2: {
+		rulerat(2);
+		break;
+	}
+	case 3: {
+		ruleskeleton(2);
+		break;
+	}
+	case 4: {
+		rulesword(2);
+		break;
+	}
+	}
 }
 void ruleset() {
 	int d4 = 4;
@@ -134,6 +313,13 @@ void ruleset() {
 	strcpy_s(eldritchblast.description, 310, "A beam of crackling energy streaks toward a creature within range.\nMake a ranged spell attack against the target.\nOn a hit, the target takes 1d10 force damage.\nThe spell creates more than one beam when you reach higher levels :\ntwo beams at 5th level, three beams at 11th level,\nand four beams at 17th level.");
 	eldritchblast.id = '1';
 	strcpy_s(eldritchblast.typeofdamage, 6, "force");
+	magearmor.level = 1;
+	magearmor.amount = 0;
+	magearmor.damage = 0;
+	strcpy_s(magearmor.name, 11, "Mage armor");
+	magearmor.description = (char*)malloc(260);
+	magearmor.id = '2';
+	strcpy_s(magearmor.description, 260, "You touch a willing creature who isn't wearing armor,\nand a protective magical force surrounds it until the spell ends.\nThe target's base AC becomes 13 + its Dexterity modifier.\nThe spell ends if the target dons armor or if you dismiss the spell as an action.");
 
 	strcpy_s(feyancestry.name, 13, "Fey ancestry");
 	feyancestry.description = (char*)malloc(500);
@@ -334,8 +520,35 @@ void ruleset() {
 	strcpy_s(Banditaction.action1, 9, "Scimitar");
 	Banditaction.damage1 = roll(1, d6, Banditstat.modDex);
 	Banditaction.accur1 = roll(1, d20, Bandit.proficiency + Banditstat.modDex);
+
+	Dragon.armorclass = 16;
+	Dragon.hits = 32;
+	Dragon.proficiency = 2;
+	Dragon.level = 1;
+	Dragonstat.Strength = 14;
+	Dragonstat.Dexterity = 10;
+	Dragonstat.Constitution = 14;
+	Dragonstat.Intellect = 5;
+	Dragonstat.Wisdom = 10;
+	Dragonstat.Charisma = 11;
+	modif();
+	strcpy_s(Dragon.name, 7, "Dragon");
+	strcpy_s(Dragonaction.action1, 5, "Bite");
+	Dragonaction.damage1 = roll(1, d10, Dragonstat.modStr) + roll(1,d4,0);
+	Dragonaction.accur1 = roll(1, d20, Dragon.proficiency + Dragonstat.modStr);
+	strcpy_s(Dragonaction.action2, 12, "Cold breath");
+	Dragonaction.damage2 = roll(3, d8, 0);
+	Dragonaction.accur2 = 12;
+
 }
 void modif() {
+	Dragonstat.modStr = (Dragonstat.Strength - 10) / 2;
+	Dragonstat.modDex = (Dragonstat.Dexterity - 10) / 2;
+	Dragonstat.modConst = (Dragonstat.Constitution - 10) / 2;
+	Dragonstat.modInt = (Dragonstat.Intellect - 10) / 2;
+	Dragonstat.modWis = (Dragonstat.Wisdom - 10) / 2;
+	Dragonstat.modCha = (Dragonstat.Charisma - 10) / 2;
+
 	Swordstat.modStr = (Swordstat.Strength - 10) / 2;
 	Swordstat.modDex = (Swordstat.Dexterity - 10) / 2;
 	Swordstat.modConst = (Swordstat.Constitution - 10) / 2;
@@ -445,7 +658,7 @@ void levels() {
 void warlock2() {
 	system("cls");
 	gotoxy(50, 5);
-	printf_s("%s is pleased with your success and bestows a particle of his ancient knowledge", hero.archetypename);
+	printf_s("Your patron %s is pleased with your success and bestows a particle of his ancient knowledge", hero.archetypename);
 	gotoxy(50, 6);
 	printf_s("Choose two Eldritch invocations:");
 	gotoxy(50, 8);
@@ -486,7 +699,7 @@ void warlock2() {
 	}
 	char s = '0';
 	int inv = 0;
-	while (inv!=2) {
+	while (inv != 2) {
 		s = _getch();
 		switch (s) {
 		case '1': {
@@ -655,37 +868,42 @@ void equips(int id) {
 	switch (id) {
 	case '5': {
 		hero.equiplist[3] = shield.id;
+		strcpy_s(hero.equiplefthand, 7, shield.name);
 		hero.armormod += shield.startarmor;
 		hero.gold -= shield.cost;
 		break;
 	}
 	case '6': {
-
 		hero.equiplist[1] = platearmor.id;
+		strcpy_s(hero.equipchest, 12, platearmor.name);
 		hero.armorclass = platearmor.startarmor + hero.armormod;
 		hero.gold -= platearmor.cost;
 		break;
 	}
 	case '7': {
 		hero.equiplist[1] = splintarmor.id;
+		strcpy_s(hero.equipchest, 13, splintarmor.name);
 		hero.armorclass = splintarmor.startarmor + hero.armormod;
 		hero.gold -= splintarmor.cost;
 		break;
 	}
 	case '8': {
 		hero.equiplist[1] = chainmail.id;
+		strcpy_s(hero.equipchest, 11, chainmail.name);
 		hero.armorclass = chainmail.startarmor + hero.armormod;
 		hero.gold -= chainmail.cost;
 		break;
 	}
 	case '9': {
 		hero.equiplist[1] = ringmailarmor.id;
+		strcpy_s(hero.equipchest, 16, ringmailarmor.name);
 		hero.armorclass = ringmailarmor.startarmor + hero.armormod;
 		hero.gold -= ringmailarmor.cost;
 		break;
 	}
 	case 'q': {
 		hero.equiplist[1] = halfplatearmor.id;
+		strcpy_s(hero.equipchest, 17, halfplatearmor.name);
 		if (hero.modDex < 3)
 			hero.armorclass = halfplatearmor.startarmor + hero.armormod + hero.modDex;
 		else {
@@ -696,6 +914,7 @@ void equips(int id) {
 	}
 	case 'w': {
 		hero.equiplist[1] = breastplate.id;
+		strcpy_s(hero.equipchest, 13, breastplate.name);
 		if (hero.modDex < 3)
 			hero.armorclass = breastplate.startarmor + hero.armormod + hero.modDex;
 		else {
@@ -706,6 +925,7 @@ void equips(int id) {
 	}
 	case 'e': {
 		hero.equiplist[1] = scalemailarmor.id;
+		strcpy_s(hero.equipchest, 17, scalemailarmor.name);
 		if (hero.modDex < 3)
 			hero.armorclass = scalemailarmor.startarmor + hero.armormod + hero.modDex;
 		else {
@@ -716,6 +936,7 @@ void equips(int id) {
 	}
 	case 'r': {
 		hero.equiplist[1] = chainshirt.id;
+		strcpy_s(hero.equipchest, 12, chainshirt.name);
 		if (hero.modDex < 3)
 			hero.armorclass = chainshirt.startarmor + hero.armormod + hero.modDex;
 		else {
@@ -726,6 +947,7 @@ void equips(int id) {
 	}
 	case 't': {
 		hero.equiplist[1] = hidearmor.id;
+		strcpy_s(hero.equipchest, 11, hidearmor.name);
 		if (hero.modDex < 3)
 			hero.armorclass = hidearmor.startarmor + hero.armormod + hero.modDex;
 		else {
@@ -736,18 +958,21 @@ void equips(int id) {
 	}
 	case 'y': {
 		hero.equiplist[1] = studdedleather.id;
+		strcpy_s(hero.equipchest, 16, studdedleather.name);
 		hero.armorclass = studdedleather.startarmor + hero.armormod + hero.modDex;
 		hero.gold -= studdedleather.cost;
 		break;
 	}
 	case 'u': {
 		hero.equiplist[1] = leatherarmor.id;
+		strcpy_s(hero.equipchest, 14, leatherarmor.name);
 		hero.armorclass = leatherarmor.startarmor + hero.armormod + hero.modDex;
 		hero.gold -= leatherarmor.cost;
 		break;
 	}
 	case 'i': {
 		hero.equiplist[1] = paddedarmor.id;
+		strcpy_s(hero.equipchest, 13, paddedarmor.name);
 		hero.armorclass = paddedarmor.startarmor + hero.armormod + hero.modDex;
 		hero.gold -= paddedarmor.cost;
 		break;
@@ -793,7 +1018,6 @@ void showequip() {
 	printf_s("Feet [%s]", hero.equipcape);
 	gotoxy(60, 19);
 	printf_s("Rings [%s]", hero.equiprings);
-	_getch();
 
 }
 void weapons(int z, int* damage, int* attack, char* damagetype) {
@@ -863,23 +1087,23 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 	}
 }
 int abilitydesc(int z, int* damage, int* characteristic) {
-	for (int j = 20; j < 31; j++) {
+	for (int j = 24; j < 36; j++) {
 		gotoxy(3, j);
 		printf_s("|");
 		gotoxy(113, j);
 		printf_s("|");
 	}
-	for (int i = 3; i < 113; i++) {
-		gotoxy(i, 19);
+	for (int i = 4; i < 113; i++) {
+		gotoxy(i, 23);
 		printf_s("_");
-		gotoxy(i, 31);
+		gotoxy(i, 35);
 		printf_s("_");
 	}
 	switch (hero.ablist[z]) {
 	case '1': {
 		*characteristic = 5;
 		hero.spelldc = hero.modCha + hero.proficiency + 8;
-		int j = 21;
+		int j = 25;
 		int f = 6;
 		for (int i = 3; i < 310; i++) {
 			if (feyancestry.description[i - 3] == '\n') {
@@ -915,7 +1139,7 @@ int abilitydesc(int z, int* damage, int* characteristic) {
 		break;
 	}
 	case '2': {
-		int j = 21;
+		int j = 25;
 		int f = 6;
 		for (int i = 3; i < 177; i++) {
 			if (darkonesblessing.description[i - 3] == '\n') {
@@ -935,16 +1159,16 @@ int abilitydesc(int z, int* damage, int* characteristic) {
 	}
 }
 int spell(int* attack, int z, int* damage, char* typeofdamage) {
-	for (int j = 20; j < 31; j++) {
+	for (int j = 24; j < 36; j++) {
 		gotoxy(3, j);
 		printf_s("|");
 		gotoxy(103, j);
 		printf_s("|");
 	}
-	for (int i = 3; i < 103; i++) {
-		gotoxy(i, 19);
+	for (int i = 4; i < 103; i++) {
+		gotoxy(i, 23);
 		printf_s("_");
-		gotoxy(i, 31);
+		gotoxy(i, 35);
 		printf_s("_");
 	}
 	switch (hero.spelllist[z]) {
@@ -956,7 +1180,7 @@ int spell(int* attack, int z, int* damage, char* typeofdamage) {
 			hero.crit = 1;
 		}
 		strcpy_s(typeofdamage, 6, eldritchblast.typeofdamage);
-		int j = 21;
+		int j = 25;
 		int f = 6;
 		for (int i = 3; i < 310; i++) {
 			if (eldritchblast.description[i - 3] == '\n') {
@@ -972,26 +1196,45 @@ int spell(int* attack, int z, int* damage, char* typeofdamage) {
 		Sleep(2000);
 		break;
 	}
+	case '2': {
+		hero.armorclass = 13 + hero.modDex + hero.armormod;
+		strcpy_s(typeofdamage, 6, eldritchblast.typeofdamage);
+		int j = 25;
+		int f = 6;
+		for (int i = 3; i < 263; i++) {
+			if (magearmor.description[i - 3] == '\n') {
+				j++;
+				f = 6;
+			}
+			gotoxy(f, j);
+			printf_s("%c", magearmor.description[i - 3]);
+			f++;
+
+		}
+		return 0;
+		Sleep(2000);
+		break;
+	}
 	}
 
 }
 int item(int z, int* damage, int* attack, char* damagetype) {
-	for (int j = 20; j < 31; j++) {
+	for (int j = 24; j < 36; j++) {
 		gotoxy(3, j);
 		printf_s("|");
 		gotoxy(103, j);
 		printf_s("|");
 	}
-	for (int i = 3; i < 103; i++) {
-		gotoxy(i, 19);
+	for (int i = 4; i < 103; i++) {
+		gotoxy(i, 23);
 		printf_s("_");
-		gotoxy(i, 31);
+		gotoxy(i, 35);
 		printf_s("_");
 	}
 	switch (hero.itemlist[z]) {
 	case '1': {
 		strcpy_s(damagetype, 8, healingpotion.typeofdamage);
-		int j = 21;
+		int j = 25;
 		int f = 6;
 		int d = healingpotion.damage;
 		*damage = roll(2, d, 2);
@@ -1062,6 +1305,1167 @@ void shortrest() {
 }
 int amountofspells() {
 	return hero.level + 1;
+}
+int initiative(int monsters, char ch, char* control) {
+	int tracker[20][20];
+	for (int i = 0; i < 20; i++) {
+		for (int j = 0; j < 20; j++) {
+			tracker[i][j] = 0;
+		}
+	}
+	tracker[0][0] = rand() % 20 + 1 + hero.modDex;
+	tracker[0][1] = rand() % 20 + 1 + monster.modDex;
+	if (monsters > 1) {
+		tracker[0][2] = rand() % 20 + 1 + monster2.modDex;
+	}
+	int temp = 0;
+	for (int i = 0; i < monsters + 1; i++) {
+		for (int sort = 0; sort < monsters; sort++) {
+			if (tracker[0][sort] < tracker[0][sort + 1])
+				temp = tracker[0][sort + 1];
+			tracker[0][sort + 1] = tracker[0][sort];
+			tracker[0][sort] = temp;
+		}
+	}
+	if (monsters == 1) {
+		if (tracker[0][0] > tracker[0][1]) {
+			tracker[2][0] = tracker[0][0];
+			tracker[0][0] = 0;
+			tracker[1][1] = tracker[0][1];
+			tracker[0][1] = 0;
+		}
+		else {
+			tracker[2][1] = tracker[0][1];
+			tracker[0][1] = 0;
+			tracker[1][0] = tracker[0][0];
+			tracker[0][0] = 0;
+		}
+	}
+	if (monsters == 2) {
+		if (tracker[0][0] > tracker[0][1]) {
+			if (tracker[0][0] > tracker[0][2]) {
+				if (tracker[0][1] > tracker[0][2]) {
+					tracker[3][0] = tracker[0][0];
+					tracker[0][0] = 0;
+					tracker[2][1] = tracker[0][1];
+					tracker[0][1] = 0;
+					tracker[1][2] = tracker[0][2];
+					tracker[0][2] = 0;
+					//0->1->2
+				}
+				else {
+					tracker[3][0] = tracker[0][0];
+					tracker[0][0] = 0;
+					tracker[2][2] = tracker[0][2];
+					tracker[0][2] = 0;
+					tracker[1][1] = tracker[0][1];
+					tracker[0][1] = 0;
+					//0->2->1
+				}
+			}
+			else {
+				if (tracker[0][0] < tracker[0][2]) {
+					tracker[3][1] = tracker[0][1];
+					tracker[0][1] = 0;
+					tracker[2][2] = tracker[0][2];
+					tracker[0][2] = 0;
+					tracker[1][0] = tracker[0][0];
+					tracker[0][0] = 0;
+					//1->2->0
+				}
+			}
+		}
+		else {
+			if (tracker[0][1] > tracker[0][2]) {
+				if (tracker[0][0] > tracker[0][2]) {
+					tracker[3][1] = tracker[0][1];
+					tracker[0][1] = 0;
+					tracker[2][0] = tracker[0][0];
+					tracker[0][0] = 0;
+					tracker[1][2] = tracker[0][2];
+					tracker[0][2] = 0;
+					//1->0->2
+				}
+				else {
+					tracker[3][1] = tracker[0][1];
+					tracker[0][1] = 0;
+					tracker[2][2] = tracker[0][2];
+					tracker[0][2] = 0;
+					tracker[1][0] = tracker[0][0];
+					tracker[0][0] = 0;
+					//1->2->0
+				}
+			}
+			else {
+				if (tracker[0][0] < tracker[0][2]) {
+					tracker[3][2] = tracker[0][2];
+					tracker[0][2] = 0;
+					tracker[2][1] = tracker[0][1];
+					tracker[0][1] = 0;
+					tracker[1][0] = tracker[0][0];
+					tracker[0][0] = 0;
+					//2->1->0
+				}
+			}
+		}
+
+	}
+	if (fight(tracker, monsters, ch, &control) == 1) {
+		return 1;
+	}
+
+}
+int hero1action(char* control, char ch) {
+	gotoxy(135, 21);
+	printf_s("Choose enemy (L) or (R)");
+	control = _getch();
+	gotoxy(135, 21);
+	printf_s("                       ");
+	if (control == 'l') {
+
+	}
+	if (control == 'r') {
+		if (hero2action(&control, ch) == 1) {
+			return 1;
+		}
+	}
+	if (control == 'i') {
+		system("cls");
+		characterlist();
+	}
+	if (control == 'e') {
+		system("cls");
+		showequip();
+	}
+	if (control == 'm') {
+		system("cls");
+		makemap();
+	}
+	if (control == 27) {
+		system("cls");
+	}
+	if (control != 'i' && control != 'e' && control != 'm') {
+		goblin();
+		clearchat();
+	}
+	if (*control == '1') {
+		gotoxy(3, 3);
+		printf_s("Choose the weapon: (B) to back");
+		int j = 4;
+		for (int i = 0; i < strlen(hero.weaponlist); i++) {
+			gotoxy(3, j);
+			if (hero.weaponlist[i] != '0')
+				printf_s("(%d) ", i + 1);
+			switch (hero.weaponlist[i]) {
+			case '1': {
+				printf_s("%s", dagger.name);
+				break;
+			}
+			case '2': {
+				printf_s("%s", quarterstaff.name);
+				break;
+			}
+			case '3': {
+				printf_s("%s", magicalshortsword.name);
+				break;
+			}
+			case '4': {
+				printf_s("%s", lightcrossbow.name);
+				break;
+			}
+			}
+			j++;
+		}
+		ch = _getch();
+		if (ch == 's') {
+			createsave();
+		}
+		if (ch != 'b') {
+			clearchat();
+			int choose = ch - '0';
+			int damage = 0;
+			int attack = 0;
+			char damagetype[20];
+
+			weapons(choose, &damage, &attack, &damagetype);
+			gotoxy(3, 3);
+			printf_s("You are trying to attack: %d...", attack);
+			Sleep(1000);
+			if (attack < monster.armorclass) {
+				gotoxy(3, 4);
+				printf_s("Failed");
+				Sleep(1500);
+			}
+			else {
+				gotoxy(3, 4);
+				printf_s("You deal %d %s damage", damage, damagetype);
+				if (hero.crit == 1) {
+					gotoxy(3, 5);
+					printf_s("CRIT!!!");
+					hero.crit = 0;
+					Sleep(2000);
+				}
+				monster.hits -= damage;
+				Sleep(1500);
+			}
+
+			clearchat();
+			if (monster.hits < 1) {
+				gotoxy(3, 5);
+				printf_s("You win!");
+				Sleep(1500);
+				for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+					switch (hero.ablist[i]) {
+					case '2': {
+						abilitydesc(0, 0, 6);
+						gotoxy(3, 6);
+						int temphits = hero.modCha + hero.level;
+						if (temphits < 1) {
+							temphits = 1;
+						}
+						printf_s("After death of monster you recieve %d temporary hits", temphits);
+						hero.temphits = temphits;
+						Sleep(5000);
+						break;
+					}
+					}
+				}
+				for (int i = 0; i < 180; i++) {
+					for (int j = 0; j < 35; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
+				loot();
+				Sleep(1500);
+				return 1;
+			}
+		}
+		else {
+			clearchat();
+			*control = '0';
+		}
+	}
+	if (*control == '2') {
+		gotoxy(3, 3);
+		printf_s("Choose the ability: (B) to back");
+		int j = 4;
+		for (int i = 0; i < strlen(hero.ablist); i++) {
+			gotoxy(3, j);
+			if (hero.ablist[i] != '0')
+				printf_s("(%d) ", i + 1);
+			switch (hero.ablist[i]) {
+			case '1': {
+				printf_s("%s", feyancestry.name);
+				break;
+			}
+			case '2': {
+				printf_s("%s", darkonesblessing.name);
+				break;
+			}
+			}
+			j++;
+		}
+		ch = _getch();
+		if (ch == 's') {
+			createsave();
+		}
+		if (ch != 'b') {
+			int choose = ch - '0';
+			choose--;
+			int characteristic = 0;
+			int damage = 0;
+			int type = abilitydesc(choose, &damage, &characteristic);
+			Sleep(3000);
+			clearchat();
+			int attack;
+			int savingthrow;
+			if (type == 1) {
+				gotoxy(3, j);
+				j++;
+				attack = roll(1, 20, hero.modCha + hero.proficiency);
+				printf_s("You try to attack with the ability: %d...", attack);
+				Sleep(1500);
+				if (attack < monster.armorclass) {
+					gotoxy(3, j);
+					j++;
+					printf_s("Failed");
+					Sleep(1500);
+				}
+				else {
+					gotoxy(3, j);
+					j++;
+					printf_s("You deal %d force damage", damage);
+					monster.hits -= damage;
+					Sleep(1500);
+				}
+			}
+			if (type == 2) {
+				gotoxy(3, j);
+				j++;
+				switch (characteristic) {
+				case 1: {
+					savingthrow = roll(1, 20, monster.modStr);
+					break;
+				}
+				case 2: {
+					savingthrow = roll(1, 20, monster.modDex);
+					break;
+				}
+				case 3: {
+					savingthrow = roll(1, 20, monster.modCon);
+					break;
+				}
+				case 4: {
+					savingthrow = roll(1, 20, monster.modInt);
+					break;
+				}
+				case 5: {
+					savingthrow = roll(1, 20, monster.modWis);
+					break;
+				}
+				case 6: {
+					savingthrow = roll(1, 20, monster.modCha);
+					break;
+				}
+				}
+				printf_s("The monster is trying to dodge: %d...", savingthrow);
+				Sleep(1500);
+				if (savingthrow >= hero.spelldc) {
+					gotoxy(3, j);
+					j++;
+					printf_s("Failed");
+					Sleep(1500);
+					gotoxy(3, j);
+					j++;
+
+				}
+				else {
+					gotoxy(3, j);
+					j++;
+					printf_s("Monster couldn't dodge");
+					gotoxy(3, j);
+					j++;
+					if (damage > 0) {
+						printf_s("You deal %d force damage", damage);
+						monster.hits -= damage;
+					}
+					gotoxy(3, j);
+					j++;
+					switch (hero.mode) {
+					case 1: {
+						printf_s("The monster is frightend");
+						monster.condition = 1;
+						break;
+					}
+					case 2: {
+						printf_s("The monster is charmed");
+						monster.condition = 2;
+						break;
+					}
+					}
+					Sleep(1500);
+				}
+			}
+			clearchat();
+			if (monster.hits < 1) {
+				gotoxy(3, j);
+				j++;
+				printf_s("You win!");
+				Sleep(1500);
+				for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+					switch (hero.ablist[i]) {
+					case '2': {
+						abilitydesc(0, 0, 6);
+						gotoxy(3, 6);
+						int temphits = hero.modCha + hero.level;
+						printf_s("After death of monster you recieve %d temporary hits", temphits);
+						hero.temphits = temphits;
+						Sleep(1500);
+						break;
+					}
+					}
+				}
+				for (int i = 0; i < 150; i++) {
+					for (int j = 0; j < 30; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
+				loot();
+				Sleep(1500);
+				return 1;
+			}
+			clearchat();
+		}
+		else {
+			clearchat();
+			*control = '0';
+		}
+	}
+	if (*control == '3') {
+		gotoxy(3, 3);
+		printf_s("Choose the spell: (B) to back");
+		int j = 4;
+		for (int i = 0; i < strlen(hero.spelllist); i++) {
+			gotoxy(3, j);
+			if (hero.spelllist[i] != '0')
+				printf_s("(%d) ", i + 1);
+			switch (hero.spelllist[i]) {
+			case '1': {
+				printf_s("%s", eldritchblast.name);
+				break;
+			}
+			}
+			j++;
+		}
+		ch = _getch();
+		if (ch == 's') {
+			createsave();
+		}
+		if (ch != 'b') {
+			int choose = ch - '0';
+			choose--;
+			int damage = 0;
+			char typeofdamage[20];
+			int attack = 0;
+			int type = spell(&attack, choose, &damage, &typeofdamage);
+			Sleep(3000);
+			clearchat();
+			int savingthrow;
+			if (type == 1) {
+				gotoxy(3, j);
+				j++;
+				printf_s("You try to attack with the spell: %d...", attack);
+				Sleep(1500);
+				if (attack < monster.armorclass) {
+					gotoxy(3, j);
+					j++;
+					printf_s("Failed");
+					Sleep(1500);
+				}
+				else {
+					gotoxy(3, j);
+					j++;
+					printf_s("You deal %d %s damage", damage, typeofdamage);
+					if (hero.crit == 1) {
+						gotoxy(3, 7);
+						printf_s("CRIT!!!");
+						hero.crit = 0;
+						Sleep(2000);
+					}
+					monster.hits -= damage;
+					Sleep(1500);
+				}
+			}
+			clearchat();
+			if (monster.hits < 1) {
+				gotoxy(3, j);
+				j++;
+				printf_s("You win!");
+				Sleep(1500);
+				for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+					switch (hero.ablist[i]) {
+					case '2': {
+						abilitydesc(0, 0, 6);
+						Sleep(1500);
+						gotoxy(3, 6);
+						int temphits = hero.modCha + hero.level;
+						printf_s("After death of monster you recieve %d temporary hits", temphits);
+						Sleep(1500);
+						hero.temphits = temphits;
+						break;
+					}
+					}
+				}
+				for (int i = 0; i < 170; i++) {
+					for (int j = 0; j < 32; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
+				loot();
+				Sleep(1500);
+				return 1;
+			}
+		}
+		else {
+			clearchat();
+			*control = '0';
+		}
+	}
+	if (*control == '4') {
+		gotoxy(3, 3);
+		printf_s("Choose the item: (B) to back");
+		int j = 4;
+		for (int i = 0; i < strlen(hero.itemlist); i++) {
+			gotoxy(3, j);
+			if (hero.itemlist[i] != '0')
+				printf_s("(%d) ", i + 1);
+			switch (hero.itemlist[i]) {
+			case '1': {
+				printf_s("%s", healingpotion.name);
+				break;
+			}
+			}
+			j++;
+		}
+		ch = _getch();
+		if (ch == 's') {
+			createsave();
+		}
+		if (ch != 'b') {
+			int choose = ch - '0';
+			choose--;
+			int damage = 0;
+			char typeofdamage[20];
+			int attack;
+			int savingthrow;
+			int type = item(choose, &damage, &attack, &typeofdamage);
+			Sleep(3000);
+			clearchat();
+
+			if (type == 0) {
+				gotoxy(3, j);
+				j++;
+				printf_s("You drink healing potion and restore %d hits", damage);
+				hero.itemlist[0] = '\0';
+				hero.tekhits += damage;
+				if (hero.tekhits > hero.hits) {
+					hero.tekhits = hero.hits;
+				}
+				Sleep(1500);
+			}
+			if (type == 1) {
+			}
+			clearchat();
+			if (monster.hits < 1) {
+				gotoxy(3, j);
+				j++;
+				printf_s("You win!");
+				Sleep(1500);
+				for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+					switch (hero.ablist[i]) {
+					case '2': {
+						abilitydesc(0, 0, 6);
+						gotoxy(3, 6);
+						int temphits = hero.modCha + hero.level;
+						printf_s("After death of monster you recieve %d temporary hits", temphits);
+						Sleep(1500);
+						hero.temphits = temphits;
+						break;
+					}
+					}
+				}
+				for (int i = 0; i < 150; i++) {
+					for (int j = 0; j < 30; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
+				loot();
+				Sleep(1500);
+				return 1;
+			}
+		}
+		else {
+			clearchat();
+			*control = '0';
+		}
+	}
+}
+int hero2action(char* control, char ch) {
+	if (control == 'i') {
+		system("cls");
+		characterlist();
+	}
+	if (control == 'e') {
+		system("cls");
+		showequip();
+	}
+	if (control == 'm') {
+		system("cls");
+		makemap();
+	}
+	if (control == 27) {
+		system("cls");
+	}
+	if (control != 'i' && control != 'e' && control != 'm') {
+		goblin();
+		clearchat();
+	}
+	if (*control == '1') {
+		gotoxy(3, 3);
+		printf_s("Choose the weapon: (B) to back");
+		int j = 4;
+		for (int i = 0; i < strlen(hero.weaponlist); i++) {
+			gotoxy(3, j);
+			if (hero.weaponlist[i] != '0')
+				printf_s("(%d) ", i + 1);
+			switch (hero.weaponlist[i]) {
+			case '1': {
+				printf_s("%s", dagger.name);
+				break;
+			}
+			case '2': {
+				printf_s("%s", quarterstaff.name);
+				break;
+			}
+			case '3': {
+				printf_s("%s", magicalshortsword.name);
+				break;
+			}
+			case '4': {
+				printf_s("%s", lightcrossbow.name);
+				break;
+			}
+			}
+			j++;
+		}
+		ch = _getch();
+		if (ch == 's') {
+			createsave();
+		}
+		if (ch != 'b') {
+			clearchat();
+			int choose = ch - '0';
+			int damage = 0;
+			int attack = 0;
+			char damagetype[20];
+
+			weapons(choose, &damage, &attack, &damagetype);
+			gotoxy(3, 3);
+			printf_s("You are trying to attack: %d...", attack);
+			Sleep(1000);
+			if (attack < monster2.armorclass) {
+				gotoxy(3, 4);
+				printf_s("Failed");
+				Sleep(1500);
+			}
+			else {
+				gotoxy(3, 4);
+				printf_s("You deal %d %s damage", damage, damagetype);
+				if (hero.crit == 1) {
+					gotoxy(3, 5);
+					printf_s("CRIT!!!");
+					hero.crit = 0;
+					Sleep(2000);
+				}
+				monster2.hits -= damage;
+				Sleep(1500);
+			}
+
+			clearchat();
+			if (monster2.hits < 1) {
+				gotoxy(3, 5);
+				printf_s("You win!");
+				Sleep(1500);
+				for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+					switch (hero.ablist[i]) {
+					case '2': {
+						abilitydesc(0, 0, 6);
+						gotoxy(3, 6);
+						int temphits = hero.modCha + hero.level;
+						if (temphits < 1) {
+							temphits = 1;
+						}
+						printf_s("After death of monster you recieve %d temporary hits", temphits);
+						hero.temphits = temphits;
+						Sleep(5000);
+						break;
+					}
+					}
+				}
+				for (int i = 0; i < 180; i++) {
+					for (int j = 0; j < 35; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
+				loot();
+				Sleep(1500);
+				return 1;
+			}
+		}
+		else {
+			clearchat();
+			*control = '0';
+		}
+	}
+	if (*control == '2') {
+		gotoxy(3, 3);
+		printf_s("Choose the ability: (B) to back");
+		int j = 4;
+		for (int i = 0; i < strlen(hero.ablist); i++) {
+			gotoxy(3, j);
+			if (hero.ablist[i] != '0')
+				printf_s("(%d) ", i + 1);
+			switch (hero.ablist[i]) {
+			case '1': {
+				printf_s("%s", feyancestry.name);
+				break;
+			}
+			case '2': {
+				printf_s("%s", darkonesblessing.name);
+				break;
+			}
+			}
+			j++;
+		}
+		ch = _getch();
+		if (ch == 's') {
+			createsave();
+		}
+		if (ch != 'b') {
+			int choose = ch - '0';
+			choose--;
+			int characteristic = 0;
+			int damage = 0;
+			int type = abilitydesc(choose, &damage, &characteristic);
+			Sleep(3000);
+			clearchat();
+			int attack;
+			int savingthrow;
+			if (type == 1) {
+				gotoxy(3, j);
+				j++;
+				attack = roll(1, 20, hero.modCha + hero.proficiency);
+				printf_s("You try to attack with the ability: %d...", attack);
+				Sleep(1500);
+				if (attack < monster2.armorclass) {
+					gotoxy(3, j);
+					j++;
+					printf_s("Failed");
+					Sleep(1500);
+				}
+				else {
+					gotoxy(3, j);
+					j++;
+					printf_s("You deal %d force damage", damage);
+					monster2.hits -= damage;
+					Sleep(1500);
+				}
+			}
+			if (type == 2) {
+				gotoxy(3, j);
+				j++;
+				switch (characteristic) {
+				case 1: {
+					savingthrow = roll(1, 20, monster2.modStr);
+					break;
+				}
+				case 2: {
+					savingthrow = roll(1, 20, monster2.modDex);
+					break;
+				}
+				case 3: {
+					savingthrow = roll(1, 20, monster2.modCon);
+					break;
+				}
+				case 4: {
+					savingthrow = roll(1, 20, monster2.modInt);
+					break;
+				}
+				case 5: {
+					savingthrow = roll(1, 20, monster2.modWis);
+					break;
+				}
+				case 6: {
+					savingthrow = roll(1, 20, monster2.modCha);
+					break;
+				}
+				}
+				printf_s("The monster is trying to dodge: %d...", savingthrow);
+				Sleep(1500);
+				if (savingthrow >= hero.spelldc) {
+					gotoxy(3, j);
+					j++;
+					printf_s("Failed");
+					Sleep(1500);
+					gotoxy(3, j);
+					j++;
+
+				}
+				else {
+					gotoxy(3, j);
+					j++;
+					printf_s("Monster couldn't dodge");
+					gotoxy(3, j);
+					j++;
+					if (damage > 0) {
+						printf_s("You deal %d force damage", damage);
+						monster2.hits -= damage;
+					}
+					gotoxy(3, j);
+					j++;
+					switch (hero.mode) {
+					case 1: {
+						printf_s("The monster is frightend");
+						monster2.condition = 1;
+						break;
+					}
+					case 2: {
+						printf_s("The monster is charmed");
+						monster2.condition = 2;
+						break;
+					}
+					}
+					Sleep(1500);
+				}
+			}
+			clearchat();
+			if (monster2.hits < 1) {
+				gotoxy(3, j);
+				j++;
+				printf_s("You win!");
+				Sleep(1500);
+				for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+					switch (hero.ablist[i]) {
+					case '2': {
+						abilitydesc(0, 0, 6);
+						gotoxy(3, 6);
+						int temphits = hero.modCha + hero.level;
+						printf_s("After death of monster you recieve %d temporary hits", temphits);
+						hero.temphits = temphits;
+						Sleep(1500);
+						break;
+					}
+					}
+				}
+				for (int i = 0; i < 150; i++) {
+					for (int j = 0; j < 30; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
+				loot();
+				Sleep(1500);
+				return 1;
+			}
+			clearchat();
+		}
+		else {
+			clearchat();
+			*control = '0';
+		}
+	}
+	if (*control == '3') {
+		gotoxy(3, 3);
+		printf_s("Choose the spell: (B) to back");
+		int j = 4;
+		for (int i = 0; i < strlen(hero.spelllist); i++) {
+			gotoxy(3, j);
+			if (hero.spelllist[i] != '0')
+				printf_s("(%d) ", i + 1);
+			switch (hero.spelllist[i]) {
+			case '1': {
+				printf_s("%s", eldritchblast.name);
+				break;
+			}
+			}
+			j++;
+		}
+		ch = _getch();
+		if (ch == 's') {
+			createsave();
+		}
+		if (ch != 'b') {
+			int choose = ch - '0';
+			choose--;
+			int damage = 0;
+			char typeofdamage[20];
+			int attack = 0;
+			int type = spell(&attack, choose, &damage, &typeofdamage);
+			Sleep(3000);
+			clearchat();
+			int savingthrow;
+			if (type == 1) {
+				gotoxy(3, j);
+				j++;
+				printf_s("You try to attack with the spell: %d...", attack);
+				Sleep(1500);
+				if (attack < monster2.armorclass) {
+					gotoxy(3, j);
+					j++;
+					printf_s("Failed");
+					Sleep(1500);
+				}
+				else {
+					gotoxy(3, j);
+					j++;
+					printf_s("You deal %d %s damage", damage, typeofdamage);
+					if (hero.crit == 1) {
+						gotoxy(3, 7);
+						printf_s("CRIT!!!");
+						hero.crit = 0;
+						Sleep(2000);
+					}
+					monster2.hits -= damage;
+					Sleep(1500);
+				}
+			}
+			clearchat();
+			if (monster2.hits < 1) {
+				gotoxy(3, j);
+				j++;
+				printf_s("You win!");
+				Sleep(1500);
+				for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+					switch (hero.ablist[i]) {
+					case '2': {
+						abilitydesc(0, 0, 6);
+						Sleep(1500);
+						gotoxy(3, 6);
+						int temphits = hero.modCha + hero.level;
+						printf_s("After death of monster you recieve %d temporary hits", temphits);
+						Sleep(1500);
+						hero.temphits = temphits;
+						break;
+					}
+					}
+				}
+				for (int i = 0; i < 170; i++) {
+					for (int j = 0; j < 32; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
+				loot();
+				Sleep(1500);
+				return 1;
+			}
+		}
+		else {
+			clearchat();
+			*control = '0';
+		}
+	}
+	if (*control == '4') {
+		gotoxy(3, 3);
+		printf_s("Choose the item: (B) to back");
+		int j = 4;
+		for (int i = 0; i < strlen(hero.itemlist); i++) {
+			gotoxy(3, j);
+			if (hero.itemlist[i] != '0')
+				printf_s("(%d) ", i + 1);
+			switch (hero.itemlist[i]) {
+			case '1': {
+				printf_s("%s", healingpotion.name);
+				break;
+			}
+			}
+			j++;
+		}
+		ch = _getch();
+		if (ch == 's') {
+			createsave();
+		}
+		if (ch != 'b') {
+			int choose = ch - '0';
+			choose--;
+			int damage = 0;
+			char typeofdamage[20];
+			int attack;
+			int savingthrow;
+			int type = item(choose, &damage, &attack, &typeofdamage);
+			Sleep(3000);
+			clearchat();
+
+			if (type == 0) {
+				gotoxy(3, j);
+				j++;
+				printf_s("You drink healing potion and restore %d hits", damage);
+				hero.itemlist[0] = '\0';
+				hero.tekhits += damage;
+				if (hero.tekhits > hero.hits) {
+					hero.tekhits = hero.hits;
+				}
+				Sleep(1500);
+			}
+			if (type == 1) {
+			}
+			clearchat();
+			if (monster2.hits < 1) {
+				gotoxy(3, j);
+				j++;
+				printf_s("You win!");
+				Sleep(1500);
+				for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+					switch (hero.ablist[i]) {
+					case '2': {
+						abilitydesc(0, 0, 6);
+						gotoxy(3, 6);
+						int temphits = hero.modCha + hero.level;
+						printf_s("After death of monster you recieve %d temporary hits", temphits);
+						Sleep(1500);
+						hero.temphits = temphits;
+						break;
+					}
+					}
+				}
+				for (int i = 0; i < 150; i++) {
+					for (int j = 0; j < 30; j++) {
+						gotoxy(i, j);
+						printf_s(" ");
+					}
+				}
+				loot();
+				Sleep(1500);
+				return 1;
+			}
+		}
+		else {
+			clearchat();
+			*control = '0';
+		}
+	}
+}
+int mon1action(char* control, char ch) {
+	if (monster.hits > 0) {
+		if ((*control == '1' || *control == '2' || *control == '3' || *control == '4') && ((ch != 'b') && (*control != 'l') && (*control != 'r'))) {
+			gotoxy(3, 3);
+			printf_s("%s turn!", monster.name);
+			Sleep(1500);
+			gotoxy(3, 4);
+			int attack = monsteraction.accur1;
+			condition(&attack);
+			printf_s("%s trying to Attack: %d...", monster.name, attack);
+			Sleep(1500);
+			if (attack < hero.armorclass) {
+				gotoxy(3, 5);
+				printf_s("Failed");
+				Sleep(1500);
+			}
+			else {
+				gotoxy(3, 5);
+				int damage = monsteraction.damage1;
+				printf_s("%s deal %d slashing damage", monster.name, damage);
+				if (hero.temphits < 1) {
+					hero.tekhits -= damage;
+				}
+				else {
+					hero.temphits -= damage;
+					if (hero.temphits < 0) {
+						hero.tekhits += hero.temphits;
+						hero.temphits = 0;
+					}
+				}
+				Sleep(1500);
+			}
+			clearchat();
+			if (hero.tekhits < 1) {
+				gotoxy(3, 6);
+				printf_s("%s wins!", monster.name);
+				Sleep(1500);
+				hero.tekhits = hero.hits;
+				return 2;
+			}
+
+		}
+	}
+	else {
+		return 1;
+	}
+}
+int mon2action(char* control, char ch) {
+	if (monster2.hits > 0) {
+		if ((*control == '1' || *control == '2' || *control == '3' || *control == '4') && (ch != 'b')) {
+			gotoxy(3, 3);
+			printf_s("%s turn!", monster2.name);
+			Sleep(1500);
+			gotoxy(3, 4);
+			int attack = monster2action.accur1;
+			condition(&attack);
+			printf_s("%s trying to Attack: %d...", monster2.name, attack);
+			Sleep(1500);
+			if (attack < hero.armorclass) {
+				gotoxy(3, 5);
+				printf_s("Failed");
+				Sleep(1500);
+			}
+			else {
+				gotoxy(3, 5);
+				int damage = monster2action.damage1;
+				printf_s("%s deal %d slashing damage", monster2.name, damage);
+				if (hero.temphits < 1) {
+					hero.tekhits -= damage;
+				}
+				else {
+					hero.temphits -= damage;
+					if (hero.temphits < 0) {
+						hero.tekhits += hero.temphits;
+						hero.temphits = 0;
+					}
+				}
+				Sleep(1500);
+			}
+			clearchat();
+			if (hero.tekhits < 1) {
+				gotoxy(3, 6);
+				printf_s("%s wins!", monster2.name);
+				Sleep(1500);
+				hero.tekhits = hero.hits;
+				return 2;
+			}
+
+		}
+	}
+	else {
+		return 1;
+	}
+}
+int fight(int** tracker, int monsters, char ch, char* control) {
+	int dead1 = 0;
+	int dead2 = 0;
+	if (monsters > 1) {
+		dead2 = 0;
+	}
+
+	while (dead1 + dead2 != 2) {
+		for (int i = 3; i > 0; i--) {
+			for (int j = 2; j >= 0; j--) {
+				if (tracker[i][j] > 0) {
+					switch (j) {
+					case 0: {
+						//hero
+						if (hero1action(&control, ch) == 1) {
+							return 1;
+						}
+						break;
+					}
+					case 1: {
+						//mon1
+						switch (mon1action(&control, ch)) {
+						case 1: {
+							dead1 = 1;
+							break;
+						}
+						case 2: {
+							return 1;
+							break;
+						}
+						}
+						break;
+					}
+					case 2: {
+						//mon2
+						switch (mon2action(&control, ch)) {
+						case 1: {
+							dead2 = 1;
+							break;
+						}
+						case 2: {
+							return 1;
+							break;
+						}
+						}
+						break;
+					}
+					}
+				}
+			}
+		}
+	}
 }
 void profinskills() {
 	if (hero.pracrobatic == 1)
@@ -1221,6 +2625,8 @@ void characterlist() {
 	printf_s("Level");
 	gotoxy(59, 5);
 	printf_s("%d", hero.level);
+	gotoxy(65, 6);
+	printf_s("XP: %d", hero.xp);
 	gotoxy(50, 5);
 	printf_s("%s", hero.archetypename);
 	for (int i = 1; i < 79; i++) {
@@ -1291,6 +2697,12 @@ void characterlist() {
 	printf_s("%d", hero.Charisma);
 	gotoxy(2, 30);
 	printf_s("%d Mod", hero.modCha);
+	gotoxy(2, 33);
+	printf_s("Gold: %d", hero.gold);
+	gotoxy(2, 34);
+	printf_s("Silver: %d", hero.silver);
+	gotoxy(2, 35);
+	printf_s("Copper: %d", hero.copper);
 	int i = 18;
 	j = 8;
 	gotoxy(i, j);

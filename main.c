@@ -1,6 +1,6 @@
 #include "mechanic.h"
 int main(void) {
-	PlaySound(TEXT("Dark.wav"), NULL, SND_LOOP | SND_ASYNC);
+	srand(time(NULL));
 	mechanicsatstart();
 	start();
 	save();

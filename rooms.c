@@ -305,7 +305,7 @@ void room2() {
 	gotoxy(60, 5);
 	printf_s("What you want to do?");
 	gotoxy(60, 6);
-	printf_s("Enter in the citadel(1)");
+	printf_s("Enter in the citadel(1) Go back in shop(2)");
 	gotoxy(3, 40);
 	printf_s("Type (s) to save game");
 	char choose = '0';
@@ -323,6 +323,15 @@ void room2() {
 		case '1': {
 			hero.progress += 1;
 			room3();
+			break;
+		}
+		case '2': {
+			system("cls");
+			shop();
+			gotoxy(60, 5);
+			printf_s("What you want to do?");
+			gotoxy(60, 6);
+			printf_s("Enter in the citadel(1) Go back in shop(2)");
 			break;
 		}
 		}
@@ -366,12 +375,12 @@ void room3() {
 	gotoxy(3, 40);
 	printf_s("Type (s) to save game");
 	gotoxy(20, 6);
-	printf_s("Investigate the bodies(1) Remove the spear from the wall(2) Investigate the walls(3) Go to the north door(4) Go to the south door(5)");
+	printf_s("Investigate the bodies(1) Remove the spear from the wall(2) Investigate the walls(3) Go to the north door(4) Go to the south door(5) Go back(6)");
 	int perception = 0;
 	while (1) {
 		if (hero.xp > 150) {
 			gotoxy(20, 6);
-			printf_s("Investigate the bodies(1) Remove the spear from the wall(2) Go to the north door(4) Go to the south door(5)                                  ");
+			printf_s("Investigate the bodies(1) Remove the spear from the wall(2) Go to the north door(4) Go to the south door(5) Go back(6)                                  ");
 			choose = _getch();
 			if (choose == '3' || choose == '9') {
 				choose = '0';
@@ -439,7 +448,8 @@ void room3() {
 		case '3': {
 			gotoxy(60, 8);
 			if (perc == -1) {
-				printf_s("You already tried to investigate");
+				printf_s("You already tired to investigate");
+				Sleep(1000);
 				for (int i = 50; i < 150; i++) {
 					for (int j = 8; j < 10; j++) {
 						gotoxy(i, j);
@@ -562,6 +572,11 @@ void room3() {
 		}
 		case '5': {
 			hero.progress = 5;
+			stages();
+			break;
+		}
+		case '6': {
+			hero.progress -= 1;
 			stages();
 			break;
 		}
@@ -706,7 +721,7 @@ void room5() {
 	gotoxy(50, 5);
 	printf_s("As you enter the room, you notice a frozen goblin figure holding a silver key in its palm.");
 	gotoxy(50, 6);
-	printf_s("Take the key(1) Melt the ice with a burning torch(2) Break the statue(3) Go through the door ahead(4)");
+	printf_s("Take the key(1) Melt the ice with a burning torch(2) Break the statue(3) Go through the door ahead(4) Go back(5)");
 	char choose = '0';
 	int broken = 0;
 	while (1) {
@@ -720,7 +735,7 @@ void room5() {
 		case '1': {
 			hero.itemlist[1] = '2';
 			if (broken == 1) {
-				for (int i = 50; i < 162; i++) {
+				for (int i = 50; i < 172; i++) {
 					gotoxy(i, 6);
 					printf_s(" ");
 				}
@@ -728,7 +743,7 @@ void room5() {
 				printf_s("Go through the door ahead(4)");
 			}
 			else {
-				for (int i = 50; i < 162; i++) {
+				for (int i = 50; i < 172; i++) {
 					gotoxy(i, 6);
 					printf_s(" ");
 				}
@@ -765,7 +780,7 @@ void room5() {
 					if (hero.itemlist[1] != '2') {
 						if (choose == '1') {
 							hero.itemlist[1] = '2';
-							for (int i = 50; i < 162; i++) {
+							for (int i = 50; i < 172; i++) {
 								gotoxy(i, 6);
 								printf_s(" ");
 							}
@@ -790,7 +805,7 @@ void room5() {
 			gotoxy(60, 8);
 			printf_s("You broke the statue into many pieces of ice");
 			_getch();
-			for (int i = 50; i < 162; i++) {
+			for (int i = 50; i < 172; i++) {
 				gotoxy(i, 6);
 				printf_s(" ");
 			}
@@ -810,6 +825,10 @@ void room5() {
 			hero.progress += 1;
 			stages();
 			break;
+		}
+		case '5': {
+			hero.progress = 3;
+			stages();
 		}
 		}
 	}
@@ -839,7 +858,145 @@ void room6() {
 		choose = _getch();
 		switch (choose) {
 		case '1': {
-
+			gotoxy(60, 7);
+			printf_s("Glittering objects are visible in the dragon's nest.");
+			gotoxy(60, 8);
+			printf_s("This little dragon has white scales and sharp claws and appears to be sleeping,");
+			gotoxy(60, 9);
+			printf_s("but it is not known if it will wake up if you try to rob him.");
+			_getch();
+			for (int i = 60; i < 140; i++) {
+				for (int j = 7; j < 10; j++) {
+					gotoxy(i, j);
+					printf_s(" ");
+				}
+			}
+			int steal = 0;
+			gotoxy(60, 7);
+			printf_s("Try to steal jewelry(1) Attack dragon(2) Go back(3)");
+			while (1) {
+				choose = _getch();
+				switch (choose) {
+				case '1': {
+					if (steal != 1) {
+						gotoxy(60, 8);
+						steal = roll(1, 20, hero.sleightofhand);
+						printf_s("You are trying to steal...%d", steal);
+						if (steal < 10) {
+							steal = 1;
+							gotoxy(60, 9);
+							printf_s("Failed. Dragon has awakened.");
+							switch (stage5()) {
+							case 1: {
+								system("cls");
+								gotoxy(60, 5);
+								printf_s("What you want to do?");
+								gotoxy(60, 6);
+								printf_s("Return(1) Make short rest(2)");
+								gotoxy(3, 40);
+								printf_s("Type (s) to save game");
+								while (1) {
+									choose = _getch();
+									if (choose == 's') {
+										createsave();
+										gotoxy(3, 42);
+										printf_s("Save is success");
+										Sleep(3000);
+										gotoxy(3, 42);
+										printf_s("               ");
+									}
+									switch (choose) {
+									case '1': {
+										stages();
+										break;
+									}
+									case '2': {
+										shortrest();
+										system("cls");
+										gotoxy(60, 5);
+										printf_s("What you want to do?");
+										gotoxy(60, 6);
+										printf_s("Return(1) Make short rest(2)");
+										break;
+									}
+									}
+								}
+								break;
+							}
+							case 2: {
+								stages();
+								break;
+							}
+							}
+						}
+						else {
+							steal = 1;
+							gotoxy(60, 9);
+							int loot = roll(3, 20, 5);
+							printf_s("Success. You find %d gold", loot);
+							hero.gold += loot;
+						}
+						for (int i = 60; i < 120; i++) {
+							for (int j = 8; j < 10; j++) {
+								gotoxy(i, j);
+								printf_s(" ");
+							}
+						}
+					}
+					break;
+				}
+				case '2': {
+					switch (stage5()) {
+					case 1: {
+						system("cls");
+						gotoxy(60, 5);
+						printf_s("What you want to do?");
+						gotoxy(60, 6);
+						printf_s("Go down the ledge(1) Make short rest(2)");
+						gotoxy(3, 40);
+						printf_s("Type (s) to save game");
+						while (1) {
+							choose = _getch();
+							if (choose == 's') {
+								createsave();
+								gotoxy(3, 42);
+								printf_s("Save is success");
+								Sleep(3000);
+								gotoxy(3, 42);
+								printf_s("               ");
+							}
+							switch (choose) {
+							case '1': {
+								hero.progress += 1;
+								stages();
+								break;
+							}
+							case '2': {
+								shortrest();
+								system("cls");
+								gotoxy(60, 5);
+								printf_s("What you want to do?");
+								gotoxy(60, 6);
+								printf_s("Go down the ledge(1) Make short rest(2)");
+								break;
+							}
+							}
+						}
+						break;
+					}
+					case 2: {
+						stages();
+						break;
+					}
+					}
+					break;
+				}
+				case '3': {
+					stages();
+					break;
+				}
+				}
+			}
 			break;
 		}
 		case '2': {
@@ -847,58 +1004,12 @@ void room6() {
 			break;
 		}
 		case '3': {
-
+			hero.progress -= 1;
+			stages();
 			break;
 		}
 		}
 	}
-}
-void intro() {
-	FILE* intro;
-
-	if ((fopen_s(&intro, "intro.txt", "r")) != 0) {
-		exit(1);
-	}
-
-	intr.text1 = (char*)malloc(350);
-	if (intr.text1 == 0) {
-		exit(1);
-	}
-	int i = 0;
-
-	fscanf_s(intro, "%c", &intr.text1[i], 1);
-	while (intr.text1[i] != '\0') {
-		i++;
-		fscanf_s(intro, "%c", &intr.text1[i], 1);
-	}
-	system("cls");
-	system("pause");
-	system("cls");
-	int z = 5;
-	gotoxy(50, z);
-	for (int j = 0; j < 344; j++) {
-		if (intr.text1[j] == '\n') {
-			j++;
-			z++;
-			gotoxy(50, z);
-		}
-		printf_s("%c", intr.text1[j]);
-		Sleep(30);
-	}
-	gotoxy(3, 40);
-	printf_s("Type (s) to save game");
-	char s = _getch();
-	if (s == 's') {
-		createsave();
-		gotoxy(3, 42);
-		printf_s("Save is success");
-		Sleep(3000);
-		gotoxy(3, 42);
-		printf_s("               ");
-	}
-	free(intr.text1);
-	fclose(intro);
-	system("cls");
 }
 void picture() {
 	FILE* picture, * oldroad;
@@ -917,7 +1028,7 @@ void picture() {
 		i++;
 		fscanf_s(picture, "%c", &columns.text1[i], 1);
 	}
-	gotoxy(0, 0);
+	gotoxy(0, 1);
 	for (int j = 0; j < 5240; j++) {
 		printf_s("%c", columns.text1[j]);
 	}
@@ -972,7 +1083,7 @@ void shop() {
 		i++;
 		fscanf_s(shop, "%c", &shopman.text1[i], 1);
 	}
-	gotoxy(0, 0);
+	gotoxy(0, 1);
 	for (int j = 0; j < 2533; j++) {
 		printf_s("%c", shopman.text1[j]);
 	}
@@ -989,86 +1100,91 @@ void shop() {
 	gotoxy(75, 11);
 	printf_s("Armor              Weapon               Spells                Items");
 
-	gotoxy(75, 13);
 	char choose = '0';
 	int j = 13;
-	printf_s("(1)%s", shield.name);
-	j++;
-	gotoxy(75, j);
-	printf_s(" (%d gold)", shield.cost);
-	j++;
-	gotoxy(75, j);
-	printf_s("(2)%s", platearmor.name);
-	j++;
-	gotoxy(75, j);
-	printf_s(" (%d gold)", platearmor.cost);
-	j++;
-	gotoxy(75, j);
-	printf_s("(3)%s", splintarmor.name);
-	j++;
-	gotoxy(75, j);
-	printf_s(" (%d gold)", splintarmor.cost);
-	j++;
-	gotoxy(75, j);
-	printf_s("(4)%s", chainmail.name);
-	j++;
-	gotoxy(75, j);
-	printf_s(" (%d gold)", chainmail.cost);
-	j++;
-	gotoxy(75, j);
-	printf_s("(5)%s", ringmailarmor.name);
-	j++;
-	gotoxy(75, j);
-	printf_s(" (%d gold)", ringmailarmor.cost);
-	j++;
-	gotoxy(75, j);
-	printf_s("(6)%s", halfplatearmor.name);
-	j++;
-	gotoxy(75, j);
-	printf_s(" (%d gold)", halfplatearmor.cost);
-	j++;
-	gotoxy(75, j);
-	printf_s("(7)%s", breastplate.name);
-	j++;
-	gotoxy(75, j);
-	printf_s(" (%d gold)", breastplate.cost);
-	j++;
-	gotoxy(75, j);
-	printf_s("(8)%s", scalemailarmor.name);
-	j++;
-	gotoxy(75, j);
-	printf_s(" (%d gold)", scalemailarmor.cost);
-	j++;
-	gotoxy(75, j);
-	printf_s("(9)%s", chainshirt.name);
-	j++;
-	gotoxy(75, j);
-	printf_s(" (%d gold)", chainshirt.cost);
-	j++;
-	gotoxy(75, j);
-	printf_s("(q)%s", hidearmor.name);
-	j++;
-	gotoxy(75, j);
-	printf_s(" (%d gold)", hidearmor.cost);
-	j++;
-	gotoxy(75, j);
-	printf_s("(w)%s", studdedleather.name);
-	j++;
-	gotoxy(75, j);
-	printf_s(" (%d gold)", studdedleather.cost);
-	j++;
-	gotoxy(75, j);
-	printf_s("(e)%s", leatherarmor.name);
-	j++;
-	gotoxy(75, j);
-	printf_s(" (%d gold)", leatherarmor.cost);
-	j++;
-	gotoxy(75, j);
-	printf_s("(r)%s", paddedarmor.name);
-	j++;
-	gotoxy(75, j);
-	printf_s(" (%d gold)", paddedarmor.cost);
+	if (hero.class != 1) {
+		gotoxy(75, 13);
 
+		printf_s("(1)%s", shield.name);
+		j++;
+		gotoxy(75, j);
+		printf_s(" (%d gold)", shield.cost);
+		j++;
+		gotoxy(75, j);
+		printf_s("(2)%s", platearmor.name);
+		j++;
+		gotoxy(75, j);
+		printf_s(" (%d gold)", platearmor.cost);
+		j++;
+		gotoxy(75, j);
+		printf_s("(3)%s", splintarmor.name);
+		j++;
+		gotoxy(75, j);
+		printf_s(" (%d gold)", splintarmor.cost);
+		j++;
+		gotoxy(75, j);
+		printf_s("(4)%s", chainmail.name);
+		j++;
+		gotoxy(75, j);
+		printf_s(" (%d gold)", chainmail.cost);
+		j++;
+		gotoxy(75, j);
+		printf_s("(5)%s", ringmailarmor.name);
+		j++;
+		gotoxy(75, j);
+		printf_s(" (%d gold)", ringmailarmor.cost);
+		j++;
+		gotoxy(75, j);
+		printf_s("(6)%s", halfplatearmor.name);
+		j++;
+		gotoxy(75, j);
+		printf_s(" (%d gold)", halfplatearmor.cost);
+		j++;
+		gotoxy(75, j);
+		printf_s("(7)%s", breastplate.name);
+		j++;
+		gotoxy(75, j);
+		printf_s(" (%d gold)", breastplate.cost);
+		j++;
+		gotoxy(75, j);
+		printf_s("(8)%s", scalemailarmor.name);
+		j++;
+		gotoxy(75, j);
+		printf_s(" (%d gold)", scalemailarmor.cost);
+		j++;
+		gotoxy(75, j);
+		printf_s("(9)%s", chainshirt.name);
+		j++;
+		gotoxy(75, j);
+		printf_s(" (%d gold)", chainshirt.cost);
+		j++;
+		gotoxy(75, j);
+		printf_s("(q)%s", hidearmor.name);
+		j++;
+		gotoxy(75, j);
+		printf_s(" (%d gold)", hidearmor.cost);
+		j++;
+	}
+	if (hero.class == 1) {
+
+		gotoxy(75, j);
+		printf_s("(w)%s", studdedleather.name);
+		j++;
+		gotoxy(75, j);
+		printf_s(" (%d gold)", studdedleather.cost);
+		j++;
+		gotoxy(75, j);
+		printf_s("(e)%s", leatherarmor.name);
+		j++;
+		gotoxy(75, j);
+		printf_s(" (%d gold)", leatherarmor.cost);
+		j++;
+		gotoxy(75, j);
+		printf_s("(r)%s", paddedarmor.name);
+		j++;
+		gotoxy(75, j);
+		printf_s(" (%d gold)", paddedarmor.cost);
+	}
 
 	gotoxy(95, 13);
 	j = 13;
@@ -1099,222 +1215,456 @@ void shop() {
 		gotoxy(85, 7);
 		printf_s("Hero money:  %d gold  %d silver  %d copper   ", hero.gold, hero.silver, hero.copper);
 		choose = _getch();
-		switch (choose) {
-		case '1': {
-			if (hero.equiplist[3] != shield.id)
-				if (hero.gold >= shield.cost)
-					equips(shield.id);
-				else {
-					donthavemoney();
-					break;
-				}
-			gotoxy(75, 13);
-			printf_s("Buyed              ");
-			break;
-		}
-		case '2': {
-			if (hero.equiplist[1] != platearmor.id)
-				if (hero.gold >= platearmor.cost)
-					equips(platearmor.id);
-				else {
-					donthavemoney();
-					break;
-				}
-			gotoxy(75, 15);
-			printf_s("Buyed              ");
-			break;
-		}
-		case '3': {
-			if (hero.equiplist[1] != splintarmor.id)
-				if (hero.gold >= splintarmor.cost)
-					equips(splintarmor.id);
-				else {
-					donthavemoney();
-					break;
-				}
-			gotoxy(75, 17);
-			printf_s("Buyed              ");
-			break;
-		}
-		case '4': {
-			if (hero.equiplist[1] != chainmail.id)
-				if (hero.gold >= chainmail.cost)
-					equips(chainmail.id);
-				else {
-					donthavemoney();
-					break;
-				}
-			gotoxy(75, 19);
-			printf_s("Buyed              ");
-			break;
-		}
-		case '5': {
-			if (hero.equiplist[1] != ringmailarmor.id)
-				if (hero.gold >= ringmailarmor.cost)
-					equips(ringmailarmor.id);
-				else {
-					donthavemoney();
-					break;
-				}
-			gotoxy(75, 21);
-			printf_s("Buyed              ");
-			break;
-		}
-		case '6': {
-			if (hero.equiplist[1] != halfplatearmor.id)
-				if (hero.gold >= halfplatearmor.cost)
-					equips(halfplatearmor.id);
-				else {
-					donthavemoney();
-					break;
-				}
-			gotoxy(75, 23);
-			printf_s("Buyed              ");
-			break;
-		}
-		case '7': {
-			if (hero.equiplist[1] != breastplate.id)
-				if (hero.gold >= breastplate.cost)
-					equips(breastplate.id);
-				else {
-					donthavemoney();
-					break;
-				}
-			gotoxy(75, 25);
-			printf_s("Buyed              ");
-			break;
-		}
-		case '8': {
-			if (hero.equiplist[1] != scalemailarmor.id)
-				if (hero.gold >= scalemailarmor.cost)
-					equips(scalemailarmor.id);
-				else {
-					donthavemoney();
-					break;
-				}
-			gotoxy(75, 27);
-			printf_s("Buyed              ");
-			break;
-		}
-		case '9': {
-			if (hero.equiplist[1] != chainshirt.id)
-				if (hero.gold >= chainshirt.cost)
-					equips(chainshirt.id);
-				else {
-					donthavemoney();
-					break;
-				}
-			gotoxy(75, 29);
-			printf_s("Buyed              ");
-			break;
-		}
-		case 'q': {
-			if (hero.equiplist[1] != hidearmor.id)
-				if (hero.gold >= hidearmor.cost)
-					equips(hidearmor.id);
-				else {
-					donthavemoney();
-					break;
-				}
-			gotoxy(75, 31);
-			printf_s("Buyed              ");
-			break;
-		}
-		case 'w': {
-			if (hero.equiplist[1] != studdedleather.id)
-				if (hero.gold >= studdedleather.cost)
-					equips(studdedleather.id);
-				else {
-					donthavemoney();
-					break;
-				}
-			gotoxy(75, 33);
-			printf_s("Buyed              ");
-			break;
-		}
-		case 'e': {
-			if (hero.equiplist[1] != leatherarmor.id)
-				if (hero.gold >= leatherarmor.cost)
-					equips(leatherarmor.id);
-				else {
-					donthavemoney();
-					break;
-				}
-			gotoxy(75, 35);
-			printf_s("Buyed              ");
-			break;
-		}
-		case 'r': {
-			if (hero.equiplist[1] != paddedarmor.id)
-				if (hero.gold >= paddedarmor.cost)
-					equips(paddedarmor.id);
-				else {
-					donthavemoney();
-					break;
-				}
-			gotoxy(75, 37);
-			printf_s("Buyed              ");
-			break;
-		}
-		case 't': {
-			if (hero.weaponlist[0] != '1')
-				if (hero.gold >= dagger.cost)
-					hero.gold -= dagger.cost;
-				else {
-					donthavemoney();
-					break;
-				}
-			hero.weaponlist[1] = '1';
-			gotoxy(95, 13);
-			printf_s("Buyed       ");
-			break;
-		}
-		case 'y': {
-			if (hero.weaponlist[1] != '2')
-				if (hero.gold >= quarterstaff.cost)
-					hero.gold -= quarterstaff.cost;
-				else {
-					donthavemoney();
-					break;
-				}
-			hero.weaponlist[2] = '2';
-			gotoxy(95, 15);
-			printf_s("Buyed          ");
-			break;
-		}
-		case 'u': {
-			if (hero.weaponlist[3] != '4')
-				if (hero.gold >= lightcrossbow.cost)
-					hero.gold -= lightcrossbow.cost;
-				else {
-					donthavemoney();
-					break;
-				}
-			hero.weaponlist[4] = '4';
-			gotoxy(95, 17);
-			printf_s("Buyed            ");
-			break;
-		}
-		case 'i': {
-			if (hero.spelllist[0] != '1')
-				if (hero.gold >= 0)
-					hero.gold -= 0;
-				else {
-					donthavemoney();
-					break;
-				}
-			hero.spelllist[0] = eldritchblast.id;
-			gotoxy(115, 13);
-			printf_s("Buyed              ");
-			break;
-		}
-		}
-	}
+		switch (hero.class) {
+		case 1: {
+			switch (choose) {
+			case 'w': {
+				if (hero.equiplist[1] != studdedleather.id)
+					if (hero.gold >= studdedleather.cost) {
+						equips(studdedleather.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
 
+				break;
+			}
+			case 'e': {
+				if (hero.equiplist[1] != leatherarmor.id)
+					if (hero.gold >= leatherarmor.cost) {
+						equips(leatherarmor.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case 'r': {
+				if (hero.equiplist[1] != paddedarmor.id)
+					if (hero.gold >= paddedarmor.cost) {
+						equips(paddedarmor.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+
+			case 't': {
+				if (hero.weaponlist[0] != '1')
+					if (hero.gold >= dagger.cost) {
+						hero.gold -= dagger.cost;
+						hero.weaponlist[1] = '1';
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case 'y': {
+				if (hero.weaponlist[1] != '2')
+					if (hero.gold >= quarterstaff.cost) {
+						hero.gold -= quarterstaff.cost;
+						hero.weaponlist[2] = '2';
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case 'u': {
+				if (hero.weaponlist[3] != '4')
+					if (hero.gold >= lightcrossbow.cost) {
+						hero.gold -= lightcrossbow.cost;
+						hero.weaponlist[4] = '4';
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case 'i': {
+				if (hero.spelllist[0] != '1')
+					if (hero.gold >= 0) {
+						hero.gold -= 0;
+						hero.spelllist[0] = eldritchblast.id;
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			}
+			break;
+		}
+		case 2: {
+			switch (choose) {
+			case '1': {
+				if (hero.equiplist[3] != shield.id)
+					if (hero.gold >= shield.cost) {
+						equips(shield.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case '2': {
+				if (hero.equiplist[1] != platearmor.id)
+					if (hero.gold >= platearmor.cost) {
+						equips(platearmor.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case '3': {
+				if (hero.equiplist[1] != splintarmor.id)
+					if (hero.gold >= splintarmor.cost) {
+						equips(splintarmor.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case '4': {
+				if (hero.equiplist[1] != chainmail.id)
+					if (hero.gold >= chainmail.cost) {
+						equips(chainmail.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case '5': {
+				if (hero.equiplist[1] != ringmailarmor.id)
+					if (hero.gold >= ringmailarmor.cost) {
+						equips(ringmailarmor.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+
+			case '6': {
+				if (hero.equiplist[1] != halfplatearmor.id)
+					if (hero.gold >= halfplatearmor.cost) {
+						equips(halfplatearmor.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case '7': {
+				if (hero.equiplist[1] != breastplate.id)
+					if (hero.gold >= breastplate.cost) {
+						equips(breastplate.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case '8': {
+				if (hero.equiplist[1] != scalemailarmor.id)
+					if (hero.gold >= scalemailarmor.cost) {
+						equips(scalemailarmor.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case '9': {
+				if (hero.equiplist[1] != chainshirt.id)
+					if (hero.gold >= chainshirt.cost) {
+						equips(chainshirt.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case 'q': {
+				if (hero.equiplist[1] != hidearmor.id)
+					if (hero.gold >= hidearmor.cost) {
+						equips(hidearmor.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+
+			case 'w': {
+				if (hero.equiplist[1] != studdedleather.id)
+					if (hero.gold >= studdedleather.cost) {
+						equips(studdedleather.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case 'e': {
+				if (hero.equiplist[1] != leatherarmor.id)
+					if (hero.gold >= leatherarmor.cost) {
+						equips(leatherarmor.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case 'r': {
+				if (hero.equiplist[1] != paddedarmor.id)
+					if (hero.gold >= paddedarmor.cost) {
+						equips(paddedarmor.id);
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+
+			case 't': {
+				if (hero.weaponlist[0] != '1')
+					if (hero.gold >= dagger.cost) {
+						hero.gold -= dagger.cost;
+						hero.weaponlist[1] = '1';
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case 'y': {
+				if (hero.weaponlist[1] != '2')
+					if (hero.gold >= quarterstaff.cost) {
+						hero.gold -= quarterstaff.cost;
+						hero.weaponlist[2] = '2';
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case 'u': {
+				if (hero.weaponlist[3] != '4')
+					if (hero.gold >= lightcrossbow.cost) {
+						hero.gold -= lightcrossbow.cost;
+						hero.weaponlist[4] = '4';
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+			case 'i': {
+				if (hero.spelllist[0] != '1')
+					if (hero.gold >= 0) {
+						hero.gold -= 0;
+						hero.spelllist[0] = eldritchblast.id;
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+
+			}
+			break;
+		}
+		}
+		
+	}
+	system("cls");
+}
+int stage01() {
+	char control = '0';
+	char ch = '0';
+	rulemon1(0);
+	rulemon2(0);
+	clearchat();
+	if (initiative(2, ch, &control) == 1) {
+		return 1;
+	}
 }
 int stage0() {
 	char control = 0;
-	rulegoblin();
+	rulegoblin(1);
 	goblin();
 	clearchat();
 	while (control != '`') {
@@ -1347,7 +1697,7 @@ int stage0() {
 }
 int stage1() {
 	char control = 0;
-	rulebandit();
+	rulebandit(1);
 	bandit();
 	clearchat();
 	while (control != '`') {
@@ -1379,7 +1729,7 @@ int stage1() {
 }
 int stage2() {
 	char control = 0;
-	rulerat();
+	rulerat(1);
 	rat();
 	clearchat();
 	while (control != '`') {
@@ -1418,7 +1768,7 @@ int stage2() {
 }
 int stage3() {
 	char control = 0;
-	ruleskeleton();
+	ruleskeleton(1);
 	skeleton();
 	clearchat();
 	while (control != '`') {
@@ -1458,7 +1808,7 @@ int stage3() {
 int stage4() {
 	hero.weaponlist[2] = '\0';
 	char control = 0;
-	rulesword();
+	rulesword(1);
 	sword();
 	clearchat();
 	while (control != '`') {
@@ -1495,13 +1845,47 @@ int stage4() {
 		}
 	}
 }
+int stage5() {
+	char control = 0;
+	ruledragon(1);
+	dragon();
+	clearchat();
+	while (control != '`') {
+		control = _getch();
+		if (control == 'i') {
+			system("cls");
+			characterlist();
+		}
+		if (control == 'e') {
+			system("cls");
+			showequip();
+		}
+		if (control == 'm') {
+			system("cls");
+			makemap();
+		}
+		if (control == 27) {
+			system("cls");
+		}
+		if (control != 'i' && control != 'e' && control != 'm') {
+			dragon();
+			clearchat();
+		}
+
+		if (actions(&control) == 1) {
+			return 1;
+		}
+
+	}
+}
 void stages() {
 	system("cls");
 	levels();
 	switch (hero.progress) {
 	case 0: {
 		shop();
-		intro();
+		system("cls");
+		ashardalon();
 		picture();
 		room0();
 	}
