@@ -7,17 +7,7 @@ void room0() {
 	printf_s("Investigate(1)            Stand next to the ravine(2)          Try to climb down(3)");
 	int rope = 0;
 	while (1) {
-		gotoxy(3, 40);
-		printf_s("Type (s) to save game");
 		char choose = _getch();
-		if (choose == 's') {
-			createsave();
-			gotoxy(3, 42);
-			printf_s("Save is success");
-			Sleep(3000);
-			gotoxy(3, 42);
-			printf_s("               ");
-		}
 		switch (choose) {
 		case '1': {
 			gotoxy(60, 8);
@@ -521,7 +511,12 @@ void room3() {
 					}
 					switch (choose) {
 					case '1': {
-						hero.weaponlist[2] = magicalshortsword.id;
+						for (int i = 0; i < 20; i++) {
+							if (hero.weaponlist[i] == '0') {
+								hero.weaponlist[i] = magicalshortsword.id;
+								break;
+							}
+						}
 						hero.progress += 1;
 						gotoxy(60, 8);
 						printf_s("<Sword> Right choice, young adventurer");
@@ -882,10 +877,12 @@ void room6() {
 						gotoxy(60, 8);
 						steal = roll(1, 20, hero.sleightofhand);
 						printf_s("You are trying to steal...%d", steal);
+						Sleep(2000);
 						if (steal < 10) {
 							steal = 1;
 							gotoxy(60, 9);
 							printf_s("Failed. Dragon has awakened.");
+							Sleep(1000);
 							switch (stage5()) {
 							case 1: {
 								system("cls");
@@ -934,6 +931,7 @@ void room6() {
 							gotoxy(60, 9);
 							int loot = roll(3, 20, 5);
 							printf_s("Success. You find %d gold", loot);
+							Sleep(1500);
 							hero.gold += loot;
 						}
 						for (int i = 60; i < 120; i++) {
@@ -1058,9 +1056,6 @@ void picture() {
 		Sleep(30);
 	}
 	char s = _getch();
-	if (s == 's') {
-		createsave();
-	}
 	free(columns.text1);
 	free(columns.text2);
 	fclose(oldroad);
@@ -1099,7 +1094,7 @@ void shop() {
 	printf_s("Welcome to my shop! I have everything you need for a deadly adventure. Type - to left shop.");
 	gotoxy(75, 11);
 	printf_s("Armor              Weapon               Spells                Items");
-
+	int potions = 0;
 	char choose = '0';
 	int j = 13;
 	if (hero.class != 1) {
@@ -1184,6 +1179,20 @@ void shop() {
 		j++;
 		gotoxy(75, j);
 		printf_s(" (%d gold)", paddedarmor.cost);
+
+		j = 13;
+		gotoxy(115, j);
+		printf_s("(i)%s", eldritchblast.name);
+		j++;
+		gotoxy(115, j);
+		printf_s(" (Free)");
+		j++;
+		gotoxy(115, j);
+		printf_s("(o)%s", faeriefire.name);
+		j++;
+		gotoxy(115, j);
+		printf_s(" (10 gold)");
+
 	}
 
 	gotoxy(95, 13);
@@ -1205,12 +1214,13 @@ void shop() {
 	gotoxy(95, j);
 	printf_s(" (%d gold)", lightcrossbow.cost);
 
+
 	j = 13;
-	gotoxy(115, j);
-	printf_s("(i)%s", eldritchblast.name);
+	gotoxy(135, j);
+	printf_s("(p)%s", healingpotion.name);
 	j++;
-	gotoxy(115, j);
-	printf_s(" (Free)");
+	gotoxy(135, j);
+	printf_s(" (%d gold)", healingpotion.cost);
 	while (choose != '-') {
 		gotoxy(85, 7);
 		printf_s("Hero money:  %d gold  %d silver  %d copper   ", hero.gold, hero.silver, hero.copper);
@@ -1271,28 +1281,36 @@ void shop() {
 			}
 
 			case 't': {
-				if (hero.weaponlist[0] != '1')
-					if (hero.gold >= dagger.cost) {
-						hero.gold -= dagger.cost;
-						hero.weaponlist[1] = '1';
-						gotoxy(85, 40);
-						printf_s("Buyed");
-						Sleep(500);
-						gotoxy(85, 40);
-						printf_s("     ");
+				if (hero.gold >= dagger.cost) {
+					hero.gold -= dagger.cost;
+					for (int i = 0; i < 20; i++) {
+						if (hero.weaponlist[i] == '\0') {
+							hero.weaponlist[i] = '1';
+							break;
+						}
 					}
-					else {
-						donthavemoney();
-						break;
-					}
+					gotoxy(85, 40);
+					printf_s("Buyed");
+					Sleep(500);
+					gotoxy(85, 40);
+					printf_s("     ");
+				}
+				else {
+					donthavemoney();
+					break;
+				}
 
 				break;
 			}
 			case 'y': {
-				if (hero.weaponlist[1] != '2')
 					if (hero.gold >= quarterstaff.cost) {
 						hero.gold -= quarterstaff.cost;
-						hero.weaponlist[2] = '2';
+						for (int i = 0; i < 20; i++) {
+							if (hero.weaponlist[i] == '\0') {
+								hero.weaponlist[i] = '2';
+								break;
+							}
+						}
 						gotoxy(85, 40);
 						printf_s("Buyed");
 						Sleep(500);
@@ -1307,10 +1325,14 @@ void shop() {
 				break;
 			}
 			case 'u': {
-				if (hero.weaponlist[3] != '4')
 					if (hero.gold >= lightcrossbow.cost) {
 						hero.gold -= lightcrossbow.cost;
-						hero.weaponlist[4] = '4';
+						for (int i = 0; i < 20; i++) {
+							if (hero.weaponlist[i] == '\0') {
+								hero.weaponlist[i] = '4';
+								break;
+							}
+						}
 						gotoxy(85, 40);
 						printf_s("Buyed");
 						Sleep(500);
@@ -1324,11 +1346,16 @@ void shop() {
 
 				break;
 			}
+
 			case 'i': {
-				if (hero.spelllist[0] != '1')
 					if (hero.gold >= 0) {
 						hero.gold -= 0;
-						hero.spelllist[0] = eldritchblast.id;
+						for (int i = 0; i < 20; i++) {
+							if (hero.spelllist[i] == '\0') {
+								hero.spelllist[i] = eldritchblast.id;
+								break;
+							}
+						}
 						gotoxy(85, 40);
 						printf_s("Buyed");
 						Sleep(500);
@@ -1339,6 +1366,54 @@ void shop() {
 						donthavemoney();
 						break;
 					}
+
+				break;
+			}
+			case 'o': {
+					if (hero.gold >= 10) {
+						hero.gold -= 10;
+						for (int i = 0; i < 20; i++) {
+							if (hero.spelllist[i] == '\0') {
+								hero.spelllist[i] = faeriefire.id;
+								break;
+							}
+						}						
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
+				break;
+			}
+
+			case 'p': {
+					if (hero.gold >= healingpotion.cost) {
+						hero.gold -= healingpotion.cost;
+						for (int i = 0; i < 20; i++) {
+							if (hero.itemlist[healingpotion.amount] == '\0') {
+								hero.itemlist[healingpotion.amount] = '1';
+								healingpotion.amount++;
+								break;
+							}
+						}
+
+						gotoxy(85, 40);
+						printf_s("Buyed");
+						Sleep(500);
+						gotoxy(85, 40);
+						printf_s("     ");
+					}
+					else {
+						donthavemoney();
+						break;
+					}
+
 
 				break;
 			}
@@ -1626,10 +1701,14 @@ void shop() {
 				break;
 			}
 			case 'i': {
-				if (hero.spelllist[0] != '1')
 					if (hero.gold >= 0) {
 						hero.gold -= 0;
-						hero.spelllist[0] = eldritchblast.id;
+						for (int i = 0; i < 20; i++) {
+							if (hero.spelllist[i] == '\0') {
+								hero.spelllist[i] == eldritchblast.id;
+								break;
+							}
+						}
 						gotoxy(85, 40);
 						printf_s("Buyed");
 						Sleep(500);
@@ -1648,11 +1727,11 @@ void shop() {
 			break;
 		}
 		}
-		
+
 	}
 	system("cls");
 }
-int stage01() {
+/*int stage01() {
 	char control = '0';
 	char ch = '0';
 	rulemon1(0);
@@ -1661,9 +1740,10 @@ int stage01() {
 	if (initiative(2, ch, &control) == 1) {
 		return 1;
 	}
-}
+}*/
 int stage0() {
 	char control = 0;
+	int rounds = 0;
 	rulegoblin(1);
 	goblin();
 	clearchat();
@@ -1689,7 +1769,7 @@ int stage0() {
 			clearchat();
 		}
 
-		if (actions(&control) == 1) {
+		if (actions(&control, &rounds) == 1) {
 			return 1;
 		}
 
@@ -1697,6 +1777,7 @@ int stage0() {
 }
 int stage1() {
 	char control = 0;
+	int rounds = 0;
 	rulebandit(1);
 	bandit();
 	clearchat();
@@ -1721,7 +1802,7 @@ int stage1() {
 			bandit();
 			clearchat();
 		}
-		if (actions(&control) == 1) {
+		if (actions(&control, &rounds) == 1) {
 			return 1;
 		}
 
@@ -1729,6 +1810,7 @@ int stage1() {
 }
 int stage2() {
 	char control = 0;
+	int rounds = 0;
 	rulerat(1);
 	rat();
 	clearchat();
@@ -1754,7 +1836,7 @@ int stage2() {
 			clearchat();
 		}
 
-		switch (actions(&control)) {
+		switch (actions(&control, &rounds)) {
 		case 1: {
 			return 1;
 			break;
@@ -1768,6 +1850,7 @@ int stage2() {
 }
 int stage3() {
 	char control = 0;
+	int rounds = 0;
 	ruleskeleton(1);
 	skeleton();
 	clearchat();
@@ -1793,7 +1876,7 @@ int stage3() {
 			clearchat();
 		}
 
-		switch (actions(&control)) {
+		switch (actions(&control, &rounds)) {
 		case 1: {
 			return 1;
 			break;
@@ -1806,8 +1889,13 @@ int stage3() {
 	}
 }
 int stage4() {
-	hero.weaponlist[2] = '\0';
+	for (int i = 0; i < 20; i++) {
+		if (hero.weaponlist[i] == magicalshortsword.id) {
+			hero.weaponlist[i] = '\0';
+		}
+	}
 	char control = 0;
+	int rounds = 0;
 	rulesword(1);
 	sword();
 	clearchat();
@@ -1833,7 +1921,7 @@ int stage4() {
 			clearchat();
 		}
 
-		switch (actions(&control)) {
+		switch (actions(&control, &rounds)) {
 		case 1: {
 			return 1;
 			break;
@@ -1847,6 +1935,7 @@ int stage4() {
 }
 int stage5() {
 	char control = 0;
+	int rounds = 0;
 	ruledragon(1);
 	dragon();
 	clearchat();
@@ -1872,7 +1961,7 @@ int stage5() {
 			clearchat();
 		}
 
-		if (actions(&control) == 1) {
+		if (actions(&control, &rounds) == 1) {
 			return 1;
 		}
 
@@ -1883,8 +1972,6 @@ void stages() {
 	levels();
 	switch (hero.progress) {
 	case 0: {
-		shop();
-		system("cls");
 		ashardalon();
 		picture();
 		room0();

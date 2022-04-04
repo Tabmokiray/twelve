@@ -14,5 +14,5 @@ int stage2();
 int stage3();
 int stage4();
 int stage5();
-int stage01();
+/*int stage01();*/
 void stages();

@@ -4,7 +4,7 @@
 void fullscreen();
 void freeetc();
 void clearchat();
-int actions(char* control);
+int actions(char* control,int*rounds);
 void charactercreator();
 char statgenerator(int* points);
 void donthavemoney();
@@ -12,8 +12,8 @@ void start();
 void loadsave();
 void createsave();
 void save();
-void hidecursor();
 void makemap();
 void gotoxy(int column, int row);
 void mechanicsatstart();
 void mapping(int x, int y);
+BOOL ShowConsoleCursor(BOOL bShow);

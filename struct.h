@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <Windows.h>
 #include <MMSystem.h>
-#pragma comment(lib, "winmm.lib")
 #include <time.h>
+#pragma comment(lib, "winmm.lib")
 struct stats {
 	char name[20];
 	int gold;
@@ -51,6 +51,7 @@ struct stats {
 	int items;
 	char archetypename[20];
 	int spellslots1;
+	int spellslots2;
 
 	int saveStr;
 	int prsaveStr;
@@ -108,8 +109,14 @@ struct stats {
 	char equipcape[20];
 	char equipfeet[20];
 	char equiprings[20];
+	int condition;
+	int advantage;
 };
-struct stats hero, Frankstat, Goblinstat, Banditstat, Ratstat, Skeletonstat, Swordstat,Dragonstat;
+struct stats hero,familiarstat, Goblinstat, Banditstat, Ratstat, Skeletonstat, Swordstat, Dragonstat, Impstat;
+struct lists {
+	char pactbladeweaponlist[20];
+};
+struct lists list;
 struct race {
 	int race;
 	int str;
@@ -131,6 +138,7 @@ struct class {
 	int class;
 	int archetype;
 	char eldritchinvocations[20];
+	char pactboon;
 };
 struct class warlock;
 struct invocations {
@@ -139,6 +147,12 @@ struct invocations {
 	char* description;
 };
 struct invocations agonizingblast, armorofshadows, beguilinginfluence;
+struct pacts {
+	char name[20];
+	char* description;
+	char id;
+};
+struct pacts blade, chain, tome;
 struct npc {
 	int armorclass;
 	char name[20];
@@ -153,7 +167,7 @@ struct npc {
 	int modCha;
 	int condition;
 };
-struct npc Goblin, Bandit, monster,monster2, Rat, Skeleton, Sword,Dragon;
+struct npc Goblin, Bandit, monster, monster2, Rat, Skeleton, Sword, Dragon, Imp,familiar;
 struct action {
 	char action1[20];
 	char action2[20];
@@ -162,7 +176,7 @@ struct action {
 	int accur1;
 	int accur2;
 };
-struct action Goblinaction, Banditaction, monsteraction,monster2action, Rataction, Skeletonaction, Swordaction,Dragonaction;
+struct action Goblinaction, Banditaction, monsteraction, monster2action, Rataction, Skeletonaction, Swordaction, Dragonaction, Impaction, familiaraction;
 struct arm {
 	int startarmor;
 	int type;
@@ -193,12 +207,13 @@ struct spell {
 	int mode;
 	int mods;
 };
-struct spell eldritchblast,magearmor, darkonesblessing, feyancestry;
+struct spell eldritchblast, magearmor, faeriefire, darkonesblessing, feyancestry, summonblade, findfamiliar,imp;
 struct text {
 	char* text1;
 	char* text2;
+	char* text3;
 };
-struct text intr, columns, magicsword, shopman,reddragon;
+struct text intr, columns, magicsword, shopman, reddragon;
 struct maps {
 	char* map;
 };
@@ -211,5 +226,6 @@ struct item {
 	char* description;
 	int amount;
 	int mods;
+	int cost;
 };
 struct item healingpotion;

@@ -68,16 +68,20 @@ void donthavemoney() {
 	gotoxy(75, 6);
 	printf_s("                          ");
 }
-int actions(char* control) {
+int actions(char* control, int* rounds) {
 	char ch = '0';
 	if (*control == '1') {
 		gotoxy(3, 3);
 		printf_s("Choose the weapon: (B) to back");
 		int j = 4;
-		for (int i = 0; i < strlen(hero.weaponlist); i++) {
+		for (int i = 0; i < 20; i++) {
 			gotoxy(3, j);
-			if (hero.weaponlist[i] != '0')
+			if (hero.weaponlist[i] != '\0') {
 				printf_s("(%d) ", i + 1);
+			}
+			else {
+				break;
+			}
 			switch (hero.weaponlist[i]) {
 			case '1': {
 				printf_s("%s", dagger.name);
@@ -108,32 +112,28 @@ int actions(char* control) {
 			int damage = 0;
 			int attack = 0;
 			char damagetype[20];
-			if ((choose == 1 && hero.weaponlist[1] == '1') || (choose == 2 && hero.weaponlist[2] == '2' || (choose == 3 && hero.weaponlist[3] == '3') || (choose == 4 && hero.weaponlist[4] == '4'))) {
-				weapons(choose, &damage, &attack, &damagetype);
-				gotoxy(3, 3);
-				printf_s("You are trying to attack: %d...", attack);
-				Sleep(1000);
-				if (attack < monster.armorclass) {
-					gotoxy(3, 4);
-					printf_s("Failed");
-					Sleep(1500);
-				}
-				else {
-					gotoxy(3, 4);
-					printf_s("You deal %d %s damage", damage, damagetype);
-					if (hero.crit == 1) {
-						gotoxy(3, 5);
-						printf_s("CRIT!!!");
-						hero.crit = 0;
-						Sleep(2000);
-					}
-					monster.hits -= damage;
-					Sleep(1500);
-				}
+			weapons(choose, &damage, &attack, &damagetype);
+			gotoxy(3, 3);
+			printf_s("You are trying to attack: %d...", attack);
+			Sleep(1000);
+			if (attack < monster.armorclass) {
+				gotoxy(3, 4);
+				printf_s("Failed");
+				Sleep(1500);
 			}
 			else {
-				*control = '0';
+				gotoxy(3, 4);
+				printf_s("You deal %d %s damage", damage, damagetype);
+				if (hero.crit == 1) {
+					gotoxy(3, 5);
+					printf_s("CRIT!!!");
+					hero.crit = 0;
+					Sleep(2000);
+				}
+				monster.hits -= damage;
+				Sleep(1500);
 			}
+
 			clearchat();
 			if (monster.hits < 1) {
 				gotoxy(3, 5);
@@ -175,10 +175,14 @@ int actions(char* control) {
 		gotoxy(3, 3);
 		printf_s("Choose the ability: (B) to back");
 		int j = 4;
-		for (int i = 0; i < strlen(hero.ablist); i++) {
+		for (int i = 0; i < 20; i++) {
 			gotoxy(3, j);
-			if (hero.ablist[i] != '0')
+			if (hero.ablist[i] != '\0') {
 				printf_s("(%d) ", i + 1);
+			}
+			else {
+				break;
+			}
 			switch (hero.ablist[i]) {
 			case '1': {
 				printf_s("%s", feyancestry.name);
@@ -186,6 +190,10 @@ int actions(char* control) {
 			}
 			case '2': {
 				printf_s("%s", darkonesblessing.name);
+				break;
+			}
+			case '3': {
+				printf_s("%s", summonblade.name);
 				break;
 			}
 			}
@@ -200,15 +208,14 @@ int actions(char* control) {
 			choose--;
 			int characteristic = 0;
 			int damage = 0;
-			int type = abilitydesc(choose, &damage, &characteristic);
+			int attack = 0;
+			int type = abilitydesc(choose, &damage, &attack, &characteristic);
 			Sleep(3000);
 			clearchat();
-			int attack;
 			int savingthrow;
 			if (type == 1) {
 				gotoxy(3, j);
 				j++;
-				attack = roll(1, 20, hero.modCha + hero.proficiency);
 				printf_s("You try to attack with the ability: %d...", attack);
 				Sleep(1500);
 				if (attack < monster.armorclass) {
@@ -220,7 +227,7 @@ int actions(char* control) {
 				else {
 					gotoxy(3, j);
 					j++;
-					printf_s("You deal %d force damage", damage);
+					printf_s("You deal %d piercing damage", damage);
 					monster.hits -= damage;
 					Sleep(1500);
 				}
@@ -230,27 +237,27 @@ int actions(char* control) {
 				j++;
 				switch (characteristic) {
 				case 1: {
-					savingthrow = roll(20) + monster.modStr;
+					savingthrow = roll(1, 20, monster.modStr);
 					break;
 				}
 				case 2: {
-					savingthrow = roll(20) + monster.modDex;
+					savingthrow = roll(1, 20, monster.modDex);
 					break;
 				}
 				case 3: {
-					savingthrow = roll(20) + monster.modCon;
+					savingthrow = roll(1, 20, monster.modCon);
 					break;
 				}
 				case 4: {
-					savingthrow = roll(20) + monster.modInt;
+					savingthrow = roll(1, 20, monster.modInt);
 					break;
 				}
 				case 5: {
-					savingthrow = roll(20) + monster.modWis;
+					savingthrow = roll(1, 20, monster.modWis);
 					break;
 				}
 				case 6: {
-					savingthrow = roll(20) + monster.modCha;
+					savingthrow = roll(1, 20, monster.modCha);
 					break;
 				}
 				}
@@ -332,10 +339,14 @@ int actions(char* control) {
 		gotoxy(3, 3);
 		printf_s("Choose the spell: (B) to back");
 		int j = 4;
-		for (int i = 0; i < strlen(hero.spelllist); i++) {
+		for (int i = 0; i < 20; i++) {
 			gotoxy(3, j);
-			if (hero.spelllist[i] != '0')
+			if (hero.spelllist[i] != '\0') {
 				printf_s("(%d) ", i + 1);
+			}
+			else {
+				break;
+			}
 			switch (hero.spelllist[i]) {
 			case '1': {
 				printf_s("%s", eldritchblast.name);
@@ -343,6 +354,14 @@ int actions(char* control) {
 			}
 			case '2': {
 				printf_s("%s", magearmor.name);
+				break;
+			}
+			case '3': {
+				printf_s("%s", faeriefire.name);
+				break;
+			}
+			case '4': {
+				printf_s("%s", findfamiliar.name);
 				break;
 			}
 			}
@@ -358,9 +377,33 @@ int actions(char* control) {
 			int damage = 0;
 			char typeofdamage[20];
 			int attack = 0;
-			if ((choose == 0 && hero.spelllist[0] == '1') || (choose == 1 && hero.spelllist[1] == '2')) {
-				int type = spell(&attack, choose, &damage, &typeofdamage);
+			int characteristic = 0;
+			if (choose <= strlen(hero.spelllist)) {
+				int slot = 0;
+				int type = spell(&slot, &attack, choose, &damage, &typeofdamage, &characteristic);
 				Sleep(3000);
+				if (slot > 0 && hero.spellslots1 < 1) {
+					type = 0;
+					*control = '0';
+					gotoxy(3, 4);
+					printf_s("You are out of %d-level spellslots", slot);
+					Sleep(1500);
+				}
+				else {
+					hero.spellslots1 -= 1;
+				}
+				if (choose == 3) {
+					gotoxy(3, 4);
+					printf_s("You summon imp on your side");
+					rulefamiliar();
+					for (int i = 0; i < strlen(hero.ablist); i++) {
+						if (hero.ablist[i] != '\0') {
+							hero.ablist[i] == '4';
+							break;
+						}
+					}
+					Sleep(1500);
+				}
 				clearchat();
 				int savingthrow;
 				if (type == 1) {
@@ -385,6 +428,76 @@ int actions(char* control) {
 							Sleep(2000);
 						}
 						monster.hits -= damage;
+						Sleep(1500);
+					}
+				}
+				if (type == 2) {
+					gotoxy(3, j);
+					j++;
+					switch (characteristic) {
+					case 1: {
+						savingthrow = roll(1, 20, monster.modStr);
+						break;
+					}
+					case 2: {
+						savingthrow = roll(1, 20, monster.modDex);
+						break;
+					}
+					case 3: {
+						savingthrow = roll(1, 20, monster.modCon);
+						break;
+					}
+					case 4: {
+						savingthrow = roll(1, 20, monster.modInt);
+						break;
+					}
+					case 5: {
+						savingthrow = roll(1, 20, monster.modWis);
+						break;
+					}
+					case 6: {
+						savingthrow = roll(1, 20, monster.modCha);
+						break;
+					}
+					}
+					printf_s("The %s is trying to dodge: %d...", monster.name, savingthrow);
+					Sleep(1500);
+					if (savingthrow >= hero.spelldc) {
+						gotoxy(3, j);
+						j++;
+						printf_s("%s has dodged", monster.name);
+						Sleep(1500);
+						gotoxy(3, j);
+						j++;
+
+					}
+					else {
+						gotoxy(3, j);
+						j++;
+						printf_s("%s couldn't dodge", monster.name);
+						gotoxy(3, j);
+						j++;
+						if (damage > 0) {
+							printf_s("You deal %d %s damage", damage, typeofdamage);
+							monster.hits -= damage;
+						}
+						gotoxy(3, j);
+						j++;
+						if (choose == 2 && hero.spelllist[2] == '3') {
+							hero.advantage = 1;
+						}
+						switch (hero.mode) {
+						case 1: {
+							printf_s("The monster is frightend");
+							monster.condition = 1;
+							break;
+						}
+						case 2: {
+							printf_s("The monster is charmed");
+							monster.condition = 2;
+							break;
+						}
+						}
 						Sleep(1500);
 					}
 				}
@@ -432,10 +545,14 @@ int actions(char* control) {
 		gotoxy(3, 3);
 		printf_s("Choose the item: (B) to back");
 		int j = 4;
-		for (int i = 0; i < strlen(hero.itemlist); i++) {
+		for (int i = 0; i < 20; i++) {
 			gotoxy(3, j);
-			if (hero.itemlist[i] != '0')
+			if (hero.itemlist[i] != '\0') {
 				printf_s("(%d) ", i + 1);
+			}
+			else {
+				break;
+			}
 			switch (hero.itemlist[i]) {
 			case '1': {
 				printf_s("%s", healingpotion.name);
@@ -471,6 +588,7 @@ int actions(char* control) {
 				Sleep(1500);
 			}
 			if (type == 1) {
+
 			}
 			clearchat();
 			if (monster.hits < 1) {
@@ -509,6 +627,7 @@ int actions(char* control) {
 	}
 	if (monster.hits > 0)
 		if ((*control == '1' || *control == '2' || *control == '3' || *control == '4') && (ch != 'b')) {
+			*rounds += 1;
 			gotoxy(3, 3);
 			printf_s("%s turn!", monster.name);
 			Sleep(1500);
@@ -537,7 +656,24 @@ int actions(char* control) {
 				}
 				else {
 					int attack = monsteraction.accur1;
+					int r = attack;
 					condition(&attack);
+					if (attack != r) {
+						if (monster.condition == 1 || monster.condition == 2) {
+							int savingwis = roll(1, 20, monster.modWis);
+							if (savingwis >= hero.spelldc) {
+								attack = monsteraction.accur1;
+								monster.condition = 0;
+								gotoxy(3, 6);
+								printf_s("%s is avoid your magic", monster.name);
+							}
+							else {
+								gotoxy(3, 6);
+								printf_s("%s is still under your magic", monster.name);
+							}
+						}
+					}
+					gotoxy(3, 7);
 					printf_s("%s trying to Attack: %d...", monster.name, attack);
 					Sleep(1500);
 					if (attack < hero.armorclass) {
@@ -616,13 +752,12 @@ void charactercreator() {
 	hero.Wisdom = 8;
 	hero.Charisma = 8;
 	hero.armormod = 0;
-	hero.gold = 10;
+	hero.gold = 20;
 	hero.silver = 0;
 	hero.copper = 0;
 	hero.progress = 0;
 	hero.proficiency = 2;
 	hero.itemlist[0] = '1';
-	hero.items = 1;
 	gotoxy(60, 5);
 	printf_s("Choose your race: - Human(1)");
 	gotoxy(60, 6);
@@ -714,6 +849,7 @@ void charactercreator() {
 			hero.spelldc = hero.modCha + 8 + hero.proficiency;
 			hero.amounthitdice = hero.level;
 			hero.armorclass = 10 + hero.modDex;
+			hero.spellslots1 = 1;
 			for (int i = 50; i < 80; i++) {
 				for (int j = 5; j < 7; j++) {
 					gotoxy(i, j);
@@ -862,8 +998,8 @@ void charactercreator() {
 			break;
 		}
 		}
-		Sleep(1500);
 	}
+	Sleep(1000);
 	for (int i = 50; i < 150; i++) {
 		for (int j = 5; j < 9; j++) {
 			gotoxy(i, j);
@@ -876,6 +1012,8 @@ void charactercreator() {
 void start() {
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
+	ShowConsoleCursor(FALSE);
+
 	FILE* wood;
 	if ((fopen_s(&wood, "wood.txt", "r")) != 0) {
 		exit(1);
@@ -925,6 +1063,7 @@ void start() {
 
 	handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	ShowConsoleCursor(FALSE);
 	gotoxy(8, 2);
 	printf_s("The Sunless Citadel");
 	Sleep(2000);
@@ -938,7 +1077,7 @@ void start() {
 	wcscpy_s(fontInfo.FaceName, 15, L"Consolas");
 	fontInfo.dwFontSize.Y = 16;
 	SetCurrentConsoleFontEx(hConsole, TRUE, &fontInfo);
-
+	ShowConsoleCursor(FALSE);
 	gotoxy(60, 7);
 	printf_s("Start or continue game(1)");
 	gotoxy(60, 8);
@@ -995,6 +1134,7 @@ void start() {
 			printf_s("See you later ^_^");
 			gotoxy(60, 5);
 			Sleep(1500);
+			gotoxy(0, 30);
 			exit(1);
 		}
 		}
@@ -1224,7 +1364,7 @@ void loadsave() {
 	fscanf_s(input, "%d %d %d %d %d %d", &hero.Strength, &hero.Dexterity, &hero.Constitution, &hero.Intellect, &hero.Wisdom, &hero.Charisma);
 	fscanf_s(input, "%d %d %d %d %d %d %d", &hero.hits, &hero.tekhits, &hero.armorclass, &hero.armormod, &hero.gold, &hero.silver, &hero.copper);
 	fscanf_s(input, "%d %d %d %d %d %d %d %d %d ", &hero.items, &hero.xp, &hero.level, &hero.class, &hero.hitdice, &hero.archetype, &hero.progress, &hero.proficiency, &hero.race);
-	fscanf_s(input, "%d %d %d %d %d ", &hero.weapons, &hero.amounthitdice, &hero.spelldc, &hero.temphits, &hero.spellac);
+	fscanf_s(input, "%d %d %d %d %d %d ", &hero.weapons, &hero.amounthitdice, &hero.spelldc, &hero.temphits, &hero.spellac, &healingpotion.amount);
 	fscanf_s(input, "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d ", &hero.prsaveStr, &hero.prsaveDex, &hero.prsaveCon, &hero.prsaveInt, &hero.prsaveWis, &hero.prsaveCha, &hero.pracrobatic, &hero.pranimalhandling, &hero.prarcana, &hero.prathletics, &hero.prdeception, &hero.prhistory, &hero.prinimidation, &hero.prinsight, &hero.prinvestigation, &hero.prmedicine, &hero.prnature, &hero.prperception, &hero.prperformance, &hero.prpersusassion, &hero.prreligion, &hero.prsleightofhand, &hero.prstealth, &hero.prsurvival);
 
 	int i = -1;
@@ -1263,6 +1403,55 @@ void loadsave() {
 		fscanf_s(input, "%c", &hero.name[i], 1);
 	} while (hero.name[i] != ' ');
 	hero.name[i] = '\0';
+
+	i = -1;
+	do {
+		i++;
+		fscanf_s(input, "%c", &hero.equipbracers[i], 1);
+	} while (hero.equipbracers[i] != ' ');
+	hero.equipbracers[i] = '\0';
+	i = -1;
+	do {
+		i++;
+		fscanf_s(input, "%c", &hero.equipcape[i], 1);
+	} while (hero.equipcape[i] != ' ');
+	hero.equipcape[i] = '\0';
+	i = -1;
+	do {
+		i++;
+		fscanf_s(input, "%c", &hero.equipchest[i], 1);
+	} while (hero.equipchest[i] != ' ');
+	hero.equipchest[i] = '\0';
+	i = -1;
+	do {
+		i++;
+		fscanf_s(input, "%c", &hero.equipfeet[i], 1);
+	} while (hero.equipfeet[i] != ' ');
+	hero.equipfeet[i] = '\0';
+	i = -1;
+	do {
+		i++;
+		fscanf_s(input, "%c", &hero.equiplefthand[i], 1);
+	} while (hero.equiplefthand[i] != ' ');
+	hero.equiplefthand[i] = '\0';
+	i = -1;
+	do {
+		i++;
+		fscanf_s(input, "%c", &hero.equiplist[i], 1);
+	} while (hero.equiplist[i] != ' ');
+	hero.equiplist[i] = '\0';
+	i = -1;
+	do {
+		i++;
+		fscanf_s(input, "%c", &hero.equiprings[i], 1);
+	} while (hero.equiprings[i] != ' ');
+	hero.equiprings[i] = '\0';
+	i = -1;
+	do {
+		i++;
+		fscanf_s(input, "%c", &hero.equphead[i], 1);
+	} while (hero.equphead[i] != ' ');
+	hero.equphead[i] = '\0';
 	switch (hero.class) {
 	case 1: {
 		strcpy_s(hero.classname, 8, "Warlock");
@@ -1306,12 +1495,12 @@ void createsave() {
 	fprintf_s(output, "%d %d %d %d %d %d ", hero.Strength, hero.Dexterity, hero.Constitution, hero.Intellect, hero.Wisdom, hero.Charisma);
 	fprintf_s(output, "%d %d %d %d %d %d %d ", hero.hits, hero.tekhits, hero.armorclass, hero.armormod, hero.gold, hero.silver, hero.copper);
 	fprintf_s(output, "%d %d %d %d %d %d %d %d %d ", hero.items, hero.xp, hero.level, hero.class, hero.hitdice, hero.archetype, hero.progress, hero.proficiency, hero.race);
-	fprintf_s(output, "%d %d %d %d %d ", hero.weapons, hero.amounthitdice, hero.spelldc, hero.temphits, hero.spellac);
+	fprintf_s(output, "%d %d %d %d %d %d ", hero.weapons, hero.amounthitdice, hero.spelldc, hero.temphits, hero.spellac, healingpotion.amount);
 
 	fprintf_s(output, "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d ", hero.prsaveStr, hero.prsaveDex, hero.prsaveCon, hero.prsaveInt, hero.prsaveWis, hero.prsaveCha, hero.pracrobatic, hero.pranimalhandling, hero.prarcana, hero.prathletics, hero.prdeception, hero.prhistory, hero.prinimidation, hero.prinsight, hero.prinvestigation, hero.prmedicine, hero.prnature, hero.prperception, hero.prperformance, hero.prpersusassion, hero.prreligion, hero.prsleightofhand, hero.prstealth, hero.prsurvival);
 
 	fprintf_s(output, "%s %s %s %s %s %s ", hero.spellcaster, hero.itemlist, hero.spelllist, hero.ablist, hero.weaponlist, hero.name);
-
+	fprintf_s(output, "%s %s %s %s %s %s %s %s", hero.equipbracers, hero.equipcape, hero.equipchest, hero.equipfeet, hero.equiplefthand, hero.equiplist, hero.equiprings, hero.equphead);
 
 	fclose(output);
 }
@@ -1332,6 +1521,7 @@ void save() {
 		switch (cntrl) {
 		case '1': {
 			charactercreator();
+			shop();
 			createsave();
 			break;
 		}
@@ -1341,15 +1531,6 @@ void save() {
 		}
 		}
 	}
-}
-void hidecursor() {
-
-	HANDLE hCons;
-	CONSOLE_CURSOR_INFO cci;
-	hCons = GetStdHandle(STD_OUTPUT_HANDLE);
-	cci.dwSize = 1;
-	cci.bVisible = 0;
-	SetConsoleCursorInfo(hCons, &cci);
 }
 void gotoxy(int column, int row)
 {
@@ -1426,7 +1607,6 @@ void mechanicsatstart() {
 	PlaySound(TEXT("Darkshort.wav"), NULL, SND_LOOP | SND_ASYNC);
 	fullscreen();
 	ruleset();
-	hidecursor();
 }
 void mapping(int x, int y) {
 	y -= 2;
@@ -1440,4 +1620,18 @@ void mapping(int x, int y) {
 	}
 	gotoxy(x, y);
 	printf_s("&");
+}
+BOOL ShowConsoleCursor(BOOL bShow)
+{
+	CONSOLE_CURSOR_INFO cci;
+	static HANDLE hStdOut;
+	hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (hStdOut == INVALID_HANDLE_VALUE)
+		return FALSE;
+	if (!GetConsoleCursorInfo(hStdOut, &cci))
+		return FALSE;
+	cci.bVisible = bShow;
+	if (!SetConsoleCursorInfo(hStdOut, &cci))
+		return FALSE;
+	return TRUE;
 }

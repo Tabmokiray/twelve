@@ -191,7 +191,7 @@ void ruledragon(int num) {
 		monster.hits = Dragon.hits;
 		monsteraction.accur1 = Dragonaction.accur1;
 		monsteraction.damage1 = Dragonaction.damage1;
-		strcpy_s(monsteraction.action1,5 , Dragonaction.action1);
+		strcpy_s(monsteraction.action1, 5, Dragonaction.action1);
 		monsteraction.accur2 = Dragonaction.accur2;
 		monsteraction.damage2 = Dragonaction.damage2;
 		strcpy_s(monsteraction.action2, 12, Dragonaction.action2);
@@ -217,6 +217,68 @@ void ruledragon(int num) {
 		monster2.level = Dragon.level;
 	}
 }
+void ruleimp(int num) {
+	if (num == 1) {
+		monster.modStr = Imp.modStr;
+		monster.modDex = Imp.modDex;
+		monster.modCon = Imp.modCon;
+		monster.modInt = Imp.modInt;
+		monster.modWis = Imp.modWis;
+		monster.modCha = Imp.modCha;
+		monster.armorclass = Imp.armorclass;
+		monster.hits = Imp.hits;
+		monsteraction.accur1 = Impaction.accur1;
+		monsteraction.damage1 = Impaction.damage1;
+		strcpy_s(monsteraction.action1, strlen(Impaction.action1), Impaction.action1);
+		monsteraction.accur2 = Impaction.accur2;
+		monsteraction.damage2 = Impaction.damage2;
+		strcpy_s(monsteraction.action2, strlen(Impaction.action2), Impaction.action2);
+		strcpy_s(monster.name, strlen(Imp.name), Imp.name);
+		monster.proficiency = Imp.proficiency;
+		monster.level = Imp.level;
+	}
+	if (num == 2) {
+		monster2.modStr = Imp.modStr;
+		monster2.modDex = Imp.modDex;
+		monster2.modCon = Imp.modCon;
+		monster2.modInt = Imp.modInt;
+		monster2.modWis = Imp.modWis;
+		monster2.modCha = Imp.modCha;
+		monster2.armorclass = Imp.armorclass;
+		monster2.hits = Imp.hits;
+		monster2action.accur1 = Impaction.accur1;
+		monster2action.damage1 = Impaction.damage1;
+		strcpy_s(monster2action.action1, strlen(Impaction.action1), Impaction.action1);
+		monster2action.accur2 = Impaction.accur2;
+		monster2action.damage2 = Impaction.damage2;
+		strcpy_s(monster2action.action2, strlen(Impaction.action2), Impaction.action2);
+		strcpy_s(monster2.name, strlen(Imp.name), Imp.name);
+		monster2.proficiency = Imp.proficiency;
+		monster2.level = Imp.level;
+	}
+}
+void rulefamiliar() {
+
+	familiar.modStr = Imp.modStr;
+	familiar.modDex = Imp.modDex;
+	familiar.modCon = Imp.modCon;
+	familiar.modInt = Imp.modInt;
+	familiar.modWis = Imp.modWis;
+	familiar.modCha = Imp.modCha;
+	familiar.armorclass = Imp.armorclass;
+	familiar.hits = Imp.hits;
+	familiaraction.accur1 = Impaction.accur1;
+	familiaraction.damage1 = Impaction.damage1;
+	strcpy_s(familiaraction.action1, strlen(Impaction.action1), Impaction.action1);
+	familiaraction.accur2 = Impaction.accur2;
+	familiaraction.damage2 = Impaction.damage2;
+	strcpy_s(familiaraction.action2, strlen(Impaction.action2), Impaction.action2);
+	strcpy_s(familiar.name, strlen(Imp.name), Imp.name);
+	familiar.proficiency = Imp.proficiency;
+	familiar.level = Imp.level;
+	modif();
+}
+/*
 void rulemon1(int id) {
 	switch (id) {
 	case 0: {
@@ -265,6 +327,7 @@ void rulemon2(int id) {
 	}
 	}
 }
+*/
 void ruleset() {
 	int d4 = 4;
 	int d6 = 6;
@@ -281,6 +344,7 @@ void ruleset() {
 	hero.crit = 0;
 	hero.weapons = 2;
 	hero.archetype = 0;
+	
 
 	warlock.class = 1;
 
@@ -299,6 +363,8 @@ void ruleset() {
 	healingpotion.damage = d4;
 	healingpotion.amount = 2;
 	healingpotion.mods = 2;
+	healingpotion.cost = 50;
+	healingpotion.amount = 0;
 	healingpotion.description = (char*)malloc(100);
 	strcpy_s(healingpotion.description, 36, "Healing potion restore 2d4 + 2 hits");
 	healingpotion.id = '1';
@@ -320,16 +386,36 @@ void ruleset() {
 	magearmor.description = (char*)malloc(260);
 	magearmor.id = '2';
 	strcpy_s(magearmor.description, 260, "You touch a willing creature who isn't wearing armor,\nand a protective magical force surrounds it until the spell ends.\nThe target's base AC becomes 13 + its Dexterity modifier.\nThe spell ends if the target dons armor or if you dismiss the spell as an action.");
+	faeriefire.level = 1;
+	faeriefire.amount = 0;
+	faeriefire.damage = 0;
+	strcpy_s(faeriefire.name, 12, "Faerie fire");
+	faeriefire.description = (char*)malloc(500);
+	strcpy_s(faeriefire.description, 468, "Each object in a 20-foot cube within range is outlined in blue, green,\nor violet light (your choice). Any creature in the area when the spell is cast is also\noutlined in light if it fails a Dexterity saving throw.\nFor the duration, objects and affected creatures shed dim light in a 10-foot radius.\nAny attack roll against an affected creature or object has advantage if\nthe attacker can see it, and the affected creature or object\ncan't benefit from being invisible.");
+	faeriefire.id = '3';
+	strcpy_s(faeriefire.typeofdamage, 1, "");
+	findfamiliar.level = 1;
+	findfamiliar.amount = 0;
+	findfamiliar.damage = 0;
+	strcpy_s(findfamiliar.name, 14, "Find familiar");
+	findfamiliar.description = (char*)malloc(388);
+	strcpy_s(findfamiliar.description, 388, "You gain the service of a familiar, a spirit that takes an animal form you choose:\nbat, cat, crab, frog (toad), hawk, lizard, octopus, owl, poisonous snake, fish (quipper),\nrat, raven, sea horse, spider, or weasel. Appearing in an unoccupied\nspace within range, the familiar has the statistics of the chosen form, though it is a celestial,\nfey, or fiend (your choice) instead of a beast.");
+	findfamiliar.id = '4';
 
 	strcpy_s(feyancestry.name, 13, "Fey ancestry");
 	feyancestry.description = (char*)malloc(500);
 	strcpy_s(feyancestry.description, 488, "Starting at 1st level, your patron bestows upon you the ability to project\nthe beguiling and fearsome presence of the fey.\nAs an action, you can cause each creature in a 10-foot cube\noriginating from you to make a Wisdom saving throw against your warlock spell save DC.\nThe creatures that fail their saving throws are all charmed or frightened by you (your choice) until the end of your next turn.\nOnce you use this feature, you can't use it again until you finish a short or long rest.");
 	feyancestry.id = '1';
-
 	strcpy_s(darkonesblessing.name, 20, "Dark One's blessing");
 	darkonesblessing.description = (char*)malloc(200);
 	strcpy_s(darkonesblessing.description, 175, "Starting at 1st level, when you reduce a hostile creature to 0 hit points,\nyou gain temporary hit points equal\nto your Charisma modifier + your warlock level (minimum of 1).");
 	darkonesblessing.id = '2';
+	strcpy_s(summonblade.name, 13, "Summon blade");
+	summonblade.description = (char*)malloc(500);
+	strcpy_s(summonblade.description, 41, "You summon a melee weapon of your choice");
+	summonblade.id = '3';
+	strcpy_s(imp.name, 10, "Imp sting");
+	imp.id = '4';
 
 	dagger.damage = d4;
 	dagger.finnese = 1;
@@ -431,15 +517,31 @@ void ruleset() {
 	agonizingblast.id = '1';
 	strcpy_s(agonizingblast.name, 16, "Agonizing blast");
 	agonizingblast.description = (char*)malloc(90);
-	strcpy_s(agonizingblast.description, 91, "When you cast eldritch blast, add your Charisma modifier\nto the damage it deals on a hit.");
+	strcpy_s(agonizingblast.description, 90, "When you cast eldritch blast, add your Charisma modifier\nto the damage it deals on a hit.");
 	armorofshadows.id = '2';
 	strcpy_s(armorofshadows.name, 17, "Armor of shadows");
 	armorofshadows.description = (char*)malloc(100);
-	strcpy_s(armorofshadows.description, 101, "You can cast mage armor on yourself at will,\nwithout expending a spell slot or material components.");
+	strcpy_s(armorofshadows.description, 100, "You can cast mage armor on yourself at will,\nwithout expending a spell slot or material components.");
 	beguilinginfluence.id = '3';
 	strcpy_s(beguilinginfluence.name, 20, "Beguiling influence");
 	beguilinginfluence.description = (char*)malloc(61);
-	strcpy_s(beguilinginfluence.description, 62, "You gain proficiency in the Deception and Persuasion skills.");
+	strcpy_s(beguilinginfluence.description, 61, "You gain proficiency in the Deception and Persuasion skills.");
+
+	blade.id = '3';
+	strcpy_s(blade.name, 18, "Pact of the Blade");
+	blade.description = (char*)malloc(1174);
+	strcpy_s(blade.description, 1176, "You can use your action to create a pact weapon in your empty hand.\nYou can choose the form that this melee weapon takes each time you create it.\nYou are proficient with it while you wield it.This weapon counts as magical for the purpose of\n overcoming resistanceand immunity to nonmagical attacksand damage.\nYour pact weapon disappears if it is more than 5 feet away\nfrom you for 1 minute or more.It also disappears if you use\nthis feature again, if you dismiss the weapon(no action required), or if you die.\nYou can transform one magic weapon into your pact weapon by\nperforming a special ritual while you hold the weapon.\nYou perform the ritual over the course of 1 hour, which can be done during a short rest.\nYou can then dismiss the weapon, shunting it into an extradimensional\nspace, and it appears whenever you create your pact weapon thereafter.\nYou can't affect an artifact or a sentient weapon in this way.\nThe weapon ceases being your pact weapon if you die, if you perform the 1-hour ritual on a different weapon,\nor if you use a 1-hour ritual to break your bond to it. The weapon appears at your feet if it is in the\nextradimensional space when the bond breaks.");
+	chain.id = '4';
+	strcpy_s(chain.name, 18, "Pact of the Chain");
+	chain.description = (char*)malloc(443);
+	strcpy_s(chain.description, 443, "You learn the find familiar spell and can cast it as a ritual. The spell doesn't count against your number of spells known.\nWhen you cast the spell, you can choose one of the normal forms for your\nfamiliar or one of the following special forms :\nimp, pseudodragon, quasit, or sprite.\nAdditionally, when you take the Attack action, you can forgo one of your\nown attacks to allow your familiar\nto use its reaction to make one attack of its own.");
+	tome.description = '3';
+	strcpy_s(tome.name, 17, "Pact of the Tome");
+	tome.description = (char*)malloc(644);
+	strcpy_s(tome.description, 644, "Your patron gives you a grimoire called a Book of Shadows. When you gain this feature,\nchoose three cantrips from any class's spell list. The cantrips do\nnot need to be from the same spell list.\nWhile the book is on your person, you can cast those cantrips at will. They don't count against\nyour number of cantrips known. Any cantrip you cast with this feature is considered a warlock cantrip for you.\nIf you lose your Book of Shadows, you can perform a 1-hour ceremony to receive a replacement from your patron.\nThis ceremony can be performed during a short or long rest, and it\ndestroys the previous book. The book turns to ash when you die.");
+
+	list.pactbladeweaponlist[0] = '1';
+	list.pactbladeweaponlist[1] = '2';
 
 	Rat.armorclass = 12;
 	Rat.hits = 7;
@@ -460,7 +562,7 @@ void ruleset() {
 	Sword.armorclass = 15;
 	Sword.hits = 30;
 	Sword.proficiency = 3;
-	Sword.level = 3;
+	Sword.level = 1;
 	Swordstat.Strength = 15;
 	Swordstat.Dexterity = 16;
 	Swordstat.Constitution = 12;
@@ -534,14 +636,47 @@ void ruleset() {
 	modif();
 	strcpy_s(Dragon.name, 7, "Dragon");
 	strcpy_s(Dragonaction.action1, 5, "Bite");
-	Dragonaction.damage1 = roll(1, d10, Dragonstat.modStr) + roll(1,d4,0);
+	Dragonaction.damage1 = roll(1, d10, Dragonstat.modStr) + roll(1, d4, 0);
 	Dragonaction.accur1 = roll(1, d20, Dragon.proficiency + Dragonstat.modStr);
 	strcpy_s(Dragonaction.action2, 12, "Cold breath");
 	Dragonaction.damage2 = roll(3, d8, 0);
 	Dragonaction.accur2 = 12;
 
+	Imp.armorclass = 13;
+	Imp.hits = 10;
+	Imp.proficiency = 2;
+	Imp.level = 1;
+	Impstat.Strength = 6;
+	Impstat.Dexterity = 17;
+	Impstat.Constitution = 13;
+	Impstat.Intellect = 11;
+	Impstat.Wisdom = 12;
+	Impstat.Charisma = 14;
+	modif();
+	strcpy_s(Imp.name, 4, "Imp");
+	strcpy_s(Impaction.action1, 6, "Sting");
+	Impaction.damage1 = roll(1, d4, Impstat.modDex);
+	Impaction.accur1 = roll(1, d20, Imp.proficiency + Impstat.modDex);
+	strcpy_s(Impaction.action2, 13, "Invisibility");
+	Impaction.damage2 = roll(3, d6, 0);
+	Impaction.accur2 = 11;
+
 }
 void modif() {
+	familiarstat.modStr = (familiarstat.Strength - 10) / 2;
+	familiarstat.modDex = (familiarstat.Dexterity - 10) / 2;
+	familiarstat.modConst = (familiarstat.Constitution - 10) / 2;
+	familiarstat.modInt = (familiarstat.Intellect - 10) / 2;
+	familiarstat.modWis = (familiarstat.Wisdom - 10) / 2;
+	familiarstat.modCha = (familiarstat.Charisma - 10) / 2;
+
+	Impstat.modStr = (Impstat.Strength - 10) / 2;
+	Impstat.modDex = (Impstat.Dexterity - 10) / 2;
+	Impstat.modConst = (Impstat.Constitution - 10) / 2;
+	Impstat.modInt = (Impstat.Intellect - 10) / 2;
+	Impstat.modWis = (Impstat.Wisdom - 10) / 2;
+	Impstat.modCha = (Impstat.Charisma - 10) / 2;
+
 	Dragonstat.modStr = (Dragonstat.Strength - 10) / 2;
 	Dragonstat.modDex = (Dragonstat.Dexterity - 10) / 2;
 	Dragonstat.modConst = (Dragonstat.Constitution - 10) / 2;
@@ -653,6 +788,8 @@ void levels() {
 		hero.level = 3;
 		gotoxy(3, 8);
 		printf_s("Congratulations! Your level is %d", hero.level);
+		warlock3();
+		stages();
 	}
 }
 void warlock2() {
@@ -713,7 +850,12 @@ void warlock2() {
 		case '2': {
 			warlock.eldritchinvocations[1] = armorofshadows.id;
 			inv++;
-			hero.spelllist[1] = magearmor.id;
+			for (int i = 0; i < 20; i++) {
+				if (hero.spelllist[i] == '\0') {
+					hero.spelllist[i] = magearmor.id;
+					break;
+				}
+			}
 			gotoxy(48, 11);
 			printf_s(">");
 			break;
@@ -723,7 +865,6 @@ void warlock2() {
 			inv++;
 			hero.prdeception = 1;
 			hero.prpersusassion = 1;
-			hero.spelllist[1] = magearmor.id;
 			gotoxy(48, 14);
 			printf_s(">");
 			break;
@@ -733,6 +874,83 @@ void warlock2() {
 	Sleep(1000);
 	hero.hits += 5 + hero.modConst;
 	hero.tekhits = hero.hits;
+	hero.spellslots1 = 2;
+	stages();
+}
+void warlock3() {
+	system("cls");
+	gotoxy(20, 5);
+	printf_s("For faithful service, the patron gives you a gift - a symbol of your contract.");
+	gotoxy(20, 6);
+	printf_s("Choose one:");
+	gotoxy(20, 7);
+	printf_s("(1)%s", blade.name);
+	int j = 8;
+	gotoxy(20, j);
+	for (int i = 0; i < strlen(blade.description); i++) {
+		if (blade.description[i] == '\n') {
+			j++;
+			i++;
+			gotoxy(20, j);
+		}
+		printf_s("%c", blade.description[i]);
+	}
+	j++;
+	gotoxy(20, j);
+	printf_s("(2)%s", chain.name);
+	j++;
+	gotoxy(20, j);
+	for (int i = 0; i < strlen(chain.description); i++) {
+		if (chain.description[i] == '\n') {
+			j++;
+			i++;
+			gotoxy(20, j);
+		}
+		printf_s("%c", chain.description[i]);
+	}
+	j++;
+	gotoxy(20, j);
+	printf_s("(3)%s", tome.name);
+	j++;
+	gotoxy(20, j);
+
+	for (int i = 0; i < strlen(tome.description); i++) {
+		if (tome.description[i] == '\n') {
+			j++;
+			i++;
+			gotoxy(20, j);
+		}
+		printf_s("%c", tome.description[i]);
+	}
+	char choose = '0';
+	while (choose != '1' && choose != '2' && choose != '3') {
+		switch (choose) {
+		case '1': {
+			hero.ablist[1] = '3';
+			break;
+		}
+		case '2': {
+			hero.ablist[1] = '4';
+			for (int i = 0; i < 20; i++) {
+				if (hero.spelllist[i] == '\0') {
+					hero.spelllist[i] = '4';
+					break;
+				}
+			}
+			break;
+		}
+		case '3': {
+
+			break;
+		}
+		}
+
+		warlock.pactboon = choose;
+	}
+	hero.hits += 5 + hero.modConst;
+	hero.tekhits = hero.hits;
+	hero.spellslots1 = 0;
+	hero.spellslots2 = 2;
 	stages();
 }
 void money() {
@@ -785,7 +1003,7 @@ void proficiency() {
 }
 void condition(int* attack) {
 	switch (monster.condition) {
-	case 1: {//Frightend
+	case 1: {//Frightend//disadvantage
 		int a = monsteraction.accur1;
 		int b = monsteraction.accur1;
 		if (a > b) {
@@ -798,6 +1016,17 @@ void condition(int* attack) {
 	}
 	case 2: {//Charmed
 		*attack = -1;
+		break;
+	}
+	case 3: {//advantage
+		int a = monsteraction.accur1;
+		int b = monsteraction.accur1;
+		if (a < b) {
+			*attack = b;
+		}
+		else {
+			*attack = a;
+		}
 		break;
 	}
 	}
@@ -1027,6 +1256,16 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 		if (hero.modDex > hero.modStr) {
 			*damage = dagger.damage + hero.modDex;
 			*attack = roll(1, 20, hero.modDex + hero.proficiency);
+			if (hero.advantage == 1) {
+				int a = roll(1, 20, hero.modDex + hero.proficiency);
+				int b = roll(1, 20, hero.modDex + hero.proficiency);
+				if (a < b) {
+					*attack = b;
+				}
+				else {
+					*attack = a;
+				}
+			}
 			if (*attack == 20 + hero.modDex + hero.proficiency) {
 				*damage = dagger.damage + dagger.damage + hero.modDex;
 				hero.crit = 1;
@@ -1035,6 +1274,16 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 		else {
 			*damage = dagger.damage + hero.modStr;
 			*attack = roll(1, 20, hero.modStr + hero.proficiency);
+			if (hero.advantage == 1) {
+				int a = roll(1, 20, hero.modDex + hero.proficiency);
+				int b = roll(1, 20, hero.modDex + hero.proficiency);
+				if (a < b) {
+					*attack = b;
+				}
+				else {
+					*attack = a;
+				}
+			}
 			if (*attack == 20 + hero.modStr + hero.proficiency) {
 				*damage = dagger.damage + dagger.damage + hero.modStr;
 				hero.crit = 1;
@@ -1047,6 +1296,16 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 		strcpy_s(damagetype, 12, "bludgeoning");
 		*damage = quarterstaff.damage + hero.modStr;
 		*attack = roll(1, 20, hero.modStr + hero.proficiency);
+		if (hero.advantage == 1) {
+			int a = roll(1, 20, hero.modStr + hero.proficiency);
+			int b = roll(1, 20, hero.modStr + hero.proficiency);
+			if (a < b) {
+				*attack = b;
+			}
+			else {
+				*attack = a;
+			}
+		}
 		if (*attack == 20 + hero.modStr + hero.proficiency) {
 			*damage = quarterstaff.damage + quarterstaff.damage + hero.modStr;
 			hero.crit = 1;
@@ -1058,6 +1317,16 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 		if (hero.modDex > hero.modStr) {
 			*damage = magicalshortsword.damage + hero.modDex;
 			*attack = roll(1, 20, hero.modDex + hero.proficiency + 1);
+			if (hero.advantage == 1) {
+				int a = roll(1, 20, hero.modDex + hero.proficiency + 1);
+				int b = roll(1, 20, hero.modDex + hero.proficiency + 1);
+				if (a < b) {
+					*attack = b;
+				}
+				else {
+					*attack = a;
+				}
+			}
 			if (*attack == 20 + hero.modDex + hero.proficiency + 1) {
 				*damage = magicalshortsword.damage + magicalshortsword.damage + hero.modDex - 1;
 				hero.crit = 1;
@@ -1066,6 +1335,16 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 		else {
 			*damage = magicalshortsword.damage + hero.modStr;
 			*attack = roll(1, 20, hero.modStr + hero.proficiency + 1);
+			if (hero.advantage == 1) {
+				int a = roll(1, 20, hero.modStr + hero.proficiency + 1);
+				int b = roll(1, 20, hero.modStr + hero.proficiency + 1);
+				if (a < b) {
+					*attack = b;
+				}
+				else {
+					*attack = a;
+				}
+			}
 			if (*attack == 20 + hero.modStr + hero.proficiency + 1) {
 				*damage = magicalshortsword.damage + magicalshortsword.damage + hero.modStr - 1;
 				hero.crit = 1;
@@ -1078,6 +1357,16 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 		strcpy_s(damagetype, 9, "piercing");
 		*damage = lightcrossbow.damage + hero.modDex;
 		*attack = roll(1, 20, hero.modDex + hero.proficiency);
+		if (hero.advantage == 1) {
+			int a = roll(1, 20, hero.modDex + hero.proficiency);
+			int b = roll(1, 20, hero.modDex + hero.proficiency);
+			if (a < b) {
+				*attack = b;
+			}
+			else {
+				*attack = a;
+			}
+		}
 		if (*attack == 20 + hero.modDex + hero.proficiency) {
 			*damage = lightcrossbow.damage + lightcrossbow.damage + hero.modDex;
 			hero.crit = 1;
@@ -1086,7 +1375,7 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 	}
 	}
 }
-int abilitydesc(int z, int* damage, int* characteristic) {
+int abilitydesc(int z, int* damage, int* attack, int* characteristic) {
 	for (int j = 24; j < 36; j++) {
 		gotoxy(3, j);
 		printf_s("|");
@@ -1156,9 +1445,87 @@ int abilitydesc(int z, int* damage, int* characteristic) {
 		Sleep(5000);
 		break;
 	}
+	case '3': {
+		int j = 25;
+		int f = 6;
+		for (int i = 3; i < strlen(summonblade.description); i++) {
+			if (summonblade.description[i - 3] == '\n') {
+				j++;
+				f = 6;
+				i++;
+			}
+			gotoxy(f, j);
+			printf_s("%c", summonblade.description[i - 3]);
+			f++;
+
+		}
+		gotoxy(3, 7);
+		printf_s("Choose the weapon:");
+		j = 8;
+		for (int i = 0; i < 2; i++) {
+			gotoxy(3, j);
+			printf_s("(%d) ", i + 1);
+			switch (list.pactbladeweaponlist[i]) {
+			case '1': {
+				printf_s("%s", dagger.name);
+				break;
+			}
+			case '2': {
+				printf_s("%s", quarterstaff.name);
+				break;
+			}
+			}
+			j++;
+		}
+		char choose = '0';
+		while (choose != '1' && choose != '2') {
+			choose = _getch();
+			switch (choose) {
+			case '1': {
+				for (int i = 0; i < strlen(hero.weaponlist); i++) {
+					if (hero.weaponlist[i] != '0') {
+						hero.weaponlist[i] = '1';
+						break;
+					}
+				}
+				break;
+			}
+			case '2': {
+				for (int i = 0; i < strlen(hero.weaponlist); i++) {
+					if (hero.weaponlist[i] != '0') {
+						hero.weaponlist[i] = '2';
+						break;
+					}
+				}
+				break;
+			}
+			}
+		}
+		clearchat();
+		gotoxy(3, 3);
+		printf_s("A weapon materialized in your hand");
+		Sleep(1000);
+		gotoxy(3, 3);
+		printf_s("                                  ");
+		return 0;
+		Sleep(5000);
+		break;
+	}
+	case '4': {
+		hero.spelldc = hero.modCha + hero.proficiency + 8;
+		*attack = Impaction.accur1;
+		*damage = Impaction.damage1;
+
+		if (roll(1, 20, monster.modCon) < Impaction.accur2) {
+			*damage += Impaction.damage2;
+		}
+		return 1;
+		Sleep(2000);
+		break;
+	}
 	}
 }
-int spell(int* attack, int z, int* damage, char* typeofdamage) {
+int spell(int* slot, int* attack, int z, int* damage, char* typeofdamage, int* characteristic) {
 	for (int j = 24; j < 36; j++) {
 		gotoxy(3, j);
 		printf_s("|");
@@ -1174,6 +1541,16 @@ int spell(int* attack, int z, int* damage, char* typeofdamage) {
 	switch (hero.spelllist[z]) {
 	case '1': {
 		*attack = roll(1, 20, hero.modCha + hero.proficiency);
+		if (hero.advantage == 1) {
+			int a = roll(1, 20, hero.modCha + hero.proficiency);
+			int b = roll(1, 20, hero.modCha + hero.proficiency);
+			if (a < b) {
+				*attack = b;
+			}
+			else {
+				*attack = a;
+			}
+		}
 		*damage = roll(eldritchblast.amount, eldritchblast.damage, eldritchblast.mode);
 		if (*attack == 20 + hero.modCha + hero.proficiency) {
 			roll(eldritchblast.amount * 2, eldritchblast.damage, eldritchblast.mode);
@@ -1198,7 +1575,7 @@ int spell(int* attack, int z, int* damage, char* typeofdamage) {
 	}
 	case '2': {
 		hero.armorclass = 13 + hero.modDex + hero.armormod;
-		strcpy_s(typeofdamage, 6, eldritchblast.typeofdamage);
+		strcpy_s(typeofdamage, 1, magearmor.typeofdamage);
 		int j = 25;
 		int f = 6;
 		for (int i = 3; i < 263; i++) {
@@ -1208,6 +1585,45 @@ int spell(int* attack, int z, int* damage, char* typeofdamage) {
 			}
 			gotoxy(f, j);
 			printf_s("%c", magearmor.description[i - 3]);
+			f++;
+
+		}
+		return 0;
+		Sleep(2000);
+		break;
+	}
+	case '3': {
+		hero.condition = 3;
+		*characteristic = 2;
+		*slot = 1;
+		strcpy_s(typeofdamage, 1, faeriefire.typeofdamage);
+		int j = 25;
+		int f = 6;
+		for (int i = 3; i < 471; i++) {
+			if (faeriefire.description[i - 3] == '\n') {
+				j++;
+				f = 6;
+			}
+			gotoxy(f, j);
+			printf_s("%c", faeriefire.description[i - 3]);
+			f++;
+
+		}
+		return 2;
+		Sleep(2000);
+		break;
+	}
+	case '4': {
+
+		int j = 25;
+		int f = 6;
+		for (int i = 3; i < strlen(findfamiliar.description); i++) {
+			if (findfamiliar.description[i - 3] == '\n') {
+				j++;
+				f = 6;
+			}
+			gotoxy(f, j);
+			printf_s("%c", findfamiliar.description[i - 3]);
 			f++;
 
 		}
@@ -1306,7 +1722,7 @@ void shortrest() {
 int amountofspells() {
 	return hero.level + 1;
 }
-int initiative(int monsters, char ch, char* control) {
+/*int initiative(int monsters, char ch, char* control) {
 	int tracker[20][20];
 	for (int i = 0; i < 20; i++) {
 		for (int j = 0; j < 20; j++) {
@@ -2467,6 +2883,7 @@ int fight(int** tracker, int monsters, char ch, char* control) {
 		}
 	}
 }
+*/
 void profinskills() {
 	if (hero.pracrobatic == 1)
 		hero.acrobatic += hero.proficiency;
@@ -2598,8 +3015,11 @@ void characterlist() {
 	printf_s("Cantrips:");
 	int j = 10;
 	gotoxy(82, j);
-	for (int i = 0; i < strlen(hero.spelllist); i++) {
+	for (int i = 0; i < 20; i++) {
 		gotoxy(82, j);
+		if (hero.spelllist[i] == '\0') {
+			break;
+		}
 		switch (hero.spelllist[i]) {
 		case '1': {
 			printf_s("%s", eldritchblast.name);
@@ -2610,7 +3030,28 @@ void characterlist() {
 	}
 	gotoxy(84, 16);
 	printf_s("1-st level spells:");
-
+	j = 10;
+	gotoxy(82, j);
+	for (int i = 0; i < 20; i++) {
+		gotoxy(82, j);
+		if (hero.spelllist[i] == '\0') {
+			break;
+		}
+		switch (hero.spelllist[i]) {
+		case '2': {
+			printf_s("%s", magearmor.name);
+			break;
+		}
+		case '3': {
+			printf_s("%s", faeriefire.name);
+			break;
+		}
+		case '4': {
+			printf_s("%s", findfamiliar.name);
+		}
+		}
+		j++;
+	}
 	gotoxy(30, 2);
 	printf_s("Character list");
 	gotoxy(2, 5);

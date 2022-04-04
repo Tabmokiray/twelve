@@ -117,7 +117,7 @@ void skeleton() {
 	gotoxy(i, 16);
 	printf_s("   .#:-#");
 }
-void sword(){
+void sword() {
 	system("cls");
 	int i = 70;
 	gotoxy(i, 3);
@@ -239,17 +239,6 @@ void ashardalon() {
 		}
 		printf_s("%c", intr.text1[j]);
 		Sleep(30);
-	}
-	gotoxy(3, 40);
-	printf_s("Type (s) to save game");
-	char s = _getch();
-	if (s == 's') {
-		createsave();
-		gotoxy(3, 42);
-		printf_s("Save is success");
-		Sleep(3000);
-		gotoxy(3, 42);
-		printf_s("               ");
 	}
 	free(intr.text1);
 	fclose(intro);
