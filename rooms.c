@@ -998,10 +998,244 @@ void room6() {
 			break;
 		}
 		case '2': {
-
+			for (int i = 0; i < 100; i++) {
+				for (int j = 0; j < 40; j++) {
+					printf_s(" ");
+				}
+			}
+			hero.progress += 1;
+			room7();
 			break;
 		}
 		case '3': {
+			hero.progress -= 1;
+			stages();
+			break;
+		}
+		}
+	}
+}
+void room7() {
+	gotoxy(60, 5);
+	printf_s("You enter a fairly large room, in the center of which is a dying");
+	gotoxy(60, 6);
+	printf_s("fire. Nearby is a small bed on which someone lies and quietly");
+	gotoxy(60, 7);
+	printf_s("cries. From the room there is a door to the north and a");
+	gotoxy(60, 8);
+	printf_s("passage to the west.");
+	gotoxy(60, 10);
+
+	if (meepokobold.killed == 0)
+		printf_s("Investigate sleeping creature(1) Go to north door(2) Go to the west passage(3) Back(4)");
+	else {
+		printf_s("Go to north door(2) Go to the west passage(3) Back(4)");
+	}
+	int ins = 0;
+	char choose = '0';
+	while (1) {
+		choose = _getch();
+		switch (choose) {
+		case '1': {
+			if (meepokobold.killed != 0) {
+				break;
+			}
+			for (int i = 60; i < 150; i++) {
+				for (int j = 5; j < 11; j++) {
+					gotoxy(i, j);
+					printf_s(" ");
+				}
+			}
+			gotoxy(60, 5);
+			printf_s("You bring light to the face of a small creature. His skin is rust-");
+			gotoxy(60, 6);
+			printf_s("coloured, his face is long, reminiscent of a lizard or dragon.");
+			gotoxy(60, 8);
+			printf_s("Try to understand why he is crying(1) Attack him(2) Wake him up(3)");
+			while (1) {
+				if (meepokobold.killed != 0) {
+					break;
+				}
+				choose = _getch();
+				switch (choose) {
+				case '1': {
+					int insight = roll(1, 20, hero.insight);
+					if (ins == 0) {
+						ins = 1;
+						gotoxy(60, 9);
+						printf_s("You trying to understand other's creature feelings...%d", insight);
+						Sleep(1000);
+						if (insight < 10) {
+							gotoxy(60, 10);
+							printf_s("Failed");
+							Sleep(1000);
+							gotoxy(60, 10);
+							printf_s("      ");
+						}
+						else {
+							gotoxy(60, 10);
+							printf_s("Success");
+							Sleep(1000);
+							gotoxy(60, 10);
+							printf_s("       ");
+							gotoxy(60, 10);
+							printf_s("It sleeps and cries in its sleep, it must be having a nightmare");
+							Sleep(2500);
+							gotoxy(60, 9);
+							printf_s("                                                           ");
+							gotoxy(60, 10);
+							printf_s("                                                               ");
+						}
+
+
+					}
+					else {
+						gotoxy(60, 9);
+						printf_s("You are already tried");
+						Sleep(1000);
+						gotoxy(60, 9);
+						printf_s("                     ");
+					}
+					break;
+				}
+				case '2': {
+					meepokobold.killed = 1;
+					gotoxy(60, 8);
+					printf_s("You instantly kill an innocent creature without remorse. It's too weak to fight you back.");
+					gotoxy(60, 9);
+					Sleep(1000);
+					printf_s("You gain 50 xp");
+					Sleep(1000);
+					hero.xp += 50;
+					gotoxy(60, 8);
+					printf_s("                                                                                         ");
+					gotoxy(60, 9);
+					printf_s("              ");
+					break;
+				}
+				case '3': {
+					meepo();
+					gotoxy(85, 8);
+					printf_s("<Meepo> Ah-ah-? Who you are? How did you get here? Don't kill Meepo, please!");
+					gotoxy(85, 20);
+					printf_s("Hello, my name is %s, don't fear me(1) Intimidate him(2) ", hero.name);
+					while (1) {
+						choose = _getch();
+						switch (choose) {
+						case '1': {
+							gotoxy(85, 9);
+							printf_s("<%s> Hello, my name is %s, don't fear me", hero.name, hero.name);
+							Sleep(1000);
+							gotoxy(85, 10);
+							printf_s("<Meepo> I am Meepo, Keeper of Dragons! Was before...");
+							Sleep(1000);
+							gotoxy(85, 20);
+							printf_s("Why?(1) Where is treasures?(2)                                       ");
+							choose = '0';
+							while (choose != '1' && choose != '2') {
+								choose = _getch();
+								switch (choose) {
+								case '1': {
+									gotoxy(85, 11);
+									printf_s("<%s> Why?", hero.name);
+									Sleep(1000);
+									gotoxy(85, 12);
+									printf_s("<Meepo> Because I lost our clan dragon Calcryx");
+									Sleep(2500);
+									break;
+								}
+								case '2': {
+									gotoxy(85, 11);
+									printf_s("<%s> Where is treasures?", hero.name);
+									Sleep(1000);
+									gotoxy(85, 12);
+									printf_s("<Meepo> I don't know, Yusdrayl knows! Yusdrayl! Our smartest leader!");
+									Sleep(2500);
+									break;
+								}
+								}
+							}
+							break;
+						}
+						case '2': {
+							gotoxy(85, 9);
+							int intimidate = roll(1, 20, hero.intimidation);
+							printf_s("<%s> Now I'll eat you little monster if you don't do what I say", hero.name);
+							Sleep(1500);
+							gotoxy(85, 10);
+							printf_s("<Meepo> Ple-ease, don't eat me!");
+							Sleep(2500);
+							break;
+						}
+						}
+						if (choose == '2' || choose == '1') {
+							for (int i = 85; i < 161; i++) {
+								for (int j = 5; j < 21; j++) {
+									gotoxy(i, j);
+									printf_s(" ");
+								}
+							}
+							gotoxy(85, 20);
+							printf_s("Who is your leader?(1) How can I help you?(2) ");
+							choose = '0';
+							while (choose != '1' && choose != '2') {
+								choose = _getch();
+								switch (choose) {
+								case '1': {
+									gotoxy(85, 8);
+									printf_s("<%s> Who is your leader?                  ", hero.name);
+									Sleep(1000);
+									gotoxy(85, 9);
+									printf_s("<Meepo> Yusdrayl! She is the leader of all kobolds in our clan! We love her!  ");
+									gotoxy(85, 20);
+									printf_s("Take me to her now(1) I will return later(2) ");
+
+									break;
+								}
+								case '2': {
+									gotoxy(85, 8);
+									printf_s("<%s> How can I help you?                 ", hero.name);
+									Sleep(1000);
+									gotoxy(85, 9);
+									printf_s("<Meepo> This dragon is killing my brothers and sisters,");
+									gotoxy(85, 10);
+									printf_s("please discuss with Yusdrayl killing of dragon. I will show you the way.");
+									gotoxy(85, 20);
+									printf_s("Take me to her now(1) I will return later(2) ");
+
+									break;
+								}
+								}
+							}
+							while (1) {
+								choose = _getch();
+								switch (choose) {
+								case '1': {
+									hero.progress += 1;
+									stages();
+									break;
+								}
+								case '2': {
+									stages();
+									break;
+								}
+								}
+							}
+						}
+					}
+					break;
+				}
+				}
+			}
+			break;
+		}
+		case '2': {
+			break;
+		}
+		case '3': {
+			break;
+		}
+		case '4': {
 			hero.progress -= 1;
 			stages();
 			break;
@@ -1303,116 +1537,116 @@ void shop() {
 				break;
 			}
 			case 'y': {
-					if (hero.gold >= quarterstaff.cost) {
-						hero.gold -= quarterstaff.cost;
-						for (int i = 0; i < 20; i++) {
-							if (hero.weaponlist[i] == '\0') {
-								hero.weaponlist[i] = '2';
-								break;
-							}
+				if (hero.gold >= quarterstaff.cost) {
+					hero.gold -= quarterstaff.cost;
+					for (int i = 0; i < 20; i++) {
+						if (hero.weaponlist[i] == '\0') {
+							hero.weaponlist[i] = '2';
+							break;
 						}
-						gotoxy(85, 40);
-						printf_s("Buyed");
-						Sleep(500);
-						gotoxy(85, 40);
-						printf_s("     ");
 					}
-					else {
-						donthavemoney();
-						break;
-					}
+					gotoxy(85, 40);
+					printf_s("Buyed");
+					Sleep(500);
+					gotoxy(85, 40);
+					printf_s("     ");
+				}
+				else {
+					donthavemoney();
+					break;
+				}
 
 				break;
 			}
 			case 'u': {
-					if (hero.gold >= lightcrossbow.cost) {
-						hero.gold -= lightcrossbow.cost;
-						for (int i = 0; i < 20; i++) {
-							if (hero.weaponlist[i] == '\0') {
-								hero.weaponlist[i] = '4';
-								break;
-							}
+				if (hero.gold >= lightcrossbow.cost) {
+					hero.gold -= lightcrossbow.cost;
+					for (int i = 0; i < 20; i++) {
+						if (hero.weaponlist[i] == '\0') {
+							hero.weaponlist[i] = '4';
+							break;
 						}
-						gotoxy(85, 40);
-						printf_s("Buyed");
-						Sleep(500);
-						gotoxy(85, 40);
-						printf_s("     ");
 					}
-					else {
-						donthavemoney();
-						break;
-					}
+					gotoxy(85, 40);
+					printf_s("Buyed");
+					Sleep(500);
+					gotoxy(85, 40);
+					printf_s("     ");
+				}
+				else {
+					donthavemoney();
+					break;
+				}
 
 				break;
 			}
 
 			case 'i': {
-					if (hero.gold >= 0) {
-						hero.gold -= 0;
-						for (int i = 0; i < 20; i++) {
-							if (hero.spelllist[i] == '\0') {
-								hero.spelllist[i] = eldritchblast.id;
-								break;
-							}
+				if (hero.gold >= 0) {
+					hero.gold -= 0;
+					for (int i = 0; i < 20; i++) {
+						if (hero.spelllist[i] == '\0') {
+							hero.spelllist[i] = eldritchblast.id;
+							break;
 						}
-						gotoxy(85, 40);
-						printf_s("Buyed");
-						Sleep(500);
-						gotoxy(85, 40);
-						printf_s("     ");
 					}
-					else {
-						donthavemoney();
-						break;
-					}
+					gotoxy(85, 40);
+					printf_s("Buyed");
+					Sleep(500);
+					gotoxy(85, 40);
+					printf_s("     ");
+				}
+				else {
+					donthavemoney();
+					break;
+				}
 
 				break;
 			}
 			case 'o': {
-					if (hero.gold >= 10) {
-						hero.gold -= 10;
-						for (int i = 0; i < 20; i++) {
-							if (hero.spelllist[i] == '\0') {
-								hero.spelllist[i] = faeriefire.id;
-								break;
-							}
-						}						
-						gotoxy(85, 40);
-						printf_s("Buyed");
-						Sleep(500);
-						gotoxy(85, 40);
-						printf_s("     ");
+				if (hero.gold >= 10) {
+					hero.gold -= 10;
+					for (int i = 0; i < 20; i++) {
+						if (hero.spelllist[i] == '\0') {
+							hero.spelllist[i] = faeriefire.id;
+							break;
+						}
 					}
-					else {
-						donthavemoney();
-						break;
-					}
+					gotoxy(85, 40);
+					printf_s("Buyed");
+					Sleep(500);
+					gotoxy(85, 40);
+					printf_s("     ");
+				}
+				else {
+					donthavemoney();
+					break;
+				}
 
 				break;
 			}
 
 			case 'p': {
-					if (hero.gold >= healingpotion.cost) {
-						hero.gold -= healingpotion.cost;
-						for (int i = 0; i < 20; i++) {
-							if (hero.itemlist[healingpotion.amount] == '\0') {
-								hero.itemlist[healingpotion.amount] = '1';
-								healingpotion.amount++;
-								break;
-							}
+				if (hero.gold >= healingpotion.cost) {
+					hero.gold -= healingpotion.cost;
+					for (int i = 0; i < 20; i++) {
+						if (hero.itemlist[healingpotion.amount] == '\0') {
+							hero.itemlist[healingpotion.amount] = '1';
+							healingpotion.amount++;
+							break;
 						}
+					}
 
-						gotoxy(85, 40);
-						printf_s("Buyed");
-						Sleep(500);
-						gotoxy(85, 40);
-						printf_s("     ");
-					}
-					else {
-						donthavemoney();
-						break;
-					}
+					gotoxy(85, 40);
+					printf_s("Buyed");
+					Sleep(500);
+					gotoxy(85, 40);
+					printf_s("     ");
+				}
+				else {
+					donthavemoney();
+					break;
+				}
 
 
 				break;
@@ -1701,24 +1935,24 @@ void shop() {
 				break;
 			}
 			case 'i': {
-					if (hero.gold >= 0) {
-						hero.gold -= 0;
-						for (int i = 0; i < 20; i++) {
-							if (hero.spelllist[i] == '\0') {
-								hero.spelllist[i] == eldritchblast.id;
-								break;
-							}
+				if (hero.gold >= 0) {
+					hero.gold -= 0;
+					for (int i = 0; i < 20; i++) {
+						if (hero.spelllist[i] == '\0') {
+							hero.spelllist[i] == eldritchblast.id;
+							break;
 						}
-						gotoxy(85, 40);
-						printf_s("Buyed");
-						Sleep(500);
-						gotoxy(85, 40);
-						printf_s("     ");
 					}
-					else {
-						donthavemoney();
-						break;
-					}
+					gotoxy(85, 40);
+					printf_s("Buyed");
+					Sleep(500);
+					gotoxy(85, 40);
+					printf_s("     ");
+				}
+				else {
+					donthavemoney();
+					break;
+				}
 
 				break;
 			}
@@ -1993,6 +2227,9 @@ void stages() {
 	}
 	case 6: {
 		room6();
+	}
+	case 7: {
+		room7();
 	}
 	}
 }

@@ -344,7 +344,7 @@ void ruleset() {
 	hero.crit = 0;
 	hero.weapons = 2;
 	hero.archetype = 0;
-	
+
 
 	warlock.class = 1;
 
@@ -399,7 +399,7 @@ void ruleset() {
 	findfamiliar.damage = 0;
 	strcpy_s(findfamiliar.name, 14, "Find familiar");
 	findfamiliar.description = (char*)malloc(388);
-	strcpy_s(findfamiliar.description, 388, "You gain the service of a familiar, a spirit that takes an animal form you choose:\nbat, cat, crab, frog (toad), hawk, lizard, octopus, owl, poisonous snake, fish (quipper),\nrat, raven, sea horse, spider, or weasel. Appearing in an unoccupied\nspace within range, the familiar has the statistics of the chosen form, though it is a celestial,\nfey, or fiend (your choice) instead of a beast.");
+	strcpy_s(findfamiliar.description, 388, "You gain the service of a familiar, a spirit that takes an animal form you choose:\nbat, cat, crab, frog (toad), hawk, lizard, octopus, owl, poisonous snake, fish (quipper),\nrat, raven, sea horse, spider, or weasel. Appearing in an unoccupied\nspace within range, the familiar has the statistics of the chosen form,\nthough it is a celestial, fey, or fiend (your choice) instead of a beast.");
 	findfamiliar.id = '4';
 
 	strcpy_s(feyancestry.name, 13, "Fey ancestry");
@@ -924,6 +924,7 @@ void warlock3() {
 	}
 	char choose = '0';
 	while (choose != '1' && choose != '2' && choose != '3') {
+		choose = _getch();
 		switch (choose) {
 		case '1': {
 			hero.ablist[1] = '3';
@@ -1250,8 +1251,8 @@ void showequip() {
 
 }
 void weapons(int z, int* damage, int* attack, char* damagetype) {
-	switch (z) {
-	case 1: {
+	switch (hero.weaponlist[z - 1]) {
+	case '1': {
 		strcpy_s(damagetype, 9, "piercing");
 		if (hero.modDex > hero.modStr) {
 			*damage = dagger.damage + hero.modDex;
@@ -1292,7 +1293,7 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 
 		break;
 	}
-	case 2: {
+	case '2': {
 		strcpy_s(damagetype, 12, "bludgeoning");
 		*damage = quarterstaff.damage + hero.modStr;
 		*attack = roll(1, 20, hero.modStr + hero.proficiency);
@@ -1312,7 +1313,7 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 		}
 		break;
 	}
-	case 3: {
+	case '3': {
 		strcpy_s(damagetype, 9, "piercing");
 		if (hero.modDex > hero.modStr) {
 			*damage = magicalshortsword.damage + hero.modDex;
@@ -1353,7 +1354,7 @@ void weapons(int z, int* damage, int* attack, char* damagetype) {
 
 		break;
 	}
-	case 4: {
+	case '4': {
 		strcpy_s(damagetype, 9, "piercing");
 		*damage = lightcrossbow.damage + hero.modDex;
 		*attack = roll(1, 20, hero.modDex + hero.proficiency);
@@ -1512,6 +1513,11 @@ int abilitydesc(int z, int* damage, int* attack, int* characteristic) {
 		break;
 	}
 	case '4': {
+		int j = 25;
+		int f = 6;
+
+		gotoxy(f, j);
+		printf_s("You order the Imp to attack with Sting");
 		hero.spelldc = hero.modCha + hero.proficiency + 8;
 		*attack = Impaction.accur1;
 		*damage = Impaction.damage1;

@@ -4,10 +4,7 @@ int main(void) {
 	mechanicsatstart();
 	start();
 	save();
-	hero.tekhits = 100;
-	hero.hits = 100;
-	hero.modDex = 100;
-	hero.xp = 900;
+	hero.progress = 7;
 	stages();
 	freeetc();
 	return 0;

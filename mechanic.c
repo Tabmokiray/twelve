@@ -26,7 +26,7 @@ void clearchat() {
 		}
 	}
 	for (int i = 1; i < 201; i++) {
-		for (int j = 19; j < 36; j++) {
+		for (int j = 19; j < 38; j++) {
 			gotoxy(i, j);
 			printf_s(" ");
 		}
@@ -196,6 +196,10 @@ int actions(char* control, int* rounds) {
 				printf_s("%s", summonblade.name);
 				break;
 			}
+			case '4': {
+				printf_s("%s", imp.name);
+				break;
+			}
 			}
 			j++;
 		}
@@ -216,7 +220,7 @@ int actions(char* control, int* rounds) {
 			if (type == 1) {
 				gotoxy(3, j);
 				j++;
-				printf_s("You try to attack with the ability: %d...", attack);
+				printf_s("You trying to attack with the ability: %d...", attack);
 				Sleep(1500);
 				if (attack < monster.armorclass) {
 					gotoxy(3, j);
@@ -739,6 +743,7 @@ int actions(char* control, int* rounds) {
 }
 void charactercreator() {
 	char choose;
+	meepokobold.killed = 0;
 	hero.level = 1;
 	warlock.hitdice = 8;
 	warlock.spellcaster = 1;

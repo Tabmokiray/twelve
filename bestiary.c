@@ -292,3 +292,35 @@ void dragon() {
 	gotoxy(i, 24);
 	printf_s("                                -#=    +#-   .#@.");
 }
+void meepo() {
+	system("cls");
+	FILE* mepo;
+
+	if ((fopen_s(&mepo, "meepo.txt", "r")) != 0) {
+		exit(1);
+	}
+
+	meep.text1 = (char*)malloc(5000);
+	if (meep.text1 == 0) {
+		exit(1);
+	}
+	int i = 0;
+
+	fscanf_s(mepo, "%c", &meep.text1[i], 1);
+	while (meep.text1[i] != '\0') {
+		i++;
+		fscanf_s(mepo, "%c", &meep.text1[i], 1);
+	}
+	int z = 3;
+	gotoxy(0, z);
+	for (int j = 0; j < 4602; j++) {
+		if (meep.text1[j] == '\n') {
+			j++;
+			z++;
+			gotoxy(0, z);
+		}
+		printf_s("%c", meep.text1[j]);
+	}
+	free(meep.text1);
+	fclose(mepo);
+}

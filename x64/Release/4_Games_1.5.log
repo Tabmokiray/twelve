@@ -1,12 +1,35 @@
-﻿  rules.c
-C:\Users\Tabmokiray\source\repos\twelve\rules.c(538,24): warning C4047: =: "char *" отличается по уровням косвенного обращения от "int"
-C:\Users\Tabmokiray\source\repos\twelve\rules.c(755,8): warning C4013: gotoxy: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rules.c(781,9): warning C4013: stages: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rules.c(1414,14): warning C4013: createsave: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rules.c(1504,12): warning C4013: clearchat: нет определения; предполагается "extern" с возвратом типа "int"
+﻿  rooms.c
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(4,8): warning C4013: gotoxy: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(21,15): warning C4013: createsave: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(93,24): warning C4013: roll: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(250,14): warning C4013: shortrest: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(583,8): warning C4013: msword: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1117,11): warning C4013: meepo: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1468,13): warning C4013: equips: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1476,20): warning C4013: donthavemoney: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1942,26): warning C4553: "==": результат выражения не используется; вы хотели использовать "="?
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1981,12): warning C4013: rulegoblin: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1982,8): warning C4013: goblin: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1983,11): warning C4013: clearchat: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1988,17): warning C4013: characterlist: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1992,13): warning C4013: showequip: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1996,11): warning C4013: makemap: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2006,14): warning C4013: actions: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2015,12): warning C4013: rulebandit: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2016,8): warning C4013: bandit: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2048,9): warning C4013: rulerat: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2049,5): warning C4013: rat: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2088,14): warning C4013: ruleskeleton: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2089,10): warning C4013: skeleton: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2133,11): warning C4013: rulesword: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2134,7): warning C4013: sword: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2173,12): warning C4013: ruledragon: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2174,8): warning C4013: dragon: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2206,8): warning C4013: levels: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2209,13): warning C4013: ashardalon: нет определения; предполагается "extern" с возвратом типа "int"
   Создание кода
-  1 of 73 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
+  3 of 75 functions ( 4.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     9 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
-  4_Games_1.5.vcxproj -> C:\Users\Tabmokiray\Source\Repos\twelve\x64\Release\4_Games_1.5.exe
+  4_Games_1.5.vcxproj -> C:\Users\Tabmokiray\source\repos\twelve\x64\Release\4_Games_1.5.exe

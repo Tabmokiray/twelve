@@ -213,7 +213,7 @@ struct text {
 	char* text2;
 	char* text3;
 };
-struct text intr, columns, magicsword, shopman, reddragon;
+struct text intr, columns, magicsword, shopman, reddragon,meep;
 struct maps {
 	char* map;
 };
@@ -229,3 +229,7 @@ struct item {
 	int cost;
 };
 struct item healingpotion;
+struct plot {
+	int killed;
+};
+struct plot meepokobold;
