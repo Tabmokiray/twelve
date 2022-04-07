@@ -112,7 +112,7 @@ struct stats {
 	int condition;
 	int advantage;
 };
-struct stats hero, familiarstat, Goblinstat, Banditstat, Ratstat, Skeletonstat, Swordstat, Dragonstat, Impstat;
+struct stats hero, familiarstat, Goblinstat, Banditstat, Ratstat, Skeletonstat, Swordstat, Dragonstat, Impstat, Koboldstat;
 struct lists {
 	char pactbladeweaponlist[20];
 };
@@ -167,7 +167,7 @@ struct npc {
 	int modCha;
 	int condition;
 };
-struct npc Goblin, Bandit, monster, monster2, Rat, Skeleton, Sword, Dragon, Imp, familiar;
+struct npc Goblin, Bandit, monster, monster2, Rat, Skeleton, Sword, Dragon, Imp, familiar, Kobold;
 struct action {
 	char action1[20];
 	char action2[20];
@@ -176,7 +176,7 @@ struct action {
 	int accur1;
 	int accur2;
 };
-struct action Goblinaction, Banditaction, monsteraction, monster2action, Rataction, Skeletonaction, Swordaction, Dragonaction, Impaction, familiaraction;
+struct action Goblinaction, Banditaction, monsteraction, monster2action, Rataction, Skeletonaction, Swordaction, Dragonaction, Impaction, familiaraction, Koboldaction;
 struct arm {
 	int startarmor;
 	int type;
@@ -232,4 +232,4 @@ struct item healingpotion;
 struct plot {
 	int killed;
 };
-struct plot meepokobold,statue,robberydragon;
+struct plot meepokobold, statue, robberydragon, secretdoor, trysecret, key;

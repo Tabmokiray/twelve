@@ -241,6 +241,42 @@ void rulefamiliar() {
 	familiar.level = Imp.level;
 	modif();
 }
+void rulekobold(int num) {
+	if (num == 1) {
+		monster.modStr = Kobold.modStr;
+		monster.modDex = Kobold.modDex;
+		monster.modCon = Kobold.modCon;
+		monster.modInt = Kobold.modInt;
+		monster.modWis = Kobold.modWis;
+		monster.modCha = Kobold.modCha;
+		monster.armorclass = Kobold.armorclass;
+		monster.hits = Kobold.hits;
+		monsteraction.accur1 = Koboldaction.accur1;
+		monsteraction.damage1 = Koboldaction.damage1;
+		monsteraction.accur2 = Koboldaction.accur2;
+		monsteraction.damage2 = Koboldaction.damage2;
+		strcpy_s(monster.name, 7, Kobold.name);
+		monster.proficiency = Kobold.proficiency;
+		monster.level = Kobold.level;
+	}
+	if (num == 2) {
+		monster2.modStr = Kobold.modStr;
+		monster2.modDex = Kobold.modDex;
+		monster2.modCon = Kobold.modCon;
+		monster2.modInt = Kobold.modInt;
+		monster2.modWis = Kobold.modWis;
+		monster2.modCha = Kobold.modCha;
+		monster2.armorclass = Kobold.armorclass;
+		monster2.hits = Kobold.hits;
+		monster2action.accur1 = Koboldaction.accur1;
+		monster2action.damage1 = Koboldaction.damage1;
+		monster2action.accur2 = Koboldaction.accur2;
+		monster2action.damage2 = Koboldaction.damage2;
+		strcpy_s(monster2.name, 7, Kobold.name);
+		monster2.proficiency = Kobold.proficiency;
+		monster2.level = Kobold.level;
+	}
+}
 void ruleset() {
 	int d4 = 4;
 	int d6 = 6;
@@ -288,8 +324,8 @@ void ruleset() {
 	eldritchblast.amount = 1;
 	eldritchblast.damage = d10;
 	strcpy_s(eldritchblast.name, 15, "Eldritch blast");
-	eldritchblast.description = (char*)malloc(400);
-	strcpy_s(eldritchblast.description, 310, "A beam of crackling energy streaks toward a creature within range.\nMake a ranged spell attack against the target.\nOn a hit, the target takes 1d10 force damage.\nThe spell creates more than one beam when you reach higher levels :\ntwo beams at 5th level, three beams at 11th level,\nand four beams at 17th level.");
+	eldritchblast.description = (char*)malloc(200);
+	strcpy_s(eldritchblast.description, 114, "A beam of crackling energy streaks toward a creature within range.\nMake a ranged spell attack against the target.");
 	eldritchblast.id = '1';
 	strcpy_s(eldritchblast.typeofdamage, 6, "force");
 
@@ -297,8 +333,8 @@ void ruleset() {
 	shillelagh.amount = 1;
 	shillelagh.damage = d8;
 	strcpy_s(shillelagh.name, 11, "Shillelagh");
-	shillelagh.description = (char*)malloc(400);
-	strcpy_s(shillelagh.description, 390, "The wood of a club or quarterstaff you are holding is imbued with\nnature's power. For the duration, you can use your spellcasting ability instead of Strength for the attack\nand damage rolls of melee attacks using that weapon, and the weapon's damage die becomes a d8.\nThe weapon also becomes magical, if it isn't already.\nThe spell ends if you cast it again or if you let go of the weapon.");
+	shillelagh.description = (char*)malloc(300);
+	strcpy_s(shillelagh.description, 268, "The wood of a club or quarterstaff you are holding is imbued with\nnature's power. For the duration, you can use your\nspellcasting ability instead of Strength for the attack\nand damage rolls of melee attacks using that weapon, and the weapon's damage die becomes a d8.");
 	shillelagh.id = '5';
 	strcpy_s(shillelagh.typeofdamage, 12, "bludgeoning");
 
@@ -306,8 +342,8 @@ void ruleset() {
 	sacredflame.amount = 1;
 	sacredflame.damage = d8;
 	strcpy_s(sacredflame.name, 13, "Sacred Flame");
-	sacredflame.description = (char*)malloc(350);
-	strcpy_s(sacredflame.description, 324, "Flame-like radiance descends on a creature that you can see within range.\nThe target must succeed on a Dexterity saving throw or take 1d8 radiant damage.\nThe target gains no benefit from cover for this saving throw.\nThe spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).");
+	sacredflame.description = (char*)malloc(200);
+	strcpy_s(sacredflame.description, 154, "Flame-like radiance descends on a creature that you can see within range.\nThe target must succeed on a Dexterity saving throw or take 1d8 radiant damage.");
 	sacredflame.id = '6';
 	strcpy_s(sacredflame.typeofdamage, 8, "radiant");
 
@@ -315,8 +351,8 @@ void ruleset() {
 	poisonspray.amount = 1;
 	poisonspray.damage = d12;
 	strcpy_s(poisonspray.name, 13, "Poison Spray");
-	poisonspray.description = (char*)malloc(350);
-	strcpy_s(poisonspray.description, 312, "You extend your hand toward a creature you can see\nwithin range and project a puff of noxious gas from your palm.\nThe creature must succeed on a Constitution saving throw or take 1d12 poison damage.\nThis spell's damage increases by 1d12 when you reach 5th level (2d12), 11th level (3d12), and 17th level (4d12).");
+	poisonspray.description = (char*)malloc(200);
+	strcpy_s(poisonspray.description, 199, "You extend your hand toward a creature you can see\nwithin range and project a puff of noxious gas from your palm.\nThe creature must succeed on a Constitution saving throw or take 1d12 poison damage.");
 	poisonspray.id = '7';
 	strcpy_s(poisonspray.typeofdamage, 7, "poison");
 
@@ -324,28 +360,28 @@ void ruleset() {
 	magearmor.amount = 0;
 	magearmor.damage = 0;
 	strcpy_s(magearmor.name, 11, "Mage armor");
-	magearmor.description = (char*)malloc(260);
+	magearmor.description = (char*)malloc(250);
 	magearmor.id = '2';
-	strcpy_s(magearmor.description, 260, "You touch a willing creature who isn't wearing armor,\nand a protective magical force surrounds it until the spell ends.\nThe target's base AC becomes 13 + its Dexterity modifier.\nThe spell ends if the target dons armor or if you dismiss the spell as an action.");
+	strcpy_s(magearmor.description, 219, "You touch a willing creature who isn't wearing armor,\nand a protective magical force surrounds it until the spell ends.\nThe target's base AC becomes 13 + its Dexterity modifier.\nThe spell ends if the target dons armor.");
 	faeriefire.level = 1;
 	faeriefire.amount = 0;
 	faeriefire.damage = 0;
 	strcpy_s(faeriefire.name, 12, "Faerie fire");
-	faeriefire.description = (char*)malloc(500);
-	strcpy_s(faeriefire.description, 468, "Each object in a 20-foot cube within range is outlined in blue, green,\nor violet light (your choice). Any creature in the area when the spell is cast is also\noutlined in light if it fails a Dexterity saving throw.\nFor the duration, objects and affected creatures shed dim light in a 10-foot radius.\nAny attack roll against an affected creature or object has advantage if\nthe attacker can see it, and the affected creature or object\ncan't benefit from being invisible.");
+	faeriefire.description = (char*)malloc(200);
+	strcpy_s(faeriefire.description, 182, "Any creature in the area when the spell is cast is also\noutlined in light if it fails a Dexterity saving throw.\nAny attack roll against an affected creature or object has advantage.");
 	faeriefire.id = '3';
 	strcpy_s(faeriefire.typeofdamage, 1, "");
 	findfamiliar.level = 1;
 	findfamiliar.amount = 0;
 	findfamiliar.damage = 0;
 	strcpy_s(findfamiliar.name, 14, "Find familiar");
-	findfamiliar.description = (char*)malloc(388);
-	strcpy_s(findfamiliar.description, 388, "You gain the service of a familiar, a spirit that takes an animal form you choose:\nbat, cat, crab, frog (toad), hawk, lizard, octopus, owl, poisonous snake, fish (quipper),\nrat, raven, sea horse, spider, or weasel. Appearing in an unoccupied\nspace within range, the familiar has the statistics of the chosen form,\nthough it is a celestial, fey, or fiend (your choice) instead of a beast.");
+	findfamiliar.description = (char*)malloc(400);
+	strcpy_s(findfamiliar.description, 388, "You gain the service of a familiar, a spirit that takes an animal form.");
 	findfamiliar.id = '4';
 
 	strcpy_s(feyancestry.name, 13, "Fey ancestry");
 	feyancestry.description = (char*)malloc(500);
-	strcpy_s(feyancestry.description, 488, "Starting at 1st level, your patron bestows upon you the ability to project\nthe beguiling and fearsome presence of the fey.\nAs an action, you can cause each creature in a 10-foot cube\noriginating from you to make a Wisdom saving throw against your warlock spell save DC.\nThe creatures that fail their saving throws are all charmed or frightened by you (your choice) until the end of your next turn.\nOnce you use this feature, you can't use it again until you finish a short or long rest.");
+	strcpy_s(feyancestry.description, 443, "Starting at 1st level, your patron bestows upon you the ability to project\nthe beguiling and fearsome presence of the fey.\nAs an action, you can cause creature to make a Wisdom saving throw against your warlock spell save DC.\nThe creatures that fail their saving throws are all charmed or frightened by you (your choice) until the end of your next turn.\nOnce you use this feature, you can't use it again until you finish a short or long rest.");
 	feyancestry.id = '1';
 	strcpy_s(darkonesblessing.name, 20, "Dark One's blessing");
 	darkonesblessing.description = (char*)malloc(200);
@@ -586,8 +622,30 @@ void ruleset() {
 	Impaction.damage2 = roll(3, d6, 0);
 	Impaction.accur2 = 11;
 
+	Kobold.armorclass = 12;
+	Kobold.hits = 5;
+	Kobold.proficiency = 2;
+	Kobold.level = 0;
+	Koboldstat.Strength = 7;
+	Koboldstat.Dexterity = 15;
+	Koboldstat.Constitution = 9;
+	Koboldstat.Intellect = 8;
+	Koboldstat.Wisdom = 7;
+	Koboldstat.Charisma = 8;
+	modif();
+	strcpy_s(Kobold.name, 7, "Kobold");
+	strcpy_s(Koboldaction.action1, 7, "Dagger");
+	Koboldaction.damage1 = roll(1, d4, Koboldstat.modDex);
+	Koboldaction.accur1 = roll(1, d20, Kobold.proficiency + Koboldstat.modDex);
 }
 void modif() {
+	Koboldstat.modStr = (Koboldstat.Strength - 10) / 2;
+	Koboldstat.modDex = (Koboldstat.Dexterity - 10) / 2;
+	Koboldstat.modConst = (Koboldstat.Constitution - 10) / 2;
+	Koboldstat.modInt = (Koboldstat.Intellect - 10) / 2;
+	Koboldstat.modWis = (Koboldstat.Wisdom - 10) / 2;
+	Koboldstat.modCha = (Koboldstat.Charisma - 10) / 2;
+
 	familiarstat.modStr = (familiarstat.Strength - 10) / 2;
 	familiarstat.modDex = (familiarstat.Dexterity - 10) / 2;
 	familiarstat.modConst = (familiarstat.Constitution - 10) / 2;
@@ -884,7 +942,11 @@ void warlock3() {
 			gotoxy(60, 11);
 			printf_s("Poison Spray(3)");
 			choose = '0';
-			while (choose != '1' && choose != '2' && choose != '3') {
+			int ch = 0;
+			int sp1 = 0;
+			int sp2 = 0;
+			int sp3 = 0;
+			while (ch != 3) {
 				choose = _getch();
 				switch (choose) {
 				case '1': {
@@ -896,6 +958,7 @@ void warlock3() {
 							break;
 						}
 					}
+					sp1 = 1;
 					break;
 				}
 				case '2': {
@@ -907,6 +970,7 @@ void warlock3() {
 							break;
 						}
 					}
+					sp2 = 1;
 					break;
 				}
 				case '3': {
@@ -918,9 +982,11 @@ void warlock3() {
 							break;
 						}
 					}
+					sp3 = 1;
 					break;
 				}
 				}
+				ch = sp1 + sp2 + sp3;
 			}
 			break;
 		}
@@ -1497,7 +1563,7 @@ int abilitydesc(int z, int* damage, int* attack, int* characteristic) {
 		int f = 6;
 
 		gotoxy(f, j);
-		printf_s("You order the Imp to attack with Sting");
+		printf_s("You order the %s to attack with Sting", Imp.name);
 		hero.spelldc = hero.modCha + hero.proficiency + 8;
 		*attack = Impaction.accur1;
 		*damage = Impaction.damage1;
@@ -1545,7 +1611,7 @@ int spell(int* slot, int* attack, int z, int* damage, char* typeofdamage, int* c
 		strcpy_s(typeofdamage, 6, eldritchblast.typeofdamage);
 		int j = 25;
 		int f = 6;
-		for (int i = 3; i < 310; i++) {
+		for (int i = 3; i < 117; i++) {
 			if (eldritchblast.description[i - 3] == '\n') {
 				j++;
 				f = 6;
@@ -1564,7 +1630,7 @@ int spell(int* slot, int* attack, int z, int* damage, char* typeofdamage, int* c
 		strcpy_s(typeofdamage, 1, magearmor.typeofdamage);
 		int j = 25;
 		int f = 6;
-		for (int i = 3; i < 263; i++) {
+		for (int i = 3; i < 222; i++) {
 			if (magearmor.description[i - 3] == '\n') {
 				j++;
 				f = 6;
@@ -1585,7 +1651,7 @@ int spell(int* slot, int* attack, int z, int* damage, char* typeofdamage, int* c
 		strcpy_s(typeofdamage, 1, faeriefire.typeofdamage);
 		int j = 25;
 		int f = 6;
-		for (int i = 3; i < 471; i++) {
+		for (int i = 3; i < 185; i++) {
 			if (faeriefire.description[i - 3] == '\n') {
 				j++;
 				f = 6;
@@ -1600,7 +1666,15 @@ int spell(int* slot, int* attack, int z, int* damage, char* typeofdamage, int* c
 		break;
 	}
 	case '4': {
-
+		if (hero.gold >= 10) {
+			hero.gold -= 10;
+		}
+		else {
+			gotoxy(3, 8);
+			printf_s("You dont have gold to summon imp");
+			Sleep(1000);
+			break;
+		}
 		gotoxy(3, 7);
 		printf_s("You summon imp on your side");
 		rulefamiliar();
@@ -1612,7 +1686,7 @@ int spell(int* slot, int* attack, int z, int* damage, char* typeofdamage, int* c
 		}
 		int j = 25;
 		int f = 6;
-		for (int i = 3; i < strlen(findfamiliar.description) + 3; i++) {
+		for (int i = 3; i < 391; i++) {
 			if (findfamiliar.description[i - 3] == '\n') {
 				j++;
 				f = 6;
@@ -1643,10 +1717,10 @@ int spell(int* slot, int* attack, int z, int* damage, char* typeofdamage, int* c
 			roll(shillelagh.amount * 2, shillelagh.damage, shillelagh.mode);
 			hero.crit = 1;
 		}
-		strcpy_s(typeofdamage, 11, shillelagh.typeofdamage);
+		strcpy_s(typeofdamage, 12, shillelagh.typeofdamage);
 		int j = 25;
 		int f = 6;
-		for (int i = 3; i < 393; i++) {
+		for (int i = 3; i < 303; i++) {
 			if (shillelagh.description[i - 3] == '\n') {
 				j++;
 				f = 6;
@@ -1666,7 +1740,7 @@ int spell(int* slot, int* attack, int z, int* damage, char* typeofdamage, int* c
 		strcpy_s(typeofdamage, 8, sacredflame.typeofdamage);
 		int j = 25;
 		int f = 6;
-		for (int i = 3; i < 327; i++) {
+		for (int i = 3; i < 203; i++) {
 			if (sacredflame.description[i - 3] == '\n') {
 				j++;
 				f = 6;
@@ -1683,10 +1757,10 @@ int spell(int* slot, int* attack, int z, int* damage, char* typeofdamage, int* c
 	case '7': {
 		*characteristic = 3;
 		*damage = poisonspray.damage;
-		strcpy_s(typeofdamage, 6, poisonspray.typeofdamage);
+		strcpy_s(typeofdamage, 7, poisonspray.typeofdamage);
 		int j = 25;
 		int f = 6;
-		for (int i = 3; i < 315; i++) {
+		for (int i = 3; i < 203; i++) {
 			if (poisonspray.description[i - 3] == '\n') {
 				j++;
 				f = 6;

@@ -7,6 +7,7 @@ void room4();
 void room5();
 void room6();
 void room7();
+void room8();
 void shop();
 void picture();
 int stage0();

@@ -361,14 +361,13 @@ void room3() {
 	gotoxy(60, 5);
 	printf_s("What do you want to do?");
 	char choose = '0';
-	int perc = 0;
 	gotoxy(3, 40);
 	printf_s("Type (s) to save game");
 	gotoxy(20, 6);
 	printf_s("Investigate the bodies(1) Remove the spear from the wall(2) Investigate the walls(3) Go to the north door(4) Go to the south door(5) Go back(6)");
 	int perception = 0;
 	while (1) {
-		if (hero.xp > 150) {
+		if (secretdoor.killed == 1) {
 			gotoxy(20, 6);
 			printf_s("Investigate the bodies(1) Remove the spear from the wall(2) Go to the north door(4) Go to the south door(5) Go back(6)                                  ");
 			choose = _getch();
@@ -377,7 +376,7 @@ void room3() {
 			}
 
 		}
-		if (hero.xp <= 150) {
+		else {
 			choose = _getch();
 		}
 		if (choose == 's') {
@@ -437,7 +436,7 @@ void room3() {
 		}
 		case '3': {
 			gotoxy(60, 8);
-			if (perc == -1) {
+			if (trysecret.killed == -1) {
 				printf_s("You already tired to investigate");
 				Sleep(1000);
 				for (int i = 50; i < 150; i++) {
@@ -454,13 +453,14 @@ void room3() {
 				gotoxy(60, 9);
 				Sleep(2000);
 				printf_s("Failed. You didn't find anything interesting");
-				perc = -1;
+				trysecret.killed = -1;
 
 			}
 			else {
 				Sleep(2000);
 				gotoxy(60, 9);
 				printf_s("Success. You find a secret door");
+				secretdoor.killed = 1;
 				Sleep(1500);
 				gotoxy(60, 10);
 				printf_s("Open the secret door(9)");
@@ -474,7 +474,7 @@ void room3() {
 			break;
 		}
 		case '9': {
-			if (perc == -1 || perception < 10) {
+			if (trysecret.killed == -1 || perception < 10) {
 				break;
 			}
 			gotoxy(60, 11);
@@ -728,7 +728,13 @@ void room5() {
 		}
 		switch (choose) {
 		case '1': {
-			hero.itemlist[1] = '2';
+			for (int i = 0; i < 20; i++) {
+				if (hero.itemlist[i] == '\0') {
+					hero.itemlist[i] = '2';
+					key.killed = 1;
+					break;
+				}
+			}
 			if (statue.killed == 1) {
 				for (int i = 50; i < 172; i++) {
 					gotoxy(i, 6);
@@ -760,7 +766,8 @@ void room5() {
 				statue.killed = 1;
 				system("cls");
 				gotoxy(60, 6);
-				if (hero.itemlist[1] == '2') {
+
+				if (key.killed == 1) {
 					printf_s("Go through the door ahead(4)");
 				}
 				else {
@@ -772,9 +779,15 @@ void room5() {
 						hero.progress += 1;
 						stages();
 					}
-					if (hero.itemlist[1] != '2') {
+					if (key.killed != 1) {
 						if (choose == '1') {
-							hero.itemlist[1] = '2';
+							for (int i = 0; i < 20; i++) {
+								if (hero.itemlist[i] == '\0') {
+									hero.itemlist[i] = '2';
+									key.killed = 1;
+									break;
+								}
+							}
 							for (int i = 50; i < 172; i++) {
 								gotoxy(i, 6);
 								printf_s(" ");
@@ -783,8 +796,6 @@ void room5() {
 							printf_s("Go through the door ahead(4)");
 						}
 					}
-
-
 				}
 				break;
 			}
@@ -808,7 +819,7 @@ void room5() {
 			printf_s("                                            ");
 			statue.killed = 1;
 			gotoxy(60, 6);
-			if (hero.itemlist[1] != '2') {
+			if (key.killed != 1) {
 				printf_s("Take the key(1) Go through the door ahead(4)");
 			}
 			else {
@@ -1053,6 +1064,11 @@ void room7() {
 			printf_s("Try to understand why he is crying(1) Attack him(2) Wake him up(3)");
 			while (1) {
 				if (meepokobold.killed != 0) {
+					gotoxy(60, 10);
+					printf_s("Meepo is killed by you");
+					Sleep(2000);
+					gotoxy(60, 10);
+					printf_s("                      ");
 					break;
 				}
 				choose = _getch();
@@ -1232,6 +1248,8 @@ void room7() {
 			break;
 		}
 		case '3': {
+			hero.progress += 1;
+			stages();
 			break;
 		}
 		case '4': {
@@ -1240,6 +1258,152 @@ void room7() {
 			break;
 		}
 		}
+	}
+}
+void room8() {
+	gotoxy(60, 5);
+	printf_s("You walk down a dark corridor, turning left and right.");
+	gotoxy(60, 6);
+	printf_s("Then, out of the darkness, several small halberds head towards you.");
+	_getch();
+	for (int i = 60; i < 130; i++) {
+		for (int j = 5; j < 7; j++) {
+			gotoxy(i, j);
+			printf_s(" ");
+		}
+	}
+	gotoxy(60, 5);
+	switch (meepokobold.killed) {
+	case 0: {
+		printf_s("<Kobolds> Whe saw, that you didn't kill Meepo. Where are you going? ");
+		gotoxy(60, 20);
+		printf_s("I want to speak with Yusdrayl(1) I want to kill you all, lizards(2) I return later(3)");
+		while (1) {
+			char choose = _getch();
+			switch (choose) {
+			case '1': {
+				gotoxy(60, 6);
+				printf_s("<%s> I want to speak with Yusdrayl", hero.name);
+				Sleep(1500);
+				gotoxy(60, 7);
+				printf_s("<Kobolds> We will take you to her, but do not even think of attacking");
+				Sleep(2500);
+				hero.progress += 1;
+				stages();
+				break;
+			}
+			case '2': {
+				gotoxy(60, 6);
+				printf_s("<%s> I want to kill you all, lizards", hero.name);
+				Sleep(1000);
+				gotoxy(60, 7);
+				printf_s("<Kobolds> On the attack, brothers");
+				Sleep(2500);
+				meepokobold.killed = 1;
+				switch (stage6()) {
+				case 2: {
+					system("cls");
+					gotoxy(60, 5);
+					printf_s("What you want to do?");
+					gotoxy(60, 6);
+					printf_s("Go to Yusdrayl(1) Make short rest(2)");
+					gotoxy(3, 40);
+					printf_s("Type (s) to save game");
+					while (1) {
+						choose = _getch();
+						if (choose == 's') {
+							createsave();
+							gotoxy(3, 42);
+							printf_s("Save is success");
+							Sleep(3000);
+							gotoxy(3, 42);
+							printf_s("               ");
+						}
+						switch (choose) {
+						case '1': {
+							hero.progress += 1;
+							stages();
+							break;
+						}
+						case '2': {
+							shortrest();
+							system("cls");
+							gotoxy(60, 5);
+							printf_s("What you want to do?");
+							gotoxy(60, 6);
+							printf_s("Go to Yusdrayl(1) Make short rest(2)");
+							break;
+						}
+						}
+					}
+					break;
+				}
+				case 3: {
+					stages();
+					break;
+				}
+				}
+				break;
+			}
+			case '3': {
+				hero.progress -= 1;
+				stages();
+				break;
+			}
+			}
+		}
+		break;
+	}
+	case 1: {
+		printf_s("<Kobolds> We know that you kill Meepo, we will take revenge!");
+		if (stage6() == 3) {
+			stages();
+		}
+		if (stage6() == 3) {
+			stages();
+		}
+		if (stage6() == 3) {
+			stages();
+		}
+		if (stage6() == 3) {
+			stages();
+		}
+		system("cls");
+		gotoxy(60, 5);
+		printf_s("What you want to do?");
+		gotoxy(60, 6);
+		printf_s("Go to Yusdrayl(1) Make short rest(2)");
+		gotoxy(3, 40);
+		printf_s("Type (s) to save game");
+		char choose = '0';
+		while (1) {
+			choose = _getch();
+			if (choose == 's') {
+				createsave();
+				gotoxy(3, 42);
+				printf_s("Save is success");
+				Sleep(3000);
+				gotoxy(3, 42);
+				printf_s("               ");
+			}
+			switch (choose) {
+			case '1': {
+				hero.progress += 1;
+				stages();
+				break;
+			}
+			case '2': {
+				shortrest();
+				system("cls");
+				gotoxy(60, 5);
+				printf_s("What you want to do?");
+				gotoxy(60, 6);
+				printf_s("Go to Yusdrayl(1) Make short rest(2)");
+				break;
+			}
+			}
+		}
+	}
 	}
 }
 void picture() {
@@ -1629,9 +1793,8 @@ void shop() {
 				if (hero.gold >= healingpotion.cost) {
 					hero.gold -= healingpotion.cost;
 					for (int i = 0; i < 20; i++) {
-						if (hero.itemlist[healingpotion.amount] == '\0') {
-							hero.itemlist[healingpotion.amount] = '1';
-							healingpotion.amount++;
+						if (hero.itemlist[i] == '\0') {
+							hero.itemlist[i] = healingpotion.id;
 							break;
 						}
 					}
@@ -2151,6 +2314,45 @@ int stage5() {
 			clearchat();
 		}
 
+		switch (actions(&control, &rounds)) {
+		case 2: {
+			return 2;
+		}
+		case 3: {
+			return 3;
+		}
+		}
+
+	}
+}
+int stage6() {
+	char control = 0;
+	int rounds = 0;
+	rulekobold(1);
+	kobold();
+	clearchat();
+	while (1) {
+		control = _getch();
+		if (control == 'i') {
+			system("cls");
+			characterlist();
+		}
+		if (control == 'e') {
+			system("cls");
+			showequip();
+		}
+		if (control == 'm') {
+			system("cls");
+			makemap();
+		}
+		if (control == 27) {
+			system("cls");
+		}
+		if (control != 'i' && control != 'e' && control != 'm') {
+			kobold();
+			clearchat();
+		}
+
 		if (actions(&control, &rounds) == 2) {
 			return 2;
 		}
@@ -2186,6 +2388,9 @@ void stages() {
 	}
 	case 7: {
 		room7();
+	}
+	case 8: {
+		room8();
 	}
 	}
 }

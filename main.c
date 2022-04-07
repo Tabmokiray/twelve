@@ -4,7 +4,6 @@ int main(void) {
 	mechanicsatstart();
 	start();
 	save();
-	hero.xp = 900;
 	stages();
 	freeetc();
 	return 0;

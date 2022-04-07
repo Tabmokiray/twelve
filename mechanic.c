@@ -385,6 +385,18 @@ int actions(char* control, int* rounds) {
 				printf_s("%s", findfamiliar.name);
 				break;
 			}
+			case '5': {
+				printf_s("%s", shillelagh.name);
+				break;
+			}
+			case '6': {
+				printf_s("%s", sacredflame.name);
+				break;
+			}
+			case '7': {
+				printf_s("%s", poisonspray.name);
+				break; 
+			}
 			}
 			j++;
 		}
