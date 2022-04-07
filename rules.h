@@ -1,12 +1,7 @@
 #include "struct.h"
 void rulerat(int num);
-void rulebandit(int num);
 void rulegoblin(int num);
 void ruleskeleton(int num);
-/*
-void rulemon1(int id);
-void rulemon2(int id);
-*/
 void rulesword(int num);
 void ruleimp(int num);
 void rulefamiliar();
@@ -21,8 +16,8 @@ void warlock3();
 void proficiency();
 void condition(int* attack);
 void weapons(int z, int* damage, int* attack, char* damagetype);
-int abilitydesc(int z, int* damage,int* attack, int* characteristic);
-int spell(int*slot,int* attack, int z, int* damage, char* typeofdamage, int* characteristic);
+int abilitydesc(int z, int* damage, int* attack, int* characteristic);
+int spell(int* slot, int* attack, int z, int* damage, char* typeofdamage, int* characteristic);
 void shortrest();
 int amountofspells();
 void profinskills();

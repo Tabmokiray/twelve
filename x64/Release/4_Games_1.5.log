@@ -1,35 +1,24 @@
-﻿  rooms.c
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(4,8): warning C4013: gotoxy: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(21,15): warning C4013: createsave: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(93,24): warning C4013: roll: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(250,14): warning C4013: shortrest: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(583,8): warning C4013: msword: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1117,11): warning C4013: meepo: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1468,13): warning C4013: equips: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1476,20): warning C4013: donthavemoney: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1942,26): warning C4553: "==": результат выражения не используется; вы хотели использовать "="?
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1981,12): warning C4013: rulegoblin: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1982,8): warning C4013: goblin: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1983,11): warning C4013: clearchat: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1988,17): warning C4013: characterlist: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1992,13): warning C4013: showequip: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(1996,11): warning C4013: makemap: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2006,14): warning C4013: actions: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2015,12): warning C4013: rulebandit: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2016,8): warning C4013: bandit: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2048,9): warning C4013: rulerat: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2049,5): warning C4013: rat: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2088,14): warning C4013: ruleskeleton: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2089,10): warning C4013: skeleton: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2133,11): warning C4013: rulesword: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2134,7): warning C4013: sword: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2173,12): warning C4013: ruledragon: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2174,8): warning C4013: dragon: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2206,8): warning C4013: levels: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\Tabmokiray\source\repos\twelve\rooms.c(2209,13): warning C4013: ashardalon: нет определения; предполагается "extern" с возвратом типа "int"
+﻿  bestiary.c
+C:\Users\Tabmokiray\source\repos\twelve\bestiary.c(5,8): warning C4013: gotoxy: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\bestiary.c(321,11): warning C4129: @: неизвестная escape-последовательность
+C:\Users\Tabmokiray\source\repos\twelve\bestiary.c(321,11): warning C4129: : неизвестная escape-последовательность
+C:\Users\Tabmokiray\source\repos\twelve\bestiary.c(330,11): warning C4129: : неизвестная escape-последовательность
+C:\Users\Tabmokiray\source\repos\twelve\bestiary.c(342,11): warning C4129: : неизвестная escape-последовательность
+C:\Users\Tabmokiray\source\repos\twelve\bestiary.c(351,11): warning C4129: : неизвестная escape-последовательность
+C:\Users\Tabmokiray\source\repos\twelve\bestiary.c(357,11): warning C4129: -: неизвестная escape-последовательность
+  mechanic.c
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(17,26): warning C4022: free: несоответствие указателя для фактического параметра 1
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(68,9): warning C4013: kitty: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(134,49): warning C4047: функция: "char *" отличается по уровням косвенного обращения от "char (*)[20]"
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(134,38): warning C4024: weapons: различные типы для формального и фактического параметров 4
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(404,68): warning C4047: функция: "char *" отличается по уровням косвенного обращения от "char (*)[20]"
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(404,55): warning C4024: spell: различные типы для формального и фактического параметров 5
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(582,19): warning C4013: item: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(581,8): warning C4101: savingthrow: неиспользованная локальная переменная
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(891,7): warning C4101: n: неиспользованная локальная переменная
   Создание кода
-  3 of 75 functions ( 4.0%) were compiled, the rest were copied from previous compilation.
+  2 of 74 functions ( 2.7%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    9 functions had inline decision re-evaluated but remain unchanged
+    11 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
-  4_Games_1.5.vcxproj -> C:\Users\Tabmokiray\source\repos\twelve\x64\Release\4_Games_1.5.exe
+  4_Games_1.5.vcxproj -> C:\Users\Tabmokiray\Source\Repos\twelve\x64\Release\4_Games_1.5.exe

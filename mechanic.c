@@ -25,12 +25,13 @@ void clearchat() {
 			printf_s(" ");
 		}
 	}
-	for (int i = 1; i < 201; i++) {
+	for (int i = 1; i < 200; i++) {
 		for (int j = 19; j < 38; j++) {
 			gotoxy(i, j);
 			printf_s(" ");
 		}
 	}
+
 	int j = 20;
 	gotoxy(50, j);
 	printf_s("Weapons");
@@ -60,6 +61,24 @@ void clearchat() {
 	printf_s("Open map(m)");
 	gotoxy(70, 1);
 	printf_s("%s hits: %d   ", monster.name, monster.hits);
+	int find = 0;
+	for (int z = 0; z < 20; z++) {
+		if (hero.ablist[z] == imp.id) {
+			find = 1;
+			kitty();
+			break;
+		}
+		else {
+			find = 0;
+		}
+	}
+	if (find == 0)
+		for (int z = 110; z < 170; z++) {
+			for (int r = 2; r < j + 2; r++) {
+				gotoxy(z, r);
+				printf_s(" ");
+			}
+		}
 }
 void donthavemoney() {
 	gotoxy(75, 6);
@@ -139,10 +158,9 @@ int actions(char* control, int* rounds) {
 				gotoxy(3, 5);
 				printf_s("You win!");
 				Sleep(1500);
-				for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+				for (int i = 0; i < 20; i++) {
 					switch (hero.ablist[i]) {
 					case '2': {
-						abilitydesc(0, 0, 6);
 						gotoxy(3, 6);
 						int temphits = hero.modCha + hero.level;
 						if (temphits < 1) {
@@ -163,7 +181,7 @@ int actions(char* control, int* rounds) {
 				}
 				loot();
 				Sleep(1500);
-				return 1;
+				return 2;
 			}
 		}
 		else {
@@ -309,10 +327,9 @@ int actions(char* control, int* rounds) {
 				j++;
 				printf_s("You win!");
 				Sleep(1500);
-				for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+				for (int i = 0; i < 20; i++) {
 					switch (hero.ablist[i]) {
 					case '2': {
-						abilitydesc(0, 0, 6);
 						gotoxy(3, 6);
 						int temphits = hero.modCha + hero.level;
 						printf_s("After death of monster you recieve %d temporary hits", temphits);
@@ -330,7 +347,7 @@ int actions(char* control, int* rounds) {
 				}
 				loot();
 				Sleep(1500);
-				return 1;
+				return 2;
 			}
 			clearchat();
 		}
@@ -395,18 +412,6 @@ int actions(char* control, int* rounds) {
 				}
 				else {
 					hero.spellslots1 -= 1;
-				}
-				if (choose == 3) {
-					gotoxy(3, 4);
-					printf_s("You summon imp on your side");
-					rulefamiliar();
-					for (int i = 0; i < strlen(hero.ablist); i++) {
-						if (hero.ablist[i] != '\0') {
-							hero.ablist[i] == '4';
-							break;
-						}
-					}
-					Sleep(1500);
 				}
 				clearchat();
 				int savingthrow;
@@ -515,11 +520,9 @@ int actions(char* control, int* rounds) {
 				j++;
 				printf_s("You win!");
 				Sleep(1500);
-				for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+				for (int i = 0; i < 20; i++) {
 					switch (hero.ablist[i]) {
 					case '2': {
-						abilitydesc(0, 0, 6);
-						Sleep(1500);
 						gotoxy(3, 6);
 						int temphits = hero.modCha + hero.level;
 						printf_s("After death of monster you recieve %d temporary hits", temphits);
@@ -537,7 +540,7 @@ int actions(char* control, int* rounds) {
 				}
 				loot();
 				Sleep(1500);
-				return 1;
+				return 2;
 			}
 		}
 		else {
@@ -600,10 +603,9 @@ int actions(char* control, int* rounds) {
 				j++;
 				printf_s("You win!");
 				Sleep(1500);
-				for (int i = 0; i < strlen(hero.ablist) + 1; i++) {
+				for (int i = 0; i < 20; i++) {
 					switch (hero.ablist[i]) {
 					case '2': {
-						abilitydesc(0, 0, 6);
 						gotoxy(3, 6);
 						int temphits = hero.modCha + hero.level;
 						printf_s("After death of monster you recieve %d temporary hits", temphits);
@@ -621,7 +623,7 @@ int actions(char* control, int* rounds) {
 				}
 				loot();
 				Sleep(1500);
-				return 1;
+				return 2;
 			}
 		}
 		else {
@@ -670,16 +672,49 @@ int actions(char* control, int* rounds) {
 								monster.condition = 0;
 								gotoxy(3, 6);
 								printf_s("%s is avoid your magic", monster.name);
+								Sleep(1000);
 							}
 							else {
 								gotoxy(3, 6);
 								printf_s("%s is still under your magic", monster.name);
+								Sleep(1000);
 							}
 						}
 					}
 					gotoxy(3, 7);
 					printf_s("%s trying to Attack: %d...", monster.name, attack);
-					Sleep(1500);
+					Sleep(2000);
+					int find = 0;
+					for (int i = 0; i < 20; i++) {
+						if (hero.ablist[i] == imp.id) {
+							find = 1;
+							if (attack < familiar.armorclass) {
+								gotoxy(3, 5);
+								printf_s("Failed");
+								Sleep(1500);
+							}
+							else {
+								gotoxy(3, 5);
+								int damage = monsteraction.damage1;
+								printf_s("%s deal %d slashing damage to familiar", monster.name, damage);
+								familiar.hits -= damage;
+								Sleep(1500);
+								clearchat();
+								if (familiar.hits < 1) {
+									gotoxy(3, 6);
+									printf_s("Your familiar died");
+									hero.ablist[i] = '\0';
+									Sleep(2000);
+									clearchat();
+								}
+							}
+							break;
+						}
+					}
+					if (find == 1) {
+						clearchat();
+						return 0;
+					}
 					if (attack < hero.armorclass) {
 						gotoxy(3, 5);
 						printf_s("Failed");
@@ -704,10 +739,42 @@ int actions(char* control, int* rounds) {
 				}
 			}
 			else {
-				int attack = monsteraction.accur1;
+				int attack = 0;
+				attack = monsteraction.accur1;
 				condition(&attack);
 				printf_s("%s trying to Attack: %d...", monster.name, attack);
 				Sleep(1500);
+				int find = 0;
+				for (int i = 0; i < 20; i++) {
+					if (hero.ablist[i] == imp.id) {
+						find = 1;
+						if (attack < familiar.armorclass) {
+							gotoxy(3, 5);
+							printf_s("Failed");
+							Sleep(1500);
+						}
+						else {
+							gotoxy(3, 5);
+							int damage = monsteraction.damage1;
+							printf_s("%s deal %d slashing damage to familiar", monster.name, damage);
+							familiar.hits -= damage;
+							Sleep(1500);
+							clearchat();
+							if (familiar.hits < 1) {
+								gotoxy(3, 6);
+								printf_s("Your familiar died");
+								hero.ablist[i] = '\0';
+								Sleep(2000);
+								clearchat();
+							}
+						}
+						break;
+					}
+				}
+				if (find == 1) {
+					clearchat();
+					return 0;
+				}
 				if (attack < hero.armorclass) {
 					gotoxy(3, 5);
 					printf_s("Failed");
@@ -717,6 +784,7 @@ int actions(char* control, int* rounds) {
 					gotoxy(3, 5);
 					int damage = monsteraction.damage1;
 					printf_s("%s deal %d slashing damage", monster.name, damage);
+
 					if (hero.temphits < 1) {
 						hero.tekhits -= damage;
 					}
@@ -736,7 +804,7 @@ int actions(char* control, int* rounds) {
 				printf_s("%s wins!", monster.name);
 				Sleep(1500);
 				hero.tekhits = hero.hits;
-				return 2;
+				return 3;
 			}
 
 		}

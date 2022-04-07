@@ -61,30 +61,6 @@ void goblin() {
 	gotoxy(i, 17);
 	printf_s("      .+++.");
 }
-void bandit() {
-	system("cls");
-	int i = 65;
-	gotoxy(i, 3);
-	printf_s("   _______________");
-	gotoxy(i, 4);
-	printf_s("  / ---       --- \\");
-	gotoxy(i, 5);
-	printf_s(" |  /-/       /-/  |");
-	gotoxy(i, 6);
-	printf_s("(|        /        |)");
-	gotoxy(i, 7);
-	printf_s(" |        '        |           ______");
-	gotoxy(i, 8);
-	printf_s("  \\               /           \\    |");
-	gotoxy(i, 9);
-	printf_s("   \\__  ___    __/  /||||______\\   |");
-	gotoxy(i, 10);
-	printf_s("      \\_______/    /  _/-----------|");
-	gotoxy(i, 11);
-	printf_s("       _/   \\_    /  /");
-	gotoxy(i, 12);
-	printf_s("      /       \\__/  /");
-}
 void skeleton() {
 	system("cls");
 	int i = 70;
@@ -242,6 +218,7 @@ void ashardalon() {
 	}
 	free(intr.text1);
 	fclose(intro);
+	_getch();
 	system("cls");
 }
 void dragon() {
@@ -323,4 +300,62 @@ void meepo() {
 	}
 	free(meep.text1);
 	fclose(mepo);
+}
+void kitty() {
+	int i = 110;
+	int j = 2;
+	gotoxy(i, j);
+	j++;
+	printf_s("        _.:*=##**++.");
+	gotoxy(i, j);
+	j++;
+	printf_s("..:+===@            *@+*::-.");
+	gotoxy(i, j);
+	j++;
+	printf_s("#_                        _#");
+	gotoxy(i, j);
+	j++;
+	printf_s(" =_                       +");
+	gotoxy(i, j);
+	j++;
+	printf_s(" \@\                    :@|");
+	gotoxy(i, j);
+	j++;
+	printf_s("   +-   ##        ##   *-  Armorclass: %d",familiar.armorclass);
+	gotoxy(i, j);
+	j++;
+	printf_s("   -*  #*.#      #*.#  *-  Hits: %d",familiar.hits);
+	gotoxy(i, j);
+	j++;
+	printf_s("    @\  ##        ##   #|   Name: %s",Imp.name);
+	gotoxy(i, j);
+	j++;
+	printf_s("     @-       ^       =_");
+	gotoxy(i, j);
+	j++;
+	printf_s("      |==========+===*_");
+	gotoxy(i, j);
+	j++;
+	printf_s("      _#             _@:_      _");
+	gotoxy(i, j);
+	j++;
+	printf_s("      |@               _@\   *:_-=_");
+	gotoxy(i, j);
+	j++;
+	printf_s("       +-               _@|   *- |@");
+	gotoxy(i, j);
+	j++;
+	printf_s("        =.   _   -*      .+  -=_ _#");
+	gotoxy(i, j);
+	j++;
+	printf_s("        ::   #   -*      |@ _=\  =. ");
+	gotoxy(i, j);
+	j++;
+	printf_s("        _#|  #  **_      _#@+_ |@.  ");
+	gotoxy(i, j);
+	j++;
+	printf_s("         *:  #  +.       \-:+@*");
+	gotoxy(i, j);
+	j++;
+	printf_s("         _+#+ =@#####@##*_     ");
 }

@@ -146,7 +146,7 @@ void room0() {
 					gotoxy(60, 11);
 					printf_s("You fall down about 25 feet");
 					gotoxy(60, 12);
-					int damage = 2 * roll(6);
+					int damage = 2 * roll(1, 6, 0);
 					printf_s("You take %d bludgeoning damage from falling", damage);
 					Sleep(3000);
 					if (hero.temphits < 1) {
@@ -222,7 +222,7 @@ void room1() {
 	}
 	system("cls");
 	switch (stage2()) {
-	case 1: {
+	case 2: {
 		system("cls");
 		gotoxy(60, 5);
 		printf_s("What you want to do?");
@@ -258,7 +258,7 @@ void room1() {
 			}
 		}
 	}
-	case 2: {
+	case 3: {
 		stages();
 	}
 	}
@@ -490,7 +490,7 @@ void room3() {
 			}
 			system("cls");
 			switch (stage3()) {
-			case 1: {
+			case 2: {
 				system("cls");
 				gotoxy(60, 5);
 				printf_s("In the remains of the skeleton you find a magical short sword");
@@ -543,7 +543,7 @@ void room3() {
 					}
 				}
 			}
-			case 2: {
+			case 3: {
 				stages();
 			}
 			}
@@ -638,7 +638,7 @@ void room4() {
 						case '1': {
 							system("cls");
 							switch (stage4()) {
-							case 1: {
+							case 2: {
 								system("cls");
 								gotoxy(50, 5);
 								printf_s("What you want to do?");
@@ -675,7 +675,7 @@ void room4() {
 									}
 								}
 							}
-							case 2: {
+							case 3: {
 								stages();
 							}
 							}
@@ -721,7 +721,7 @@ void room5() {
 	int broken = 0;
 	while (1) {
 		choose = _getch();
-		if (broken > 0) {
+		if (statue.killed > 0) {
 			if (choose != '1' && choose != '4') {
 				choose = '0';
 			}
@@ -729,7 +729,7 @@ void room5() {
 		switch (choose) {
 		case '1': {
 			hero.itemlist[1] = '2';
-			if (broken == 1) {
+			if (statue.killed == 1) {
 				for (int i = 50; i < 172; i++) {
 					gotoxy(i, 6);
 					printf_s(" ");
@@ -756,8 +756,8 @@ void room5() {
 			printf_s("Then he rushes at you with hungry fury.");
 			_getch();
 			switch (stage0()) {
-			case 1: {
-				broken = 1;
+			case 2: {
+				statue.killed = 1;
 				system("cls");
 				gotoxy(60, 6);
 				if (hero.itemlist[1] == '2') {
@@ -788,7 +788,7 @@ void room5() {
 				}
 				break;
 			}
-			case 2: {
+			case 3: {
 				stages();
 				break;
 			}
@@ -806,7 +806,7 @@ void room5() {
 			}
 			gotoxy(60, 8);
 			printf_s("                                            ");
-			broken = 1;
+			statue.killed = 1;
 			gotoxy(60, 6);
 			if (hero.itemlist[1] != '2') {
 				printf_s("Take the key(1) Go through the door ahead(4)");
@@ -866,25 +866,24 @@ void room6() {
 					printf_s(" ");
 				}
 			}
-			int steal = 0;
 			gotoxy(60, 7);
 			printf_s("Try to steal jewelry(1) Attack dragon(2) Go back(3)");
 			while (1) {
 				choose = _getch();
 				switch (choose) {
 				case '1': {
-					if (steal != 1) {
+					if (robberydragon.killed != 1) {
 						gotoxy(60, 8);
-						steal = roll(1, 20, hero.sleightofhand);
-						printf_s("You are trying to steal...%d", steal);
+						robberydragon.killed = roll(1, 20, hero.sleightofhand);
+						printf_s("You are trying to steal...%d", robberydragon.killed);
 						Sleep(2000);
-						if (steal < 10) {
-							steal = 1;
+						if (robberydragon.killed < 10) {
+							robberydragon.killed = 1;
 							gotoxy(60, 9);
 							printf_s("Failed. Dragon has awakened.");
 							Sleep(1000);
 							switch (stage5()) {
-							case 1: {
+							case 2: {
 								system("cls");
 								gotoxy(60, 5);
 								printf_s("What you want to do?");
@@ -920,14 +919,14 @@ void room6() {
 								}
 								break;
 							}
-							case 2: {
+							case 3: {
 								stages();
 								break;
 							}
 							}
 						}
 						else {
-							steal = 1;
+							robberydragon.killed = 1;
 							gotoxy(60, 9);
 							int loot = roll(3, 20, 5);
 							printf_s("Success. You find %d gold", loot);
@@ -945,7 +944,7 @@ void room6() {
 				}
 				case '2': {
 					switch (stage5()) {
-					case 1: {
+					case 2: {
 						system("cls");
 						gotoxy(60, 5);
 						printf_s("What you want to do?");
@@ -982,7 +981,7 @@ void room6() {
 						}
 						break;
 					}
-					case 2: {
+					case 3: {
 						stages();
 						break;
 					}
@@ -1965,23 +1964,13 @@ void shop() {
 	}
 	system("cls");
 }
-/*int stage01() {
-	char control = '0';
-	char ch = '0';
-	rulemon1(0);
-	rulemon2(0);
-	clearchat();
-	if (initiative(2, ch, &control) == 1) {
-		return 1;
-	}
-}*/
 int stage0() {
 	char control = 0;
 	int rounds = 0;
 	rulegoblin(1);
 	goblin();
 	clearchat();
-	while (control != '`') {
+	while (1) {
 		control = _getch();
 		if (control == 'i') {
 			system("cls");
@@ -2003,41 +1992,8 @@ int stage0() {
 			clearchat();
 		}
 
-		if (actions(&control, &rounds) == 1) {
-			return 1;
-		}
-
-	}
-}
-int stage1() {
-	char control = 0;
-	int rounds = 0;
-	rulebandit(1);
-	bandit();
-	clearchat();
-	while (control != '`') {
-		control = _getch();
-		if (control == 'i') {
-			system("cls");
-			characterlist();
-		}
-		if (control == 'e') {
-			system("cls");
-			showequip();
-		}
-		if (control == 'm') {
-			system("cls");
-			makemap();
-		}
-		if (control == 27) {
-			system("cls");
-		}
-		if (control != 'i' && control != 'e' && control != 'm') {
-			bandit();
-			clearchat();
-		}
-		if (actions(&control, &rounds) == 1) {
-			return 1;
+		if (actions(&control, &rounds) == 2) {
+			return 2;
 		}
 
 	}
@@ -2048,7 +2004,7 @@ int stage2() {
 	rulerat(1);
 	rat();
 	clearchat();
-	while (control != '`') {
+	while (1) {
 		control = _getch();
 		if (control == 'i') {
 			system("cls");
@@ -2071,12 +2027,12 @@ int stage2() {
 		}
 
 		switch (actions(&control, &rounds)) {
-		case 1: {
-			return 1;
-			break;
-		}
 		case 2: {
 			return 2;
+			break;
+		}
+		case 3: {
+			return 3;
 			break;
 		}
 		}
@@ -2088,7 +2044,7 @@ int stage3() {
 	ruleskeleton(1);
 	skeleton();
 	clearchat();
-	while (control != '`') {
+	while (1) {
 		control = _getch();
 		if (control == 'i') {
 			system("cls");
@@ -2111,12 +2067,12 @@ int stage3() {
 		}
 
 		switch (actions(&control, &rounds)) {
-		case 1: {
-			return 1;
-			break;
-		}
 		case 2: {
 			return 2;
+			break;
+		}
+		case 3: {
+			return 3;
 			break;
 		}
 		}
@@ -2133,7 +2089,7 @@ int stage4() {
 	rulesword(1);
 	sword();
 	clearchat();
-	while (control != '`') {
+	while (1) {
 		control = _getch();
 		if (control == 'i') {
 			system("cls");
@@ -2156,8 +2112,8 @@ int stage4() {
 		}
 
 		switch (actions(&control, &rounds)) {
-		case 1: {
-			return 1;
+		case 3: {
+			return 3;
 			break;
 		}
 		case 2: {
@@ -2173,7 +2129,7 @@ int stage5() {
 	ruledragon(1);
 	dragon();
 	clearchat();
-	while (control != '`') {
+	while (1) {
 		control = _getch();
 		if (control == 'i') {
 			system("cls");
@@ -2195,8 +2151,8 @@ int stage5() {
 			clearchat();
 		}
 
-		if (actions(&control, &rounds) == 1) {
-			return 1;
+		if (actions(&control, &rounds) == 2) {
+			return 2;
 		}
 
 	}
@@ -2206,8 +2162,8 @@ void stages() {
 	levels();
 	switch (hero.progress) {
 	case 0: {
-		ashardalon();
-		picture();
+		//ashardalon();
+		//picture();
 		room0();
 	}
 	case 1: {

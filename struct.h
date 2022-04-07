@@ -112,7 +112,7 @@ struct stats {
 	int condition;
 	int advantage;
 };
-struct stats hero,familiarstat, Goblinstat, Banditstat, Ratstat, Skeletonstat, Swordstat, Dragonstat, Impstat;
+struct stats hero, familiarstat, Goblinstat, Banditstat, Ratstat, Skeletonstat, Swordstat, Dragonstat, Impstat;
 struct lists {
 	char pactbladeweaponlist[20];
 };
@@ -167,7 +167,7 @@ struct npc {
 	int modCha;
 	int condition;
 };
-struct npc Goblin, Bandit, monster, monster2, Rat, Skeleton, Sword, Dragon, Imp,familiar;
+struct npc Goblin, Bandit, monster, monster2, Rat, Skeleton, Sword, Dragon, Imp, familiar;
 struct action {
 	char action1[20];
 	char action2[20];
@@ -207,13 +207,13 @@ struct spell {
 	int mode;
 	int mods;
 };
-struct spell eldritchblast, magearmor, faeriefire, darkonesblessing, feyancestry, summonblade, findfamiliar,imp;
+struct spell eldritchblast, magearmor, faeriefire, shillelagh, sacredflame, poisonspray, darkonesblessing, feyancestry, summonblade, findfamiliar, imp;
 struct text {
 	char* text1;
 	char* text2;
 	char* text3;
 };
-struct text intr, columns, magicsword, shopman, reddragon,meep;
+struct text intr, columns, magicsword, shopman, reddragon, meep;
 struct maps {
 	char* map;
 };
@@ -232,4 +232,4 @@ struct item healingpotion;
 struct plot {
 	int killed;
 };
-struct plot meepokobold;
+struct plot meepokobold,statue,robberydragon;

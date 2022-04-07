@@ -1,4 +1,4 @@
-#include "struct.h"
+#include "rules.h"
 void room0();
 void room1();
 void room2();
@@ -10,10 +10,8 @@ void room7();
 void shop();
 void picture();
 int stage0();
-int stage1();
 int stage2();
 int stage3();
 int stage4();
 int stage5();
-/*int stage01();*/
 void stages();
