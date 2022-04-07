@@ -186,7 +186,7 @@ int actions(char* control, int* rounds) {
 		}
 		else {
 			clearchat();
-			*control = '0';
+			*control = 'b';
 		}
 	}
 	if (*control == '2') {
@@ -353,7 +353,7 @@ int actions(char* control, int* rounds) {
 		}
 		else {
 			clearchat();
-			*control = '0';
+			*control = 'b';
 		}
 	}
 	if (*control == '3') {
@@ -395,7 +395,7 @@ int actions(char* control, int* rounds) {
 			}
 			case '7': {
 				printf_s("%s", poisonspray.name);
-				break; 
+				break;
 			}
 			}
 			j++;
@@ -557,7 +557,7 @@ int actions(char* control, int* rounds) {
 		}
 		else {
 			clearchat();
-			*control = '0';
+			*control = 'b';
 		}
 	}
 	if (*control == '4') {
@@ -640,7 +640,7 @@ int actions(char* control, int* rounds) {
 		}
 		else {
 			clearchat();
-			*control = '0';
+			*control = 'b';
 		}
 	}
 	if (monster.hits > 0)

@@ -895,6 +895,7 @@ void room6() {
 							Sleep(1000);
 							switch (stage5()) {
 							case 2: {
+								dragon.killed = 1;
 								system("cls");
 								gotoxy(60, 5);
 								printf_s("What you want to do?");
@@ -956,6 +957,7 @@ void room6() {
 				case '2': {
 					switch (stage5()) {
 					case 2: {
+						dragon.killed = 1;
 						system("cls");
 						gotoxy(60, 5);
 						printf_s("What you want to do?");
@@ -1405,6 +1407,140 @@ void room8() {
 		}
 	}
 	}
+}
+void room9() {
+	gotoxy(60, 5);
+	printf_s("A short throne stands near the west wall, constructed");
+	gotoxy(60, 6);
+	printf_s("of fallen bits of masonry stacked against an old altar.");
+	gotoxy(60, 7);
+	printf_s("A small, horned figure in red-dyed robes sits in the throne.");
+	gotoxy(60, 8);
+	printf_s("The portion of the altar that serves as the throne's back");
+	gotoxy(60, 9);
+	printf_s("features a carving of a rearing dragon.");
+	_getch();
+	for (int i = 60; i < 130; i++) {
+		for (int j = 5; j < 10; j++) {
+			gotoxy(i, j);
+			printf_s(" ");
+		}
+	}
+	gotoxy(60, 20);
+	printf_s("Hello your majesty(1)");
+	char choose = '0';
+	while (choose != '1' && choose != '2' && choose != '3' && choose != '4') {
+		choose = _getch();
+		switch (choose) {
+		case '1': {
+			gotoxy(60, 5);
+			printf_s("<%s> Hello your majesty", hero.name);
+			gotoxy(60, 6);
+			printf_s("<Yusdrayl> Hello intruder. What brought you to me?");
+			Sleep(1500);
+			gotoxy(60, 20);
+			printf_s("Treasures(1) Thirst for battle(2) Desire to help(3)");
+			choose = '0';
+			while (choose != '1' && choose != '2' && choose != '3') {
+				choose = _getch();
+				switch (choose) {
+				case '1': {
+					gotoxy(60, 7);
+					printf_s("<%s> Treasures", hero.name);
+					gotoxy(60, 8);
+					printf_s("<Yusdrayl> I have something to offer you, but you will help us");
+				}
+				case '2': {
+					gotoxy(60, 7);
+					printf_s("<%s> Thirst for battle", hero.name);
+					gotoxy(60, 8);
+					printf_s("<Yusdrayl> I need someone to die, you're the right one for this job");
+				}
+				case '3': {
+					gotoxy(60, 7);
+					printf_s("<%s> Desire to help", hero.name);
+					gotoxy(60, 8);
+					printf_s("<Yusdrayl> Nice to see a noble person. Fulfill my request and I will repay you");
+				}
+				}
+			}
+			Sleep(1000);
+			gotoxy(60, 9);
+			printf_s("<Yusdrayl> Recently, our dragon has broken the chain and now he is killing all my subjects who woke him up.");
+			gotoxy(60, 20);
+			printf_s("I will kill dragon by myself(1) I need the support of your warriors(2) I'll think about it and come back(3)");
+			if (dragon.killed == 1) {
+				gotoxy(60, 22);
+				printf_s("I already killed dragon(4)");
+			}
+			choose = '0';
+			while (choose != '1' && choose != '2' && choose != '3' && choose != '4') {
+				choose = _getch();
+				switch (choose) {
+				case '1': {
+					gotoxy(60, 10);
+					printf_s("<%s> I will kill dragon by myself", hero.name);
+					Sleep(1000);
+					gotoxy(60, 11);
+					printf_s("<Yusdrayl> Let it be so. Come back for a reward when you're done");
+					break;
+				}
+				case '2': {
+					helpofkobolds.killed = 1;
+					gotoxy(60, 10);
+					printf_s("<%s> I need the support of your warriors", hero.name);
+					Sleep(1000);
+					gotoxy(60, 11);
+					printf_s("<Yusdrayl> Okay, I'll give you a couple of warriors. Come back for a reward when you're done");
+					break;
+				}
+				case '3': {
+					gotoxy(60, 10);
+					printf_s("<%s> I'll think about it and come back", hero.name);
+					gotoxy(60, 11);
+					printf_s("<%s> Come when you're ready", hero.name);
+					hero.progress -= 1;
+					stages();
+					break;
+				}
+				case '4': {
+					if (dragon.killed == 1) {
+						gotoxy(60, 10);
+						printf_s("<%s> I already killed dragon", hero.name);
+						Sleep(1000);
+						gotoxy(60, 11);
+						printf_s("<Yusdrayl> Incredible, you are a real hero. Accept this humble gift from us");
+						gotoxy(60, 12);
+						int reward = roll(4, 10, 5);
+						printf_s("Your reward: %d gold and Mystical staff", reward);
+						hero.gold += reward;
+						money();
+						gotoxy(60, 13);
+						printf_s("You have %d gold now", hero.gold);
+						_getch();
+						system("cls");
+						gotoxy(60, 5);
+						printf_s("Activate Mystical staff(1)");
+						choose = '0';
+						while (1) {
+							choose = _getch();
+							if (choose == '1') {
+								hero.progress += 1;
+								stages();
+							}
+						}
+
+					}
+					break;
+				}
+				}
+			}
+			break;
+		}
+		}
+	}
+	hero.progress = 6;
+	stages();
 }
 void picture() {
 	FILE* picture, * oldroad;
@@ -2290,7 +2426,7 @@ int stage5() {
 	char control = 0;
 	int rounds = 0;
 	ruledragon(1);
-	dragon();
+	calcryx();
 	clearchat();
 	while (1) {
 		control = _getch();
@@ -2310,16 +2446,43 @@ int stage5() {
 			system("cls");
 		}
 		if (control != 'i' && control != 'e' && control != 'm') {
-			dragon();
+			calcryx();
 			clearchat();
 		}
 
 		switch (actions(&control, &rounds)) {
 		case 2: {
 			return 2;
+			break;
 		}
 		case 3: {
 			return 3;
+			break;
+		}
+		default: {
+			if (control != 'i' && control != 'e' && control != 'm' && control != 'b')
+				if (helpofkobolds.killed == 1) {
+					if (monster.hits >= 16) {
+						gotoxy(3, 10);
+						int dmg = roll(4, 4, 0);
+						printf_s("Kobolds throw their spears at dragon");
+						Sleep(1500);
+						gotoxy(3, 11);
+						printf_s("%d damage", dmg);
+						Sleep(1500);
+						monster.hits -= dmg;
+						clearchat();
+					}
+					else {
+						gotoxy(3, 10);
+						printf_s("The dragon roars loudly,");
+						gotoxy(3, 11);
+						printf_s("causing the kobolds to faint");
+						Sleep(1500);
+						clearchat();
+					}
+				}
+			break;
 		}
 		}
 
@@ -2391,6 +2554,9 @@ void stages() {
 	}
 	case 8: {
 		room8();
+	}
+	case 9: {
+		room9();
 	}
 	}
 }

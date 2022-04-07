@@ -159,9 +159,9 @@ void msword() {
 }
 void ashardalon() {
 	system("cls");
-	FILE* dragon;
+	FILE* calcryx;
 
-	if ((fopen_s(&dragon, "dragon.txt", "r")) != 0) {
+	if ((fopen_s(&calcryx, "dragon.txt", "r")) != 0) {
 		exit(1);
 	}
 
@@ -171,10 +171,10 @@ void ashardalon() {
 	}
 	int i = 0;
 
-	fscanf_s(dragon, "%c", &reddragon.text1[i], 1);
+	fscanf_s(calcryx, "%c", &reddragon.text1[i], 1);
 	while (reddragon.text1[i] != '\0') {
 		i++;
-		fscanf_s(dragon, "%c", &reddragon.text1[i], 1);
+		fscanf_s(calcryx, "%c", &reddragon.text1[i], 1);
 	}
 	int z = 1;
 	gotoxy(0, z);
@@ -187,7 +187,7 @@ void ashardalon() {
 		printf_s("%c", reddragon.text1[j]);
 	}
 	free(reddragon.text1);
-	fclose(dragon);
+	fclose(calcryx);
 	FILE* intro;
 
 	if ((fopen_s(&intro, "intro.txt", "r")) != 0) {
@@ -221,7 +221,7 @@ void ashardalon() {
 	_getch();
 	system("cls");
 }
-void dragon() {
+void calcryx() {
 	system("cls");
 	int i = 60;
 	gotoxy(i, 3);

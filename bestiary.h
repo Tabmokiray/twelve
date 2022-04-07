@@ -3,6 +3,6 @@ void rat();
 void goblin();
 void skeleton();
 void sword();
-void dragon();
+void calcryx();
 void msword();
 void meepo();

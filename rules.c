@@ -584,10 +584,10 @@ void ruleset() {
 	Goblinaction.damage1 = roll(1, d6, Goblinstat.modDex);
 	Goblinaction.accur1 = roll(1, d20, Goblin.proficiency + Goblinstat.modDex);
 
-	Dragon.armorclass = 16;
+	Dragon.armorclass = 15;
 	Dragon.hits = 32;
 	Dragon.proficiency = 2;
-	Dragon.level = 1;
+	Dragon.level = 2;
 	Dragonstat.Strength = 14;
 	Dragonstat.Dexterity = 10;
 	Dragonstat.Constitution = 14;
@@ -597,10 +597,10 @@ void ruleset() {
 	modif();
 	strcpy_s(Dragon.name, 7, "Dragon");
 	strcpy_s(Dragonaction.action1, 5, "Bite");
-	Dragonaction.damage1 = roll(1, d10, Dragonstat.modStr) + roll(1, d4, 0);
+	Dragonaction.damage1 = roll(1, d10, Dragonstat.modStr);
 	Dragonaction.accur1 = roll(1, d20, Dragon.proficiency + Dragonstat.modStr);
 	strcpy_s(Dragonaction.action2, 12, "Cold breath");
-	Dragonaction.damage2 = roll(3, d8, 0);
+	Dragonaction.damage2 = roll(2, d8, 0);
 	Dragonaction.accur2 = 12;
 
 	Imp.armorclass = 13;
@@ -820,7 +820,7 @@ void warlock2() {
 		case '1': {
 			warlock.eldritchinvocations[0] = agonizingblast.id;
 			inv++;
-			eldritchblast.mods += hero.modCha;
+			eldritchblast.mods = hero.modCha;
 			gotoxy(48, 8);
 			printf_s(">");
 			break;
@@ -1019,11 +1019,12 @@ void money() {
 	}
 }
 int roll(int amount, int dice, int mods) {
-	int roll = 0;
+	int rolling = 0;
 	for (int i = 0; i < amount; i++) {
-		roll += rand() % dice + 1;
+		rolling += rand() % dice + 1;
 	}
-	return (roll + mods);
+	rolling += mods;
+	return rolling;
 }
 void proficiency() {
 	if (hero.level < 5) {
