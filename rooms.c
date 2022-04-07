@@ -460,7 +460,6 @@ void room3() {
 				Sleep(2000);
 				gotoxy(60, 9);
 				printf_s("Success. You find a secret door");
-				secretdoor.killed = 1;
 				Sleep(1500);
 				gotoxy(60, 10);
 				printf_s("Open the secret door(9)");
@@ -474,9 +473,10 @@ void room3() {
 			break;
 		}
 		case '9': {
-			if (trysecret.killed == -1 || perception < 10) {
+			if (trysecret.killed == -1) {
 				break;
 			}
+			secretdoor.killed = 1;
 			gotoxy(60, 11);
 			printf_s("You see the skeleton of a dead knight. His eyes light up with blue fire and he rushes to attack.");
 			s = _getch();
@@ -857,9 +857,24 @@ void room6() {
 	}
 	gotoxy(60, 5);
 	printf_s("What you want to do?");
-	gotoxy(60, 6);
-	printf_s("Investigate the dragon(1) Go to the next door(2) Go back(3)");
 	char choose = '0';
+
+	gotoxy(60, 6);
+	if (dragon.killed == 1) {
+		printf_s("Go to the next door(1) Go back(2)");
+		while (1) {
+			choose = _getch();
+			if (choose == '1') {
+				hero.progress += 1;
+				stages();
+			}
+			if (choose == '2') {
+				hero.progress -= 1;
+				stages();
+			}
+		}
+	}
+	printf_s("Investigate the dragon(1) Go to the next door(2) Go back(3)");
 	while (1) {
 		choose = _getch();
 		switch (choose) {
@@ -951,6 +966,13 @@ void room6() {
 								printf_s(" ");
 							}
 						}
+					}
+					else {
+						gotoxy(60, 8);
+						printf_s("You already tried to steal");
+						Sleep(2000);
+						gotoxy(60, 8);
+						printf_s("                          ");
 					}
 					break;
 				}
@@ -1302,48 +1324,52 @@ void room8() {
 				printf_s("<Kobolds> On the attack, brothers");
 				Sleep(2500);
 				meepokobold.killed = 1;
-				switch (stage6()) {
-				case 2: {
-					system("cls");
-					gotoxy(60, 5);
-					printf_s("What you want to do?");
-					gotoxy(60, 6);
-					printf_s("Go to Yusdrayl(1) Make short rest(2)");
-					gotoxy(3, 40);
-					printf_s("Type (s) to save game");
-					while (1) {
-						choose = _getch();
-						if (choose == 's') {
-							createsave();
-							gotoxy(3, 42);
-							printf_s("Save is success");
-							Sleep(3000);
-							gotoxy(3, 42);
-							printf_s("               ");
-						}
-						switch (choose) {
-						case '1': {
-							hero.progress += 1;
-							stages();
-							break;
-						}
-						case '2': {
-							shortrest();
-							system("cls");
-							gotoxy(60, 5);
-							printf_s("What you want to do?");
-							gotoxy(60, 6);
-							printf_s("Go to Yusdrayl(1) Make short rest(2)");
-							break;
-						}
-						}
-					}
-					break;
-				}
-				case 3: {
+				if (stage6() == 3) {
 					stages();
-					break;
 				}
+				if (stage6() == 3) {
+					stages();
+				}
+				if (stage6() == 3) {
+					stages();
+				}
+				if (stage6() == 3) {
+					stages();
+				}
+				system("cls");
+				gotoxy(60, 5);
+				printf_s("What you want to do?");
+				gotoxy(60, 6);
+				printf_s("Go to Yusdrayl(1) Make short rest(2)");
+				gotoxy(3, 40);
+				printf_s("Type (s) to save game");
+				char choose = '0';
+				while (1) {
+					choose = _getch();
+					if (choose == 's') {
+						createsave();
+						gotoxy(3, 42);
+						printf_s("Save is success");
+						Sleep(3000);
+						gotoxy(3, 42);
+						printf_s("               ");
+					}
+					switch (choose) {
+					case '1': {
+						hero.progress += 1;
+						stages();
+						break;
+					}
+					case '2': {
+						shortrest();
+						system("cls");
+						gotoxy(60, 5);
+						printf_s("What you want to do?");
+						gotoxy(60, 6);
+						printf_s("Go to Yusdrayl(1) Make short rest(2)");
+						break;
+					}
+					}
 				}
 				break;
 			}
@@ -1357,7 +1383,7 @@ void room8() {
 		break;
 	}
 	case 1: {
-		printf_s("<Kobolds> We know that you kill Meepo, we will take revenge!");
+		printf_s("<Kobolds> We know that you killed Meepo, we will take revenge!");
 		if (stage6() == 3) {
 			stages();
 		}

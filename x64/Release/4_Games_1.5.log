@@ -1,5 +1,13 @@
-﻿  main.c
-C:\Users\Tabmokiray\source\repos\twelve\main.c(3,18): warning C4244: функция: преобразование "time_t" в "unsigned int", возможна потеря данных
+﻿  mechanic.c
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(22,26): warning C4022: free: несоответствие указателя для фактического параметра 1
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(73,9): warning C4013: kitty: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(139,49): warning C4047: функция: "char *" отличается по уровням косвенного обращения от "char (*)[20]"
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(139,38): warning C4024: weapons: различные типы для формального и фактического параметров 4
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(421,68): warning C4047: функция: "char *" отличается по уровням косвенного обращения от "char (*)[20]"
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(421,55): warning C4024: spell: различные типы для формального и фактического параметров 5
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(599,19): warning C4013: item: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(598,8): warning C4101: savingthrow: неиспользованная локальная переменная
+C:\Users\Tabmokiray\source\repos\twelve\mechanic.c(925,7): warning C4101: n: неиспользованная локальная переменная
   Создание кода
   1 of 79 functions ( 1.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation

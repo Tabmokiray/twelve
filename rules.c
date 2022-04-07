@@ -770,6 +770,8 @@ void levels() {
 }
 void warlock2() {
 	system("cls");
+	gotoxy(5, 10);
+	printf_s("Level up!");
 	gotoxy(50, 5);
 	printf_s("Your patron %s is pleased with your success and bestows a particle of his ancient knowledge", hero.archetypename);
 	gotoxy(50, 6);
@@ -857,6 +859,8 @@ void warlock2() {
 }
 void warlock3() {
 	system("cls");
+	gotoxy(5, 10);
+	printf_s("Level up!");
 	gotoxy(20, 5);
 	printf_s("For faithful service, the patron gives you a gift - a symbol of your contract.");
 	gotoxy(20, 6);

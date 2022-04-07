@@ -8,6 +8,11 @@ void fullscreen() {
 void freeetc() {
 	free(eldritchblast.description);
 	free(feyancestry.description);
+	free(magearmor.description);
+	free(findfamiliar.description);
+	free(shillelagh.description);
+	free(sacredflame.description);
+	free(poisonspray.description);
 	free(darkonesblessing.description);
 	free(healingpotion.description);
 	free(agonizingblast.description);
@@ -288,7 +293,7 @@ int actions(char* control, int* rounds) {
 				if (savingthrow >= hero.spelldc) {
 					gotoxy(3, j);
 					j++;
-					printf_s("Failed");
+					printf_s("Success");
 					Sleep(1500);
 					gotoxy(3, j);
 					j++;
@@ -751,9 +756,26 @@ int actions(char* control, int* rounds) {
 				}
 			}
 			else {
-				int attack = 0;
-				attack = monsteraction.accur1;
-				condition(&attack);
+			int attack = monsteraction.accur1;
+			int r = attack;
+			condition(&attack);
+			if (attack != r) {
+				if (monster.condition == 1 || monster.condition == 2) {
+					int savingwis = roll(1, 20, monster.modWis);
+					if (savingwis >= hero.spelldc) {
+						attack = monsteraction.accur1;
+						monster.condition = 0;
+						gotoxy(3, 6);
+						printf_s("%s is avoid your magic", monster.name);
+						Sleep(1000);
+					}
+					else {
+						gotoxy(3, 6);
+						printf_s("%s is still under your magic", monster.name);
+						Sleep(1000);
+					}
+				}
+			}
 				printf_s("%s trying to Attack: %d...", monster.name, attack);
 				Sleep(1500);
 				int find = 0;
@@ -1015,6 +1037,20 @@ void charactercreator() {
 	gotoxy(50, 7);
 	int ch = 0;
 	printf_s("Investigation(1) Intimidation(2) History(3) Arcana(4) Deception(5) Nature(6) Religion(7)");
+	gotoxy(50, 9);
+	printf_s("1) Helps you to analyse the objects");
+	gotoxy(50, 11);
+	printf_s("2) Enhance your positive impression");
+	gotoxy(50, 13);
+	printf_s("3) History is needed to remember something long gone");
+	gotoxy(50, 15);
+	printf_s("4) Arcana is your knowledge about magic and magic items");
+	gotoxy(50, 17);
+	printf_s("5) With deception you can hide your intentions");
+	gotoxy(50, 19);
+	printf_s("6) Nature need to understand properties of plants and anumals");
+	gotoxy(50, 21);
+	printf_s("7) Information about gods, fiends and celestials");
 	choose = '0';
 	while (ch != 2) {
 		choose = _getch();
@@ -1086,7 +1122,7 @@ void charactercreator() {
 	}
 	Sleep(1000);
 	for (int i = 50; i < 150; i++) {
-		for (int j = 5; j < 9; j++) {
+		for (int j = 5; j < 23; j++) {
 			gotoxy(i, j);
 			printf_s(" ");
 		}
