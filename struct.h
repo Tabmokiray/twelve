@@ -232,4 +232,4 @@ struct item healingpotion;
 struct plot {
 	int killed;
 };
-struct plot meepokobold, statue, robberydragon, dragon, helpofkobolds, secretdoor, trysecret, key;
+struct plot meepokobold, statue, robberydragon, dragon,guardians, helpofkobolds, secretdoor, trysecret, key;
